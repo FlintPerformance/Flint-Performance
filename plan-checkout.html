@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Your Program — Flint Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+    --focus:     rgba(240,74,14,0.45);
+    --error:     #ff4040;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+  nav { position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-back { font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--white); }
+
+  main { flex:1; display:flex; justify-content:center; padding:64px 24px 100px; }
+  .page-container { width:100%; max-width:760px; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom:48px; }
+  .eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .ey-line { width:36px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,9vw,80px); letter-spacing:0.02em; line-height:0.9; margin-bottom:14px; }
+  .page-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; }
+
+  /* PLAN SELECTOR */
+  .plan-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:40px; }
+  .plan-card {
+    background:var(--gray-mid); border:1px solid var(--border);
+    padding:24px 20px; cursor:pointer; position:relative;
+    transition:border-color 0.2s, background 0.2s; border-radius:2px;
+  }
+  .plan-card:hover { border-color:rgba(240,74,14,0.3); background:var(--gray-up); }
+  .plan-card.selected { border-color:var(--ember); background:rgba(240,74,14,0.06); }
+  .plan-card input[type="radio"] { display:none; }
+  .plan-check {
+    position:absolute; top:14px; right:14px;
+    width:18px; height:18px; border-radius:50%;
+    border:1px solid var(--border); display:flex; align-items:center;
+    justify-content:center; font-size:10px; transition:all 0.2s;
+  }
+  .plan-card.selected .plan-check { background:var(--ember); border-color:var(--ember); color:var(--white); }
+  .plan-level { font-size:10px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--ember); margin-bottom:4px; }
+  .plan-name { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.04em; margin-bottom:4px; }
+  .plan-tagline { font-size:12px; color:var(--muted); font-style:italic; margin-bottom:16px; }
+  .plan-price-wrap { margin-bottom:16px; }
+  .plan-price { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; letter-spacing:0.02em; }
+  .plan-price .dl { font-size:20px; vertical-align:top; margin-top:8px; display:inline-block; color:var(--ember); }
+  .plan-mo { font-size:12px; color:var(--muted); margin-top:2px; }
+  .plan-divider { height:1px; background:var(--border); margin:14px 0; }
+  .plan-feats { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .plan-feats li { font-size:12px; color:#999; display:flex; gap:8px; line-height:1.5; }
+  .plan-feats li::before { content:'✓'; color:var(--cold); flex-shrink:0; }
+  .plan-badge-tag {
+    position:absolute; top:0; right:0;
+    background:var(--ember); color:var(--white);
+    font-size:9px; font-weight:700; letter-spacing:0.16em;
+    text-transform:uppercase; padding:4px 10px;
+  }
+
+  /* BILLING TOGGLE */
+  .billing-section { margin-bottom:36px; }
+  .billing-label { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:0.08em; color:var(--ember); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+  .billing-label::before { content:''; display:block; width:20px; height:1px; background:var(--ember); flex-shrink:0; }
+  .billing-toggle { display:flex; background:var(--gray-mid); border-radius:2px; padding:3px; gap:2px; width:fit-content; }
+  .billing-toggle button {
+    background:transparent; border:none; color:var(--muted);
+    font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600;
+    letter-spacing:0.1em; text-transform:uppercase; padding:9px 18px;
+    border-radius:1px; cursor:pointer; transition:all 0.2s; position:relative; white-space:nowrap;
+  }
+  .billing-toggle button.active { background:var(--ember); color:var(--white); }
+  .billing-toggle button .badge { position:absolute; top:-8px; right:-4px; background:var(--cold); color:var(--black); font-size:8px; font-weight:700; padding:2px 5px; border-radius:2px; }
+
+  /* FORM */
+  .form-section { margin-bottom:28px; }
+  .section-label { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:0.08em; color:var(--ember); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .section-label::before { content:''; display:block; width:20px; height:1px; background:var(--ember); flex-shrink:0; }
+
+  .field-group { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .field-group.full { grid-template-columns:1fr; }
+  .field { display:flex; flex-direction:column; gap:8px; }
+  .field label { font-size:10px; font-weight:600; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); }
+  .field label .req { color:var(--ember); margin-left:2px; }
+  .field input {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; color:var(--white); font-family:'DM Sans',sans-serif;
+    font-size:15px; padding:14px 16px; width:100%;
+    transition:border-color 0.2s, box-shadow 0.2s; outline:none; -webkit-appearance:none;
+  }
+  .field input:focus { border-color:var(--focus); box-shadow:0 0 0 3px rgba(240,74,14,0.07); }
+  .field input.error { border-color:var(--error); }
+  .field input::placeholder { color:#2e2e2e; }
+  .field .err-msg { font-size:12px; color:var(--error); display:none; }
+  .field.has-error .err-msg { display:block; }
+
+  /* ORDER SUMMARY */
+  .form-divider { height:1px; background:var(--border); margin:28px 0; }
+  .order-summary {
+    background:var(--gray-mid); border:1px solid rgba(240,74,14,0.12);
+    border-radius:2px; padding:24px 28px; margin-bottom:20px;
+  }
+  .order-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+  .order-row:last-child { margin-bottom:0; padding-top:12px; border-top:1px solid var(--border); }
+  .order-key { font-size:13px; color:var(--muted); }
+  .order-val { font-size:13px; color:var(--white); font-weight:500; text-align:right; }
+  .order-total-key { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:0.06em; color:var(--white); }
+  .order-total-val { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:0.03em; color:var(--ember); }
+  .order-savings { font-size:12px; color:var(--cold); font-style:italic; text-align:right; }
+
+  /* STRIPE */
+  .stripe-field {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; padding:14px 16px;
+    transition:border-color 0.2s, box-shadow 0.2s;
+  }
+  .stripe-field.focused { border-color:var(--focus); box-shadow:0 0 0 3px rgba(240,74,14,0.07); }
+  .card-err { font-size:12px; color:var(--error); margin-top:6px; display:none; }
+
+  .stripe-error { font-size:13px; color:var(--error); margin-bottom:12px; display:none; }
+  .btn-submit {
+    width:100%; background:var(--ember); border:none; color:var(--white);
+    padding:18px; border-radius:2px; font-family:'DM Sans',sans-serif;
+    font-size:13px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+    cursor:pointer; transition:all 0.2s;
+    box-shadow:0 0 40px rgba(240,74,14,0.25);
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .btn-submit:hover { background:var(--ember-hot); }
+  .btn-submit:disabled { opacity:0.5; cursor:not-allowed; box-shadow:none; }
+  .secure-note { text-align:center; font-size:12px; color:var(--muted); margin-top:12px; display:flex; align-items:center; justify-content:center; gap:6px; }
+
+  /* CONFIRMATION SCREEN */
+  .confirm-screen { display:none; animation:fadeUp 0.5s ease; }
+  .confirm-screen.active { display:block; }
+  .confirm-hero { text-align:center; padding:60px 20px 48px; border-bottom:1px solid var(--border); margin-bottom:48px; }
+  .confirm-icon { width:80px; height:80px; border-radius:50%; border:1px solid var(--cold); background:rgba(184,204,218,0.06); display:flex; align-items:center; justify-content:center; margin:0 auto 28px; font-size:32px; }
+  .confirm-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,12vw,88px); letter-spacing:0.04em; line-height:0.88; margin-bottom:16px; }
+  .confirm-title .em { color:var(--ember); }
+  .confirm-sub { font-size:16px; font-weight:300; color:var(--muted); max-width:440px; margin:0 auto; line-height:1.8; }
+  .confirm-sub strong { color:var(--white); font-weight:500; }
+
+  .confirm-details {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; padding:32px; margin-bottom:32px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .confirm-row { display:flex; justify-content:space-between; align-items:baseline; font-size:14px; }
+  .confirm-row .ck { color:var(--muted); }
+  .confirm-row .cv { color:var(--white); font-weight:500; text-align:right; }
+
+  .confirm-next {
+    background:var(--gray); border:1px solid rgba(240,74,14,0.12);
+    border-radius:2px; padding:28px 32px; margin-bottom:28px;
+  }
+  .confirm-next h3 { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:0.05em; margin-bottom:16px; }
+  .confirm-next ol { list-style:none; display:flex; flex-direction:column; gap:12px; counter-reset:steps; }
+  .confirm-next ol li { display:flex; gap:16px; align-items:flex-start; font-size:14px; color:#999; line-height:1.6; counter-increment:steps; }
+  .confirm-next ol li::before { content:counter(steps); font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--ember); flex-shrink:0; width:20px; }
+
+  .btn-intake {
+    display:block; text-align:center; width:100%;
+    background:var(--ember); color:var(--white); padding:18px;
+    border-radius:2px; font-family:'DM Sans',sans-serif;
+    font-size:13px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+    text-decoration:none; transition:background 0.2s;
+    box-shadow:0 0 40px rgba(240,74,14,0.25);
+  }
+  .btn-intake:hover { background:var(--ember-hot); }
+  .intake-note { text-align:center; font-size:12px; color:var(--muted); margin-top:10px; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+  /* FOOTER */
+  footer { background:#040404; padding:36px 64px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); flex-wrap:wrap; gap:12px; margin-top:auto; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; letter-spacing:0.06em; }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--ember); }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    main { padding:40px 16px 80px; }
+    .page-title { font-size:clamp(44px,12vw,64px); }
+    .plan-cards { grid-template-columns:1fr; }
+    .field-group { grid-template-columns:1fr; }
+    .billing-toggle { width:100%; }
+    .billing-toggle button { flex:1; padding:9px 10px; font-size:11px; }
+    .order-row { flex-direction:column; gap:2px; }
+    .order-val, .order-total-val, .order-savings { text-align:left; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<main>
+  <div class="page-container">
+
+    <!-- CHECKOUT VIEW -->
+    <div id="checkout-view">
+      <div class="page-header">
+        <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Start Your Program</div></div>
+        <h1 class="page-title">YOU'RE<br>COMMITTED.</h1>
+        <p class="page-desc">Choose your coaching level, lock in your billing cycle, and complete payment. You'll fill out your intake form right after.</p>
+      </div>
+
+      <!-- PLAN SELECTOR -->
+      <div class="form-section">
+        <div class="section-label">Choose Your Level</div>
+        <div class="plan-cards">
+          <label class="plan-card" id="pc-1" onclick="selectPlan(1)">
+            <input type="radio" name="plan" value="1">
+            <div class="plan-check">✓</div>
+            <div class="plan-level">Level I</div>
+            <div class="plan-name">Foundation</div>
+            <div class="plan-tagline">Strike the match.</div>
+            <div class="plan-price-wrap">
+              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-1">249</span></div>
+              <div class="plan-mo">per month</div>
+            </div>
+            <div class="plan-divider"></div>
+            <ul class="plan-feats">
+              <li>Custom workout plan</li>
+              <li>Monthly check-in call</li>
+              <li>Nutrition guidance</li>
+              <li>Ongoing adjustments</li>
+            </ul>
+          </label>
+
+          <label class="plan-card selected" id="pc-2" onclick="selectPlan(2)">
+            <input type="radio" name="plan" value="2" checked>
+            <div class="plan-badge-tag">Popular</div>
+            <div class="plan-check">✓</div>
+            <div class="plan-level">Level II</div>
+            <div class="plan-name">Momentum</div>
+            <div class="plan-tagline">Fan the flame.</div>
+            <div class="plan-price-wrap">
+              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-2">329</span></div>
+              <div class="plan-mo">per month</div>
+            </div>
+            <div class="plan-divider"></div>
+            <ul class="plan-feats">
+              <li>Everything in Level I</li>
+              <li>Bi-weekly check-ins</li>
+              <li>Enhanced nutrition</li>
+              <li>Email support</li>
+            </ul>
+          </label>
+
+          <label class="plan-card" id="pc-3" onclick="selectPlan(3)">
+            <input type="radio" name="plan" value="3">
+            <div class="plan-check">✓</div>
+            <div class="plan-level">Level III</div>
+            <div class="plan-name">Peak</div>
+            <div class="plan-tagline">Become the fire.</div>
+            <div class="plan-price-wrap">
+              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-3">399</span></div>
+              <div class="plan-mo">per month</div>
+            </div>
+            <div class="plan-divider"></div>
+            <ul class="plan-feats">
+              <li>Everything in Level II</li>
+              <li>Weekly check-ins</li>
+              <li>Custom meal plan</li>
+              <li>Unlimited messaging</li>
+            </ul>
+          </label>
+        </div>
+      </div>
+
+      <!-- BILLING CYCLE -->
+      <div class="billing-section">
+        <div class="billing-label">Billing Cycle</div>
+        <div class="billing-toggle">
+          <button class="active" onclick="setBilling('monthly',this)">Monthly</button>
+          <button onclick="setBilling('3mo',this)">3 Mo <span class="badge">5% OFF</span></button>
+          <button onclick="setBilling('6mo',this)">6 Mo <span class="badge">10% OFF</span></button>
+          <button onclick="setBilling('12mo',this)">12 Mo <span class="badge">15% OFF</span></button>
+        </div>
+      </div>
+
+      <!-- BILLING INFO -->
+      <div class="form-section">
+        <div class="section-label">Your Info</div>
+        <div class="field-group">
+          <div class="field" id="f-fname"><label>First Name <span class="req">*</span></label><input type="text" id="fname" placeholder="Alex" autocomplete="given-name"/><div class="err-msg">Required.</div></div>
+          <div class="field" id="f-lname"><label>Last Name <span class="req">*</span></label><input type="text" id="lname" placeholder="Johnson" autocomplete="family-name"/><div class="err-msg">Required.</div></div>
+        </div>
+        <div class="field-group full">
+          <div class="field" id="f-email"><label>Email Address <span class="req">*</span></label><input type="email" id="email" placeholder="alex@email.com" autocomplete="email" inputmode="email"/><div class="err-msg">Please enter a valid email.</div></div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY + PAYMENT -->
+      <div class="form-divider"></div>
+      <div class="form-section">
+        <div class="section-label">Order Summary</div>
+        <div class="order-summary">
+          <div class="order-row">
+            <span class="order-key">Plan</span>
+            <span class="order-val" id="sum-plan">Level II — Momentum</span>
+          </div>
+          <div class="order-row">
+            <span class="order-key">Billing cycle</span>
+            <span class="order-val" id="sum-cycle">Monthly</span>
+          </div>
+          <div class="order-row" id="sum-savings-row" style="display:none;">
+            <span class="order-key">Discount</span>
+            <span class="order-savings" id="sum-savings"></span>
+          </div>
+          <div class="order-row">
+            <span class="order-total-key">Due Today</span>
+            <span class="order-total-val" id="sum-total">$329</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-label">Card Details</div>
+        <div class="field-group full">
+          <div class="field">
+            <label>Payment <span class="req">*</span></label>
+            <div class="stripe-field" id="card-element"></div>
+            <div class="card-err" id="card-errors"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stripe-error" id="stripe-error"></div>
+      <button class="btn-submit" id="pay-btn" onclick="handlePayment()">
+        <span id="pay-btn-text">Pay $329 & Continue</span>
+      </button>
+      <div class="secure-note">🔒 Payments secured by Stripe. You'll complete your intake form next.</div>
+    </div>
+
+    <!-- CONFIRMATION VIEW -->
+    <div class="confirm-screen" id="confirm-view">
+      <div class="confirm-hero">
+        <div class="confirm-icon">✓</div>
+        <h2 class="confirm-title">PAYMENT<br><span class="em">CONFIRMED.</span></h2>
+        <p class="confirm-sub">You're officially a Flint client. Now let's build your program — fill out your intake form so your coach can get to work.</p>
+      </div>
+
+      <div class="confirm-details" id="confirm-details">
+        <div class="confirm-row"><span class="ck">Plan</span><span class="cv" id="cd-plan">Level II — Momentum</span></div>
+        <div class="confirm-row"><span class="ck">Billing</span><span class="cv" id="cd-cycle">Monthly</span></div>
+        <div class="confirm-row"><span class="ck">Charged</span><span class="cv" id="cd-total">$329</span></div>
+        <div class="confirm-row"><span class="ck">Email</span><span class="cv" id="cd-email">—</span></div>
+      </div>
+
+      <div class="confirm-next">
+        <h3>What Happens Next</h3>
+        <ol>
+          <li>Complete your intake form — it takes about 5 minutes and tells your coach everything they need to build your program</li>
+          <li>Your coach reviews your intake within 24–48 hours and reaches out to introduce themselves</li>
+          <li>Your custom program lands in your inbox — and you get to work</li>
+        </ol>
+      </div>
+
+      <a href="flint-intake-form.html" class="btn-intake">Complete Your Intake Form →</a>
+      <div class="intake-note">Takes about 5 minutes. Don't skip it — this is how your coach builds your program.</div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  const STRIPE_KEY = 'pk_test_51RlkLuG7pdJAKoNhPdqEKz4KTrzFAAQHE1MydINGhyIU54WYfeKxd7SnzhEfgtYBPS47r6wwcRnIkAAiwfen1JWV00nfViGdKG';
+  const stripe = Stripe(STRIPE_KEY);
+  const elements = stripe.elements({
+    appearance: {
+      theme: 'night',
+      variables: {
+        colorPrimary: '#f04a0e',
+        colorBackground: '#161616',
+        colorText: '#ede8df',
+        colorDanger: '#ff4040',
+        fontFamily: 'DM Sans, sans-serif',
+        borderRadius: '2px',
+      }
+    }
+  });
+
+  const cardElement = elements.create('card', {
+    style: {
+      base: {
+        color: '#ede8df', fontFamily: 'DM Sans, sans-serif',
+        fontSize: '15px', fontWeight: '300',
+        '::placeholder': { color: '#2e2e2e' }
+      },
+      invalid: { color: '#ff4040' }
+    }
+  });
+  cardElement.mount('#card-element');
+  cardElement.on('change', e => {
+    const el = document.getElementById('card-errors');
+    if (e.error) { el.textContent = e.error.message; el.style.display = 'block'; }
+    else { el.style.display = 'none'; }
+  });
+
+  const bases = { 1: 249, 2: 329, 3: 399 };
+  const planNames = { 1: 'Level I — Foundation', 2: 'Level II — Momentum', 3: 'Level III — Peak' };
+  const discounts = { monthly: 0, '3mo': 0.05, '6mo': 0.10, '12mo': 0.15 };
+  const cycleLabels = { monthly: 'Monthly', '3mo': '3-Month', '6mo': '6-Month', '12mo': '12-Month (Annual)' };
+
+  let currentPlan = 2;
+  let currentCycle = 'monthly';
+
+  function getPrice(plan, cycle) {
+    return Math.round(bases[plan] * (1 - discounts[cycle]));
+  }
+
+  function updateSummary() {
+    const price = getPrice(currentPlan, currentCycle);
+    const savings = Math.round(bases[currentPlan] * discounts[currentCycle]);
+    const disc = discounts[currentCycle];
+
+    // Update plan price displays
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('pp-' + i).textContent = getPrice(i, currentCycle);
+    }
+
+    document.getElementById('sum-plan').textContent = planNames[currentPlan];
+    document.getElementById('sum-cycle').textContent = cycleLabels[currentCycle];
+    document.getElementById('sum-total').textContent = '$' + price;
+    document.getElementById('pay-btn-text').textContent = `Pay $${price} & Continue`;
+
+    const savRow = document.getElementById('sum-savings-row');
+    if (disc > 0) {
+      savRow.style.display = 'flex';
+      document.getElementById('sum-savings').textContent = `Save $${savings}/mo (${Math.round(disc * 100)}% off)`;
+    } else {
+      savRow.style.display = 'none';
+    }
+  }
+
+  function selectPlan(n) {
+    currentPlan = n;
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('pc-' + i).classList.toggle('selected', i === n);
+    }
+    updateSummary();
+  }
+
+  function setBilling(cycle, btn) {
+    currentCycle = cycle;
+    document.querySelectorAll('.billing-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updateSummary();
+  }
+
+  function req(id) {
+    const el = document.getElementById(id), w = el.closest('.field');
+    if (!el.value.trim()) { w.classList.add('has-error'); el.classList.add('error'); return false; }
+    w.classList.remove('has-error'); el.classList.remove('error'); return true;
+  }
+  function reqEmail(id) {
+    const el = document.getElementById(id), w = el.closest('.field');
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+    if (!ok) { w.classList.add('has-error'); el.classList.add('error'); return false; }
+    w.classList.remove('has-error'); el.classList.remove('error'); return true;
+  }
+
+  async function handlePayment() {
+    const valid = req('fname') & req('lname') & reqEmail('email');
+    if (!valid) return;
+
+    const btn = document.getElementById('pay-btn');
+    const btnText = document.getElementById('pay-btn-text');
+    const errEl = document.getElementById('stripe-error');
+    btn.disabled = true;
+    btnText.textContent = 'Processing...';
+    errEl.style.display = 'none';
+
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+      billing_details: {
+        name: document.getElementById('fname').value + ' ' + document.getElementById('lname').value,
+        email: document.getElementById('email').value,
+      }
+    });
+
+    if (error) {
+      errEl.textContent = error.message;
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btnText.textContent = `Pay $${getPrice(currentPlan, currentCycle)} & Continue`;
+      return;
+    }
+
+    // NOTE: In production, send paymentMethod.id + amount + plan to your backend
+    // to create a PaymentIntent and confirm server-side before showing confirmation.
+    // See: https://stripe.com/docs/payments/accept-a-payment
+
+    showConfirmation();
+  }
+
+  function showConfirmation() {
+    const price = getPrice(currentPlan, currentCycle);
+    document.getElementById('cd-plan').textContent = planNames[currentPlan];
+    document.getElementById('cd-cycle').textContent = cycleLabels[currentCycle];
+    document.getElementById('cd-total').textContent = '$' + price;
+    document.getElementById('cd-email').textContent = document.getElementById('email').value;
+
+    document.getElementById('checkout-view').style.display = 'none';
+    const cv = document.getElementById('confirm-view');
+    cv.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Init — read ?plan= from URL to pre-select
+  const params = new URLSearchParams(window.location.search);
+  const planParam = parseInt(params.get('plan'));
+  if (planParam >= 1 && planParam <= 3) selectPlan(planParam);
+  else updateSummary();
+</script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Consult — Flint Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+    --focus:     rgba(240,74,14,0.45);
+    --error:     #ff4040;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+  nav { position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-back { font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--white); }
+
+  main { flex:1; display:flex; justify-content:center; padding:64px 24px 100px; }
+  .page-container { width:100%; max-width:720px; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom:52px; }
+  .eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .ey-line { width:36px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,9vw,80px); letter-spacing:0.02em; line-height:0.9; margin-bottom:14px; }
+  .page-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; }
+
+  /* SESSION PICKER */
+  .session-pick { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:40px; }
+  .session-card {
+    background:var(--gray-mid); border:1px solid var(--border);
+    padding:28px 24px; cursor:pointer; position:relative;
+    transition:border-color 0.2s, background 0.2s;
+    border-radius:2px;
+  }
+  .session-card:hover { border-color:rgba(240,74,14,0.3); background:var(--gray-up); }
+  .session-card.selected { border-color:var(--ember); background:rgba(240,74,14,0.06); }
+  .session-card input[type="radio"] { display:none; }
+  .session-dur { font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; letter-spacing:0.02em; color:var(--ember); }
+  .session-dur span { font-size:22px; color:var(--muted); }
+  .session-name { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:0.05em; margin-bottom:6px; }
+  .session-desc { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:16px; }
+  .session-price { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.03em; color:var(--white); }
+  .session-check {
+    position:absolute; top:16px; right:16px;
+    width:20px; height:20px; border-radius:50%;
+    border:1px solid var(--border); background:transparent;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.2s; font-size:11px;
+  }
+  .session-card.selected .session-check { background:var(--ember); border-color:var(--ember); color:var(--white); }
+
+  /* FORM */
+  .form-section { margin-bottom:32px; }
+  .section-label { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:0.08em; color:var(--ember); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .section-label::before { content:''; display:block; width:20px; height:1px; background:var(--ember); flex-shrink:0; }
+
+  .field-group { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .field-group.full { grid-template-columns:1fr; }
+  .field { display:flex; flex-direction:column; gap:8px; }
+  .field label { font-size:10px; font-weight:600; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); }
+  .field label .req { color:var(--ember); margin-left:2px; }
+  .field input, .field select, .field textarea {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; color:var(--white); font-family:'DM Sans',sans-serif;
+    font-size:15px; padding:14px 16px; width:100%;
+    transition:border-color 0.2s, box-shadow 0.2s; outline:none; -webkit-appearance:none;
+  }
+  .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23848484' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:40px; cursor:pointer; }
+  .field select option { background:var(--gray-mid); }
+  .field textarea { resize:vertical; min-height:90px; line-height:1.65; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color:var(--focus); box-shadow:0 0 0 3px rgba(240,74,14,0.07); }
+  .field input.error, .field select.error, .field textarea.error { border-color:var(--error); }
+  .field input::placeholder, .field textarea::placeholder { color:#2e2e2e; }
+  .field .err-msg { font-size:12px; color:var(--error); display:none; }
+  .field.has-error .err-msg { display:block; }
+
+  /* DATE/TIME ROW */
+  .datetime-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
+
+  /* STRIPE CARD */
+  .form-divider { height:1px; background:var(--border); margin:28px 0; }
+  .stripe-field {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; padding:14px 16px;
+    transition:border-color 0.2s, box-shadow 0.2s;
+  }
+  .stripe-field.focused { border-color:var(--focus); box-shadow:0 0 0 3px rgba(240,74,14,0.07); }
+  .stripe-field.error { border-color:var(--error); }
+
+  /* ORDER SUMMARY */
+  .order-summary {
+    background:var(--gray-mid); border:1px solid rgba(240,74,14,0.12);
+    border-radius:2px; padding:24px; margin-bottom:28px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .order-label { font-size:13px; color:var(--muted); margin-bottom:4px; }
+  .order-item { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.04em; }
+  .order-total { text-align:right; }
+  .order-price { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:0.02em; color:var(--ember); line-height:1; }
+  .order-price-sub { font-size:12px; color:var(--muted); margin-top:2px; }
+
+  /* SUBMIT */
+  .stripe-error { font-size:13px; color:var(--error); margin-bottom:12px; display:none; min-height:18px; }
+  .btn-submit {
+    width:100%; background:var(--ember); border:none; color:var(--white);
+    padding:18px; border-radius:2px; font-family:'DM Sans',sans-serif;
+    font-size:13px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+    cursor:pointer; transition:all 0.2s;
+    box-shadow:0 0 40px rgba(240,74,14,0.25);
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .btn-submit:hover { background:var(--ember-hot); box-shadow:0 0 60px rgba(240,74,14,0.35); }
+  .btn-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+  .secure-note { text-align:center; font-size:12px; color:var(--muted); margin-top:12px; display:flex; align-items:center; justify-content:center; gap:6px; }
+
+  /* SUCCESS */
+  .success-screen { display:none; text-align:center; padding:80px 20px; animation:fadeUp 0.5s ease; }
+  .success-screen.active { display:block; }
+  .success-icon { width:80px; height:80px; border-radius:50%; border:1px solid var(--cold); background:rgba(184,204,218,0.06); display:flex; align-items:center; justify-content:center; margin:0 auto 36px; font-size:32px; }
+  .success-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,12vw,88px); letter-spacing:0.04em; line-height:0.88; margin-bottom:20px; }
+  .success-title .em { color:var(--ember); }
+  .success-sub { font-size:16px; font-weight:300; color:var(--muted); max-width:400px; margin:0 auto 40px; line-height:1.8; }
+  .success-sub strong { color:var(--white); font-weight:500; }
+  .success-detail { background:var(--gray); border:1px solid var(--border); border-radius:2px; padding:28px; max-width:400px; margin:0 auto; text-align:left; display:flex; flex-direction:column; gap:12px; }
+  .success-detail p { font-size:14px; color:var(--muted); line-height:1.6; display:flex; gap:12px; }
+  .success-detail p::before { content:'—'; color:var(--ember); flex-shrink:0; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+  /* FOOTER */
+  footer { background:#040404; padding:36px 64px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); flex-wrap:wrap; gap:12px; margin-top:auto; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; letter-spacing:0.06em; }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--ember); }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    main { padding:40px 16px 80px; }
+    .page-title { font-size:clamp(44px,12vw,64px); }
+    .session-pick { grid-template-columns:1fr; }
+    .field-group { grid-template-columns:1fr; }
+    .datetime-row { grid-template-columns:1fr; }
+    .order-summary { flex-direction:column; align-items:flex-start; gap:12px; }
+    .order-total { text-align:left; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<main>
+  <div class="page-container">
+
+    <!-- FORM VIEW -->
+    <div id="form-view">
+      <div class="page-header">
+        <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Book a Consult</div></div>
+        <h1 class="page-title">LET'S TALK.</h1>
+        <p class="page-desc">Pick your session, tell us a bit about what you're working with, and lock in your spot. We'll confirm your time within 24 hours.</p>
+      </div>
+
+      <!-- SESSION SELECTOR -->
+      <div class="form-section">
+        <div class="section-label">Choose Your Session</div>
+        <div class="session-pick">
+          <label class="session-card selected" id="card-30" onclick="selectSession(30)">
+            <input type="radio" name="session" value="30" checked>
+            <div class="session-check">✓</div>
+            <div class="session-dur">30<span>min</span></div>
+            <div class="session-name">Discovery Call</div>
+            <div class="session-desc">Goal assessment, training history review, and program recommendation.</div>
+            <div class="session-price">$75</div>
+          </label>
+          <label class="session-card" id="card-60" onclick="selectSession(60)">
+            <input type="radio" name="session" value="60">
+            <div class="session-check">✓</div>
+            <div class="session-dur">60<span>min</span></div>
+            <div class="session-name">Deep Dive</div>
+            <div class="session-desc">Full lifestyle audit, nutrition baseline, and complete roadmap to your goals.</div>
+            <div class="session-price">$135</div>
+          </label>
+        </div>
+      </div>
+
+      <!-- YOUR INFO -->
+      <div class="form-section">
+        <div class="section-label">Your Info</div>
+        <div class="field-group">
+          <div class="field" id="f-name"><label>Full Name <span class="req">*</span></label><input type="text" id="name" placeholder="Alex Johnson" autocomplete="name"/><div class="err-msg">Required.</div></div>
+          <div class="field" id="f-phone"><label>Phone Number <span class="req">*</span></label><input type="tel" id="phone" placeholder="(555) 000-0000" autocomplete="tel" inputmode="tel"/><div class="err-msg">Required.</div></div>
+        </div>
+        <div class="field-group full">
+          <div class="field" id="f-email"><label>Email Address <span class="req">*</span></label><input type="email" id="email" placeholder="alex@email.com" autocomplete="email" inputmode="email"/><div class="err-msg">Please enter a valid email.</div></div>
+        </div>
+      </div>
+
+      <!-- PREFERRED TIME -->
+      <div class="form-section">
+        <div class="section-label">Preferred Time</div>
+        <div class="datetime-row">
+          <div class="field" id="f-date"><label>Preferred Date <span class="req">*</span></label><input type="date" id="pref-date" min=""/><div class="err-msg">Required.</div></div>
+          <div class="field" id="f-time"><label>Preferred Time <span class="req">*</span></label>
+            <select id="pref-time">
+              <option value="">Select a time...</option>
+              <option>7:00 AM</option><option>7:30 AM</option>
+              <option>8:00 AM</option><option>8:30 AM</option>
+              <option>9:00 AM</option><option>9:30 AM</option>
+              <option>10:00 AM</option><option>10:30 AM</option>
+              <option>11:00 AM</option><option>11:30 AM</option>
+              <option>12:00 PM</option><option>12:30 PM</option>
+              <option>1:00 PM</option><option>1:30 PM</option>
+              <option>2:00 PM</option><option>2:30 PM</option>
+              <option>3:00 PM</option><option>3:30 PM</option>
+              <option>4:00 PM</option><option>4:30 PM</option>
+              <option>5:00 PM</option><option>5:30 PM</option>
+              <option>6:00 PM</option><option>6:30 PM</option>
+              <option>7:00 PM</option><option>7:30 PM</option>
+              <option>8:00 PM</option>
+            </select>
+            <div class="err-msg">Required.</div>
+          </div>
+          <div class="field" id="f-tz"><label>Your Timezone <span class="req">*</span></label>
+            <select id="pref-tz">
+              <option value="">Select...</option>
+              <option>Eastern (ET)</option><option>Central (CT)</option>
+              <option>Mountain (MT)</option><option>Pacific (PT)</option>
+              <option>Alaska (AKT)</option><option>Hawaii (HT)</option>
+              <option>Other</option>
+            </select>
+            <div class="err-msg">Required.</div>
+          </div>
+        </div>
+        <div class="field-group full">
+          <div class="field"><label>Alternate Date / Time (optional)</label><input type="text" id="alt-time" placeholder="e.g. Friday afternoon, or any morning works"/></div>
+        </div>
+      </div>
+
+      <!-- REASON -->
+      <div class="form-section">
+        <div class="section-label">Reason for the Call</div>
+        <div class="field-group full">
+          <div class="field" id="f-reason"><label>Brief Description <span class="req">*</span></label><textarea id="reason" placeholder="What are you looking to get out of this call? Where are you at right now and what do you want to change?"></textarea><div class="err-msg">Required.</div></div>
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="form-divider"></div>
+      <div class="form-section">
+        <div class="section-label">Payment</div>
+
+        <div class="order-summary">
+          <div>
+            <div class="order-label">You're booking</div>
+            <div class="order-item" id="order-item">30-Min Discovery Call</div>
+          </div>
+          <div class="order-total">
+            <div class="order-price" id="order-price">$75</div>
+            <div class="order-price-sub">one-time charge</div>
+          </div>
+        </div>
+
+        <div class="field-group full" style="margin-bottom:14px;">
+          <div class="field">
+            <label>Card Details <span class="req">*</span></label>
+            <div class="stripe-field" id="card-element"></div>
+            <div class="err-msg" id="card-errors" style="display:none;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stripe-error" id="stripe-error"></div>
+      <button class="btn-submit" id="pay-btn" onclick="handlePayment()">
+        <span id="pay-btn-text">Confirm & Pay</span>
+      </button>
+      <div class="secure-note">🔒 Payments secured by Stripe. We'll confirm your time within 24 hours.</div>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div class="success-screen" id="success-view">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">BOOKED<br><span class="em">IN.</span></h2>
+      <p class="success-sub">Payment confirmed. Your coach will reach out within <strong>24 hours</strong> to lock in your exact time.</p>
+      <div class="success-detail">
+        <p>Check your email for a receipt from Stripe</p>
+        <p>Your coach will contact you to confirm the time</p>
+        <p id="success-session-detail">30-Min Discovery Call — $75</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  const STRIPE_KEY = 'pk_test_51RlkLuG7pdJAKoNhPdqEKz4KTrzFAAQHE1MydINGhyIU54WYfeKxd7SnzhEfgtYBPS47r6wwcRnIkAAiwfen1JWV00nfViGdKG';
+  const stripe = Stripe(STRIPE_KEY);
+  const elements = stripe.elements({
+    appearance: {
+      theme: 'night',
+      variables: {
+        colorPrimary: '#f04a0e',
+        colorBackground: '#161616',
+        colorText: '#ede8df',
+        colorDanger: '#ff4040',
+        fontFamily: 'DM Sans, sans-serif',
+        borderRadius: '2px',
+        spacingUnit: '4px',
+      }
+    }
+  });
+
+  const cardElement = elements.create('card', {
+    style: {
+      base: {
+        color: '#ede8df',
+        fontFamily: 'DM Sans, sans-serif',
+        fontSize: '15px',
+        fontWeight: '300',
+        '::placeholder': { color: '#2e2e2e' }
+      },
+      invalid: { color: '#ff4040' }
+    }
+  });
+  cardElement.mount('#card-element');
+  cardElement.on('change', e => {
+    const el = document.getElementById('card-errors');
+    if (e.error) { el.textContent = e.error.message; el.style.display = 'block'; }
+    else { el.style.display = 'none'; }
+  });
+
+  // Read ?session= from URL to pre-select
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('session') === '60') selectSession(60);
+
+  // Set min date to tomorrow
+  const tmr = new Date(); tmr.setDate(tmr.getDate() + 1);
+  document.getElementById('pref-date').min = tmr.toISOString().split('T')[0];
+
+  let currentSession = 30;
+  const sessions = {
+    30: { label: '30-Min Discovery Call', price: '$75', amount: 7500 },
+    60: { label: '60-Min Deep Dive', price: '$135', amount: 13500 }
+  };
+
+  function selectSession(mins) {
+    currentSession = mins;
+    document.getElementById('card-30').classList.toggle('selected', mins === 30);
+    document.getElementById('card-60').classList.toggle('selected', mins === 60);
+    document.getElementById('order-item').textContent = sessions[mins].label;
+    document.getElementById('order-price').textContent = sessions[mins].price;
+    document.getElementById('pay-btn-text').textContent = `Confirm & Pay ${sessions[mins].price}`;
+  }
+
+  function req(id) {
+    const el = document.getElementById(id), w = el.closest('.field');
+    if (!el.value.trim()) { w.classList.add('has-error'); el.classList.add('error'); return false; }
+    w.classList.remove('has-error'); el.classList.remove('error'); return true;
+  }
+  function reqEmail(id) {
+    const el = document.getElementById(id), w = el.closest('.field');
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+    if (!ok) { w.classList.add('has-error'); el.classList.add('error'); return false; }
+    w.classList.remove('has-error'); el.classList.remove('error'); return true;
+  }
+  function reqSel(id) {
+    const el = document.getElementById(id), w = el.closest('.field');
+    if (!el.value) { w.classList.add('has-error'); el.classList.add('error'); return false; }
+    w.classList.remove('has-error'); el.classList.remove('error'); return true;
+  }
+  function reqTA(id) {
+    const el = document.getElementById(id), w = el.closest('.field');
+    if (!el.value.trim()) { w.classList.add('has-error'); el.classList.add('error'); return false; }
+    w.classList.remove('has-error'); el.classList.remove('error'); return true;
+  }
+
+  async function handlePayment() {
+    // Validate
+    const valid = req('name') & req('phone') & reqEmail('email') &
+                  req('pref-date') & reqSel('pref-time') & reqSel('pref-tz') &
+                  reqTA('reason');
+    if (!valid) return;
+
+    const btn = document.getElementById('pay-btn');
+    const btnText = document.getElementById('pay-btn-text');
+    const errEl = document.getElementById('stripe-error');
+    btn.disabled = true;
+    btnText.textContent = 'Processing...';
+    errEl.style.display = 'none';
+
+    // Create payment method
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+      billing_details: {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+      }
+    });
+
+    if (error) {
+      errEl.textContent = error.message;
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btnText.textContent = `Confirm & Pay ${sessions[currentSession].price}`;
+      return;
+    }
+
+    // NOTE: In production, send paymentMethod.id + amount to your backend
+    // to create a PaymentIntent and confirm it server-side.
+    // For now we show success to demonstrate the flow.
+    // See: https://stripe.com/docs/payments/accept-a-payment
+
+    // Simulate success for demo purposes
+    showSuccess();
+  }
+
+  function showSuccess() {
+    document.getElementById('form-view').style.display = 'none';
+    const sv = document.getElementById('success-view');
+    sv.classList.add('active');
+    document.getElementById('success-session-detail').textContent =
+      `${sessions[currentSession].label} — ${sessions[currentSession].price}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

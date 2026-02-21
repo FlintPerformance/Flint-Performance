@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Client Intake — Flint Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+    --focus:     rgba(240,74,14,0.45);
+    --error:     #ff4040;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-back { font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; display:flex; align-items:center; gap:8px; }
+  .nav-back:hover { color:var(--white); }
+
+  /* PROGRESS */
+  .progress-wrap { background:var(--gray); border-bottom:1px solid var(--border); padding:0 64px; }
+  .progress-steps { display:flex; max-width:720px; margin:0 auto; }
+  .step-tab { flex:1; padding:18px 0; text-align:center; position:relative; }
+  .step-tab::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:transparent; transition:background 0.3s; }
+  .step-tab.active::after { background:var(--ember); }
+  .step-tab.done::after { background:var(--cold); }
+  .step-num { font-size:10px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+  .step-tab.active .step-num { color:var(--ember); }
+  .step-tab.done .step-num { color:var(--cold); }
+  .step-label { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:0.08em; color:var(--muted); }
+  .step-tab.active .step-label { color:var(--white); }
+  .step-tab.done .step-label { color:var(--cold); }
+
+  /* MAIN */
+  main { flex:1; display:flex; justify-content:center; padding:64px 24px 100px; }
+  .form-container { width:100%; max-width:680px; }
+
+  /* PANELS */
+  .step-panel { display:none; }
+  .step-panel.active { display:block; animation:fadeUp 0.35s ease; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+  /* STEP HEADER */
+  .step-header { margin-bottom:44px; }
+  .step-eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .ey-line { width:36px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .step-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,8vw,68px); letter-spacing:0.02em; line-height:0.9; margin-bottom:14px; }
+  .step-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; }
+
+  /* FIELDS */
+  .field-group { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .field-group.full { grid-template-columns:1fr; }
+  .field { display:flex; flex-direction:column; gap:8px; }
+  .field label { font-size:10px; font-weight:600; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); }
+  .field label .req { color:var(--ember); margin-left:2px; }
+  .field input, .field select, .field textarea {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; color:var(--white); font-family:'DM Sans',sans-serif;
+    font-size:15px; padding:14px 16px; width:100%;
+    transition:border-color 0.2s, box-shadow 0.2s; outline:none; -webkit-appearance:none;
+  }
+  .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23585858' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:40px; cursor:pointer; }
+  .field select option { background:var(--gray-mid); }
+  .field textarea { resize:vertical; min-height:100px; line-height:1.65; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color:var(--focus); box-shadow:0 0 0 3px rgba(240,74,14,0.07); }
+  .field input.error, .field select.error, .field textarea.error { border-color:var(--error); }
+  .field .err-msg { font-size:12px; color:var(--error); display:none; }
+  .field.has-error .err-msg { display:block; }
+  .field input::placeholder, .field textarea::placeholder { color:#2e2e2e; }
+
+  /* RADIO / CHECK */
+  .radio-group, .check-group { display:flex; flex-wrap:wrap; gap:8px; }
+  .radio-group label, .check-group label {
+    display:flex; align-items:center; gap:8px;
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; padding:11px 16px; cursor:pointer;
+    font-size:14px; color:var(--muted);
+    transition:border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .radio-group label:hover, .check-group label:hover { border-color:rgba(240,74,14,0.35); color:var(--white); }
+  .radio-group input[type="radio"], .check-group input[type="checkbox"] { display:none; }
+  .radio-group label:has(input:checked), .check-group label:has(input:checked) { border-color:var(--ember); background:rgba(240,74,14,0.08); color:var(--white); }
+
+  /* RANGE */
+  .range-wrap { display:flex; flex-direction:column; gap:12px; }
+  .range-labels { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; }
+  .range-value { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:0.06em; color:var(--ember); text-align:center; }
+  input[type="range"] { -webkit-appearance:none; width:100%; height:3px; background:var(--gray-up); border-radius:2px; outline:none; border:none; box-shadow:none; padding:0; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:var(--ember); cursor:pointer; border:3px solid var(--black); box-shadow:0 0 0 2px var(--ember); }
+
+  .form-divider { height:1px; background:var(--border); margin:28px 0; }
+  .subhead { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:0.08em; color:var(--ember); margin-bottom:16px; }
+
+  /* WAIVER */
+  .waiver-box { background:var(--gray-mid); border:1px solid var(--border); border-radius:2px; padding:24px; max-height:220px; overflow-y:auto; font-size:13px; color:var(--muted); line-height:1.85; margin-bottom:16px; }
+  .waiver-box::-webkit-scrollbar { width:3px; }
+  .waiver-box::-webkit-scrollbar-track { background:var(--gray); }
+  .waiver-box::-webkit-scrollbar-thumb { background:var(--ember); border-radius:2px; }
+  .waiver-box p { margin-bottom:12px; }
+  .waiver-box strong { color:var(--white); }
+
+  .checkbox-agree { display:flex; align-items:flex-start; gap:14px; cursor:pointer; padding:16px 20px; background:var(--gray-mid); border:1px solid var(--border); border-radius:2px; transition:border-color 0.2s; margin-bottom:10px; }
+  .checkbox-agree:has(input:checked) { border-color:var(--cold); background:rgba(184,204,218,0.04); }
+  .checkbox-agree input[type="checkbox"] { width:18px; height:18px; flex-shrink:0; accent-color:var(--ember); margin-top:2px; cursor:pointer; }
+  .checkbox-agree span { font-size:14px; color:var(--muted); line-height:1.65; }
+  .checkbox-agree span strong { color:var(--white); font-weight:500; }
+
+  /* NAV BUTTONS */
+  .form-nav { display:flex; justify-content:space-between; align-items:center; margin-top:52px; padding-top:28px; border-top:1px solid var(--border); }
+  .btn-back { background:transparent; border:1px solid var(--border); color:var(--muted); padding:14px 28px; border-radius:2px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+  .btn-back:hover { border-color:rgba(237,232,223,0.2); color:var(--white); }
+  .btn-next { background:var(--ember); border:none; color:var(--white); padding:14px 36px; border-radius:2px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+  .btn-next:hover { background:var(--ember-hot); transform:translateY(-1px); }
+  .btn-submit { background:var(--cold); border:none; color:var(--black); padding:14px 36px; border-radius:2px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+  .btn-submit:hover { opacity:0.88; transform:translateY(-1px); }
+  .btn-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+  .step-counter { font-size:12px; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; }
+
+  .inline-err { display:none; font-size:12px; color:var(--error); margin-top:8px; }
+
+  /* SUCCESS */
+  .success-screen { display:none; text-align:center; padding:80px 20px; animation:fadeUp 0.5s ease; }
+  .success-screen.active { display:block; }
+  .success-icon { width:80px; height:80px; border-radius:50%; border:1px solid var(--cold); background:rgba(184,204,218,0.06); display:flex; align-items:center; justify-content:center; margin:0 auto 36px; font-size:32px; }
+  .success-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(64px,14vw,100px); letter-spacing:0.04em; line-height:0.88; margin-bottom:20px; }
+  .success-title .em { color:var(--ember); text-shadow:0 0 60px rgba(240,74,14,0.4); }
+  .success-sub { font-size:16px; font-weight:300; color:var(--muted); max-width:420px; margin:0 auto 40px; line-height:1.8; }
+  .success-sub strong { color:var(--white); font-weight:500; }
+  .success-detail { background:var(--gray); border:1px solid var(--border); border-radius:2px; padding:28px 32px; max-width:400px; margin:0 auto; text-align:left; display:flex; flex-direction:column; gap:14px; }
+  .success-detail p { font-size:14px; color:var(--muted); line-height:1.6; display:flex; gap:12px; }
+  .success-detail p::before { content:'—'; color:var(--ember); flex-shrink:0; }
+
+  /* FOOTER */
+  footer { background:#040404; padding:36px 64px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); flex-wrap:wrap; gap:12px; margin-top:auto; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; letter-spacing:0.06em; }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--ember); }
+
+  /* ─── MOBILE ─────────────────────────────────── */
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    .progress-wrap { padding:0 20px; }
+    .step-label { display:none; }
+    main { padding:40px 16px 80px; }
+    .field-group { grid-template-columns:1fr; }
+    .step-title { font-size:clamp(40px,10vw,56px); }
+    .radio-group label, .check-group label { font-size:13px; padding:10px 14px; }
+    .form-nav { flex-wrap:wrap; gap:12px; }
+    .btn-back, .btn-next, .btn-submit { flex:1; text-align:center; padding:14px 20px; }
+    .step-counter { width:100%; text-align:center; order:-1; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+    .success-detail { padding:20px; }
+  }
+
+  @media (max-width:390px) {
+    .step-title { font-size:38px; }
+    .billing-toggle button { font-size:10px; padding:8px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step-tab active" id="tab-1"><div class="step-num">01</div><div class="step-label">Personal</div></div>
+    <div class="step-tab" id="tab-2"><div class="step-num">02</div><div class="step-label">Fitness</div></div>
+    <div class="step-tab" id="tab-3"><div class="step-num">03</div><div class="step-label">Lifestyle</div></div>
+    <div class="step-tab" id="tab-4"><div class="step-num">04</div><div class="step-label">Goals</div></div>
+    <div class="step-tab" id="tab-5"><div class="step-num">05</div><div class="step-label">Agreement</div></div>
+  </div>
+</div>
+
+<main>
+  <div class="form-container">
+
+    <!-- STEP 1 -->
+    <div class="step-panel active" id="step-1">
+      <div class="step-header">
+        <div class="step-eyebrow"><div class="ey-line"></div><div class="ey-text">Step 1 of 5</div></div>
+        <h2 class="step-title">LET'S GET<br>TO KNOW YOU</h2>
+        <p class="step-desc">Basic details so we can personalize your experience from day one.</p>
+      </div>
+      <div class="field-group">
+        <div class="field" id="f-firstname"><label>First Name <span class="req">*</span></label><input type="text" id="firstname" placeholder="Alex" autocomplete="given-name"/><div class="err-msg">Required.</div></div>
+        <div class="field" id="f-lastname"><label>Last Name <span class="req">*</span></label><input type="text" id="lastname" placeholder="Johnson" autocomplete="family-name"/><div class="err-msg">Required.</div></div>
+      </div>
+      <div class="field-group full">
+        <div class="field" id="f-email"><label>Email Address <span class="req">*</span></label><input type="email" id="email" placeholder="alex@email.com" autocomplete="email" inputmode="email"/><div class="err-msg">Please enter a valid email.</div></div>
+      </div>
+      <div class="field-group">
+        <div class="field" id="f-phone"><label>Phone Number <span class="req">*</span></label><input type="tel" id="phone" placeholder="(555) 000-0000" autocomplete="tel" inputmode="tel"/><div class="err-msg">Required.</div></div>
+        <div class="field" id="f-dob"><label>Date of Birth <span class="req">*</span></label><input type="date" id="dob" autocomplete="bday"/><div class="err-msg">Required.</div></div>
+      </div>
+      <div class="field-group">
+        <div class="field"><label>City / State</label><input type="text" id="city" placeholder="Chicago, IL" autocomplete="address-level2"/></div>
+        <div class="field" id="f-timezone"><label>Timezone <span class="req">*</span></label>
+          <select id="timezone"><option value="">Select timezone...</option><option>Eastern (ET)</option><option>Central (CT)</option><option>Mountain (MT)</option><option>Pacific (PT)</option><option>Alaska (AKT)</option><option>Hawaii (HT)</option><option>Other</option></select>
+          <div class="err-msg">Required.</div>
+        </div>
+      </div>
+      <div class="form-divider"></div>
+      <div class="subhead">Coaching Interest</div>
+      <div class="field-group full">
+        <div class="field">
+          <label>Which level are you interested in? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="coachinglevel" value="Level I — Foundation ($249/mo)"><span>Level I — Foundation <span style="color:var(--muted);font-size:12px;">$249/mo</span></span></label>
+            <label><input type="radio" name="coachinglevel" value="Level II — Momentum ($329/mo)"><span>Level II — Momentum <span style="color:var(--muted);font-size:12px;">$329/mo</span></span></label>
+            <label><input type="radio" name="coachinglevel" value="Level III — Peak ($399/mo)"><span>Level III — Peak <span style="color:var(--muted);font-size:12px;">$399/mo</span></span></label>
+            <label><input type="radio" name="coachinglevel" value="Not sure yet"><span>Not sure yet</span></label>
+          </div>
+          <div class="inline-err" id="err-coachinglevel">Please select a coaching level.</div>
+        </div>
+      </div>
+      <div class="form-nav">
+        <span class="step-counter">1 / 5</span>
+        <button class="btn-next" onclick="nextStep(1)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-panel" id="step-2">
+      <div class="step-header">
+        <div class="step-eyebrow"><div class="ey-line"></div><div class="ey-text">Step 2 of 5</div></div>
+        <h2 class="step-title">YOUR FITNESS<br>BASELINE</h2>
+        <p class="step-desc">Help us understand where you're starting from so we can build the right plan.</p>
+      </div>
+      <div class="field-group">
+        <div class="field"><label>Height</label><input type="text" id="height" placeholder='e.g. 5&apos;10"' inputmode="text"/></div>
+        <div class="field"><label>Current Weight</label><input type="text" id="weight" placeholder="e.g. 185 lbs" inputmode="text"/></div>
+      </div>
+      <div class="field-group full" style="margin-bottom:20px;">
+        <div class="field">
+          <label>Fitness Level <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="fitnesslevel" value="Beginner"><span>Beginner — New to structured training</span></label>
+            <label><input type="radio" name="fitnesslevel" value="Intermediate"><span>Intermediate — Some consistent training</span></label>
+            <label><input type="radio" name="fitnesslevel" value="Advanced"><span>Advanced — Years of consistent training</span></label>
+          </div>
+          <div class="inline-err" id="err-fitnesslevel">Please select your fitness level.</div>
+        </div>
+      </div>
+      <div class="field-group full" style="margin-bottom:20px;">
+        <div class="field">
+          <label>Primary Goal <span class="req">*</span></label>
+          <div class="radio-group">
+            <label><input type="radio" name="primarygoal" value="Lose Weight / Burn Fat"><span>Lose Weight / Burn Fat</span></label>
+            <label><input type="radio" name="primarygoal" value="Build Muscle / Gain Strength"><span>Build Muscle / Gain Strength</span></label>
+            <label><input type="radio" name="primarygoal" value="Improve Performance"><span>Improve Performance</span></label>
+            <label><input type="radio" name="primarygoal" value="General Health & Energy"><span>General Health & Energy</span></label>
+            <label><input type="radio" name="primarygoal" value="Body Recomposition"><span>Body Recomposition</span></label>
+          </div>
+          <div class="inline-err" id="err-goal">Please select a primary goal.</div>
+        </div>
+      </div>
+      <div class="field-group full">
+        <div class="field"><label>Training History & Experience</label><textarea id="traininghistory" placeholder="Describe your fitness background — what you've done, for how long, what's worked or hasn't."></textarea></div>
+      </div>
+      <div class="field-group full">
+        <div class="field"><label>Injuries or Physical Limitations</label><textarea id="injuries" placeholder="Any injuries, chronic pain, or movement limitations. Write 'None' if not applicable." style="min-height:80px;"></textarea></div>
+      </div>
+      <div class="field-group full" style="margin-bottom:0;">
+        <div class="field">
+          <label>Days Available to Train Per Week</label>
+          <div class="range-wrap">
+            <div class="range-value" id="days-val">4 days / week</div>
+            <input type="range" id="trainingdays" min="1" max="7" value="4" oninput="document.getElementById('days-val').textContent=this.value+(this.value==1?' day':' days')+' / week'">
+            <div class="range-labels"><span>1 day</span><span>7 days</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(2)">← Back</button>
+        <span class="step-counter">2 / 5</span>
+        <button class="btn-next" onclick="nextStep(2)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-panel" id="step-3">
+      <div class="step-header">
+        <div class="step-eyebrow"><div class="ey-line"></div><div class="ey-text">Step 3 of 5</div></div>
+        <h2 class="step-title">YOUR<br>LIFESTYLE</h2>
+        <p class="step-desc">Your results happen outside the gym too. Help us understand your daily life.</p>
+      </div>
+      <div class="field-group">
+        <div class="field"><label>Occupation / Industry</label><input type="text" id="occupation" placeholder="e.g. Marketing Manager, Attorney..." autocomplete="organization-title"/></div>
+        <div class="field"><label>Typical Work Schedule</label>
+          <select id="workschedule"><option value="">Select...</option><option>Standard 9–5</option><option>Early mornings (before 8am)</option><option>Late nights / evening shift</option><option>Irregular / varies week to week</option><option>Remote / flexible</option><option>Frequent travel</option></select>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Average Stress Level</label>
+          <div class="range-wrap">
+            <div class="range-value" id="stress-val">5 / 10</div>
+            <input type="range" id="stresslevel" min="1" max="10" value="5" oninput="document.getElementById('stress-val').textContent=this.value+' / 10'">
+            <div class="range-labels"><span>Low</span><span>High</span></div>
+          </div>
+        </div>
+        <div class="field"><label>Average Sleep Per Night</label>
+          <select id="sleep"><option value="">Select...</option><option>Less than 5 hours</option><option>5–6 hours</option><option>6–7 hours</option><option>7–8 hours</option><option>8+ hours</option></select>
+        </div>
+      </div>
+      <div class="form-divider"></div>
+      <div class="subhead">Nutrition</div>
+      <div class="field-group full" style="margin-bottom:14px;">
+        <div class="field">
+          <label>Current Eating Habits</label>
+          <div class="radio-group">
+            <label><input type="radio" name="eatinghabits" value="No real structure"><span>No real structure</span></label>
+            <label><input type="radio" name="eatinghabits" value="Some tracking / awareness"><span>Some tracking</span></label>
+            <label><input type="radio" name="eatinghabits" value="Consistent tracking"><span>Consistent tracking</span></label>
+            <label><input type="radio" name="eatinghabits" value="Follow a specific diet"><span>Follow a specific diet</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="field-group full" style="margin-bottom:14px;">
+        <div class="field">
+          <label>Dietary Restrictions / Preferences</label>
+          <div class="check-group">
+            <label><input type="checkbox" value="None"><span>None</span></label>
+            <label><input type="checkbox" value="Vegetarian"><span>Vegetarian</span></label>
+            <label><input type="checkbox" value="Vegan"><span>Vegan</span></label>
+            <label><input type="checkbox" value="Gluten-Free"><span>Gluten-Free</span></label>
+            <label><input type="checkbox" value="Dairy-Free"><span>Dairy-Free</span></label>
+            <label><input type="checkbox" value="Halal"><span>Halal</span></label>
+            <label><input type="checkbox" value="Kosher"><span>Kosher</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="field-group full">
+        <div class="field"><label>Supplements Currently Taking</label><input type="text" id="supplements" placeholder="e.g. protein powder, creatine, multivitamin, or none..."/></div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(3)">← Back</button>
+        <span class="step-counter">3 / 5</span>
+        <button class="btn-next" onclick="nextStep(3)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step-panel" id="step-4">
+      <div class="step-header">
+        <div class="step-eyebrow"><div class="ey-line"></div><div class="ey-text">Step 4 of 5</div></div>
+        <h2 class="step-title">YOUR DRIVE<br>& VISION</h2>
+        <p class="step-desc">Understanding your "why" keeps you on track when it gets hard.</p>
+      </div>
+      <div class="field-group full">
+        <div class="field" id="f-ninetyday"><label>What does your ideal result look like in 90 days? <span class="req">*</span></label><textarea id="ninetyday" placeholder="Be specific — what do you want to look like, feel like, or be able to do?" style="min-height:110px;"></textarea><div class="err-msg">Please share your 90-day vision.</div></div>
+      </div>
+      <div class="field-group full">
+        <div class="field"><label>What has held you back before?</label><textarea id="heldback" placeholder="Time? Consistency? Accountability? Not knowing what to do? Be honest." style="min-height:100px;"></textarea></div>
+      </div>
+      <div class="field-group full">
+        <div class="field">
+          <label>What motivates you most? <span class="req">*</span></label>
+          <div class="check-group" id="f-motivation">
+            <label><input type="checkbox" value="Looking better"><span>Looking better</span></label>
+            <label><input type="checkbox" value="Feeling stronger"><span>Feeling stronger</span></label>
+            <label><input type="checkbox" value="More daily energy"><span>More daily energy</span></label>
+            <label><input type="checkbox" value="Health & longevity"><span>Health & longevity</span></label>
+            <label><input type="checkbox" value="Confidence"><span>Confidence</span></label>
+            <label><input type="checkbox" value="Athletic performance"><span>Athletic performance</span></label>
+            <label><input type="checkbox" value="Stress relief"><span>Stress relief</span></label>
+            <label><input type="checkbox" value="Setting an example"><span>Setting an example</span></label>
+          </div>
+          <div class="inline-err" id="err-motivation">Please select at least one.</div>
+        </div>
+      </div>
+      <div class="field-group full" style="margin-top:14px;">
+        <div class="field"><label>Anything else your coach should know?</label><textarea id="anythingelse" placeholder="Open floor — share whatever feels relevant." style="min-height:80px;"></textarea></div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(4)">← Back</button>
+        <span class="step-counter">4 / 5</span>
+        <button class="btn-next" onclick="nextStep(4)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step-panel" id="step-5">
+      <div class="step-header">
+        <div class="step-eyebrow"><div class="ey-line"></div><div class="ey-text">Step 5 of 5</div></div>
+        <h2 class="step-title">ALMOST<br>THERE.</h2>
+        <p class="step-desc">Please read and agree to the terms below before we get started.</p>
+      </div>
+      <div class="waiver-box">
+        <p><strong>Liability Waiver & Coaching Agreement</strong></p>
+        <p>By submitting this intake form, I acknowledge that I am voluntarily participating in a fitness coaching program provided by Flint Performance. I understand that physical exercise involves inherent risks, including but not limited to muscle soreness, injury, and in rare cases, serious physical harm.</p>
+        <p>I confirm that I am in adequate physical health to participate in a fitness program and have consulted or will consult with a licensed physician if I have any medical concerns, conditions, or uncertainties about my ability to engage in physical exercise.</p>
+        <p>I agree to inform my Flint Performance coach of any changes to my health, injuries, or physical limitations that may arise during our coaching relationship. I accept full responsibility for my participation.</p>
+        <p>I understand that Flint Performance coaches are fitness professionals, not licensed medical doctors, and that no information shared during coaching constitutes medical advice. Results vary and are not guaranteed.</p>
+        <p>I agree to engage honestly and communicate openly with my coach. I understand that my commitment and consistency are the primary drivers of my results.</p>
+      </div>
+      <label class="checkbox-agree">
+        <input type="checkbox" id="agree-waiver">
+        <span>I have read and agree to the <strong>Liability Waiver & Coaching Agreement</strong> above.</span>
+      </label>
+      <label class="checkbox-agree">
+        <input type="checkbox" id="agree-age">
+        <span>I confirm I am <strong>18 years of age or older</strong> and all information provided is accurate and truthful.</span>
+      </label>
+      <div class="inline-err" id="err-agree" style="margin-top:4px;">You must agree to both statements to continue.</div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(5)">← Back</button>
+        <span class="step-counter">5 / 5</span>
+        <button class="btn-submit" id="submit-btn" onclick="submitForm()">Submit ✓</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="success">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">YOU'RE<br><span class="em">IN.</span></h2>
+      <p class="success-sub">Your intake has been submitted. Your Flint Performance coach will review your information and reach out within <strong>24–48 hours</strong>.</p>
+      <div class="success-detail">
+        <p>Check your email for a confirmation</p>
+        <p>Your coach will reach out to schedule your first call</p>
+        <p>Be ready — this is just the beginning</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  function showStep(n) {
+    document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.step-tab').forEach(t=>t.classList.remove('active','done'));
+    const panel=document.getElementById('step-'+n);
+    if(panel){panel.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+    for(let i=1;i<=5;i++){const t=document.getElementById('tab-'+i);if(!t)continue;if(i<n)t.classList.add('done');if(i===n)t.classList.add('active');}
+  }
+  function validate(n){
+    let ok=true;
+    if(n===1){
+      ok=req('firstname')&req('lastname')&reqEmail('email')&req('phone')&req('dob')&reqSel('timezone');
+      const cl=document.querySelector('input[name="coachinglevel"]:checked');
+      const ec=document.getElementById('err-coachinglevel');
+      if(!cl){ec.style.display='block';ok=false;}else{ec.style.display='none';}
+    }
+    if(n===2){
+      const fl=document.querySelector('input[name="fitnesslevel"]:checked');
+      const pg=document.querySelector('input[name="primarygoal"]:checked');
+      const efl=document.getElementById('err-fitnesslevel');
+      const epg=document.getElementById('err-goal');
+      if(!fl){efl.style.display='block';ok=false;}else{efl.style.display='none';}
+      if(!pg){epg.style.display='block';ok=false;}else{epg.style.display='none';}
+    }
+    if(n===4){
+      ok=reqTA('ninetyday');
+      const m=document.querySelectorAll('#f-motivation input:checked');
+      const em=document.getElementById('err-motivation');
+      if(m.length===0){em.style.display='block';ok=false;}else{em.style.display='none';}
+    }
+    return !!ok;
+  }
+  function req(id){const el=document.getElementById(id),w=el.closest('.field');if(!el.value.trim()){w.classList.add('has-error');el.classList.add('error');return false;}w.classList.remove('has-error');el.classList.remove('error');return true;}
+  function reqEmail(id){const el=document.getElementById(id),w=el.closest('.field');const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());if(!ok){w.classList.add('has-error');el.classList.add('error');return false;}w.classList.remove('has-error');el.classList.remove('error');return true;}
+  function reqSel(id){const el=document.getElementById(id),w=el.closest('.field');if(!el.value){w.classList.add('has-error');el.classList.add('error');return false;}w.classList.remove('has-error');el.classList.remove('error');return true;}
+  function reqTA(id){const el=document.getElementById(id),w=el.closest('.field');if(!el.value.trim()){w.classList.add('has-error');el.classList.add('error');return false;}w.classList.remove('has-error');el.classList.remove('error');return true;}
+  function nextStep(n){if(validate(n))showStep(n+1);}
+  function prevStep(n){if(n>1)showStep(n-1);}
+  async function submitForm(){
+    const w=document.getElementById('agree-waiver').checked;
+    const a=document.getElementById('agree-age').checked;
+    const err=document.getElementById('err-agree');
+    if(!w||!a){err.style.display='block';return;}
+    err.style.display='none';
+    const dietary=[...document.querySelectorAll('.check-group input:checked')].map(e=>e.value).join(', ')||'None';
+    const motivations=[...document.querySelectorAll('#f-motivation input:checked')].map(e=>e.value).join(', ');
+    const data={'First Name':document.getElementById('firstname').value,'Last Name':document.getElementById('lastname').value,'Email':document.getElementById('email').value,'Phone':document.getElementById('phone').value,'Date of Birth':document.getElementById('dob').value,'City / State':document.getElementById('city').value,'Timezone':document.getElementById('timezone').value,'Coaching Level':(document.querySelector('input[name="coachinglevel"]:checked')||{}).value||'','Height':document.getElementById('height').value,'Weight':document.getElementById('weight').value,'Fitness Level':(document.querySelector('input[name="fitnesslevel"]:checked')||{}).value||'','Primary Goal':(document.querySelector('input[name="primarygoal"]:checked')||{}).value||'','Training History':document.getElementById('traininghistory').value,'Injuries / Limitations':document.getElementById('injuries').value,'Training Days / Week':document.getElementById('trainingdays').value,'Occupation':document.getElementById('occupation').value,'Work Schedule':document.getElementById('workschedule').value,'Stress Level (1-10)':document.getElementById('stresslevel').value,'Average Sleep':document.getElementById('sleep').value,'Eating Habits':(document.querySelector('input[name="eatinghabits"]:checked')||{}).value||'','Dietary Restrictions':dietary,'Supplements':document.getElementById('supplements').value,'90-Day Vision':document.getElementById('ninetyday').value,'What Held Them Back':document.getElementById('heldback').value,'Motivations':motivations,'Additional Notes':document.getElementById('anythingelse').value,'Agreed to Waiver':'Yes','Age Confirmed 18+':'Yes'};
+    const btn=document.getElementById('submit-btn');
+    btn.textContent='Submitting...';btn.disabled=true;
+    try{
+      const res=await fetch('https://formspree.io/f/mnjbgvpy',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
+      if(res.ok){document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));document.querySelector('.progress-wrap').style.display='none';document.getElementById('success').classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+      else{btn.textContent='Submit ✓';btn.disabled=false;alert('Something went wrong. Please try again.');}
+    }catch(e){btn.textContent='Submit ✓';btn.disabled=false;alert('Network error. Please check your connection and try again.');}
+  }
+</script>
+</body>
+</html>

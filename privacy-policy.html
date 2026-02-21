@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Flint Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; }
+
+  nav { position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-back { font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--white); }
+
+  .policy-hero { padding:80px 64px 64px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .policy-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 50% 80% at 90% 50%, rgba(240,74,14,0.07) 0%, transparent 65%); pointer-events:none; }
+  .eyebrow { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+  .ey-line { width:40px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .policy-hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(60px,10vw,110px); letter-spacing:0.02em; line-height:0.88; margin-bottom:32px; position:relative; }
+  .policy-meta { display:flex; gap:36px; flex-wrap:wrap; position:relative; }
+  .meta-item { font-size:13px; font-weight:300; color:var(--muted); }
+  .meta-item strong { color:var(--white); font-weight:500; }
+
+  .policy-layout { display:grid; grid-template-columns:220px 1fr; max-width:1100px; margin:0 auto; padding:72px 64px; gap:0; align-items:start; }
+
+  .toc { position:sticky; top:80px; padding-right:48px; border-right:1px solid var(--border); }
+  .toc-lbl { font-size:10px; font-weight:600; letter-spacing:0.35em; text-transform:uppercase; color:var(--ember); margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+  .toc-lbl::before { content:''; display:block; width:20px; height:1px; background:var(--ember); }
+  .toc ul { list-style:none; display:flex; flex-direction:column; gap:2px; }
+  .toc ul li a { font-size:13px; font-weight:300; color:var(--muted); text-decoration:none; display:block; padding:7px 0 7px 16px; border-left:2px solid transparent; transition:color 0.2s, border-color 0.2s; line-height:1.4; }
+  .toc ul li a:hover { color:var(--white); border-color:var(--ember); }
+
+  .policy-content { padding-left:64px; }
+  .policy-section { margin-bottom:64px; padding-bottom:64px; border-bottom:1px solid var(--border); }
+  .policy-section:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .sec-num { font-size:10px; font-weight:600; letter-spacing:0.35em; text-transform:uppercase; color:var(--ember); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+  .sec-num::before { content:''; display:block; width:24px; height:1px; background:var(--ember); }
+  .policy-section h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,56px); letter-spacing:0.02em; line-height:0.92; margin-bottom:28px; }
+  .policy-section p { font-size:15px; font-weight:300; color:#999; line-height:1.9; margin-bottom:16px; }
+  .policy-section p:last-child { margin-bottom:0; }
+  .policy-section h3 { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.06em; color:var(--white); margin:32px 0 14px; }
+
+  .table-scroll { margin:16px 0; width:100%; overflow:hidden; }
+  .data-table { width:100%; border-collapse:collapse; font-size:14px; table-layout:fixed; }
+  .data-table th { font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--ember); text-align:left; padding:14px 16px; background:var(--gray-mid); border-bottom:1px solid rgba(240,74,14,0.15); word-break:break-word; }
+  .data-table td { padding:13px 16px; color:#999; border-bottom:1px solid var(--border); line-height:1.65; vertical-align:top; font-size:14px; font-weight:300; word-break:break-word; overflow-wrap:break-word; }
+  .data-table tr:last-child td { border-bottom:none; }
+  .data-table tr:nth-child(even) td { background:rgba(255,255,255,0.012); }
+  .data-table a { color:var(--ember); text-decoration:none; }
+  .data-table a:hover { text-decoration:underline; }
+
+  .highlight-box { background:var(--gray-mid); border-left:2px solid var(--cold); padding:20px 24px; margin:24px 0; }
+  .highlight-box p { font-size:14px; color:#999; line-height:1.8; margin:0; }
+  .highlight-box p strong { color:var(--cold); font-weight:500; }
+  .highlight-box.em-box { border-color:var(--ember); }
+  .highlight-box.em-box p strong { color:var(--white); }
+
+  .contact-card { background:var(--gray-mid); border:1px solid rgba(240,74,14,0.12); border-radius:2px; padding:32px 36px; margin-top:20px; }
+  .contact-card .name { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:0.06em; margin-bottom:16px; color:var(--ember); }
+  .contact-card p { font-size:14px; color:#999; margin-bottom:8px; font-weight:300; }
+  .contact-card p:last-child { margin-bottom:0; }
+  .contact-card a { color:var(--ember); text-decoration:none; }
+  .contact-card a:hover { text-decoration:underline; }
+
+  footer { background:#040404; padding:40px 64px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); flex-wrap:wrap; gap:16px; margin-top:80px; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:26px; letter-spacing:0.06em; }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--ember); }
+
+  @media (max-width:1024px) {
+    nav { padding:18px 40px; }
+    .policy-hero { padding:64px 40px 48px; }
+    .policy-layout { padding:56px 40px; grid-template-columns:180px 1fr; }
+    .toc { padding-right:32px; }
+    .policy-content { padding-left:40px; }
+    footer { padding:32px 40px; }
+  }
+
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    .policy-hero { padding:48px 20px 36px; }
+    .policy-hero h1 { font-size:clamp(52px,14vw,80px); margin-bottom:20px; }
+    .policy-meta { flex-direction:column; gap:8px; }
+    .meta-item { font-size:12px; }
+    .policy-layout { grid-template-columns:1fr; padding:40px 20px; }
+    .toc { display:none; }
+    .policy-content { padding-left:0; }
+    .policy-section { margin-bottom:44px; padding-bottom:44px; }
+    .policy-section h2 { font-size:clamp(32px,9vw,48px); margin-bottom:20px; }
+    .policy-section p { font-size:14px; }
+    .contact-card { padding:24px 20px; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+
+    /* Tables reflow as stacked cards on mobile */
+    .data-table, .data-table thead, .data-table tbody,
+    .data-table th, .data-table td, .data-table tr { display:block; width:100%; }
+    .data-table thead { display:none; }
+    .data-table tr { background:var(--gray-mid); border:1px solid var(--border); border-radius:2px; margin-bottom:8px; padding:16px; }
+    .data-table tr:nth-child(even) td { background:transparent; }
+    .data-table td { padding:6px 0; border:none; font-size:13px; line-height:1.6; }
+    .data-table td::before {
+      content:attr(data-label);
+      display:block; font-size:10px; font-weight:600;
+      letter-spacing:0.2em; text-transform:uppercase;
+      color:var(--ember); margin-bottom:3px;
+    }
+  }
+
+  @media (max-width:390px) {
+    .policy-hero h1 { font-size:46px; }
+    .policy-section h2 { font-size:30px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<div class="policy-hero">
+  <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Legal</div></div>
+  <h1>PRIVACY<br>POLICY</h1>
+  <div class="policy-meta">
+    <div class="meta-item"><strong>Effective Date:</strong> February 21, 2026</div>
+    <div class="meta-item"><strong>Last Updated:</strong> February 21, 2026</div>
+    <div class="meta-item"><strong>Business:</strong> Flint Performance</div>
+  </div>
+</div>
+
+<div class="policy-layout">
+  <aside class="toc">
+    <div class="toc-lbl">Contents</div>
+    <ul>
+      <li><a href="#overview">1. Overview</a></li>
+      <li><a href="#information-collected">2. Information We Collect</a></li>
+      <li><a href="#how-we-use">3. How We Use It</a></li>
+      <li><a href="#third-parties">4. Third-Party Services</a></li>
+      <li><a href="#data-storage">5. Storage & Security</a></li>
+      <li><a href="#retention">6. Data Retention</a></li>
+      <li><a href="#your-rights">7. Your Rights</a></li>
+      <li><a href="#health-data">8. Health Information</a></li>
+      <li><a href="#minors">9. Minors</a></li>
+      <li><a href="#california">10. California (CCPA)</a></li>
+      <li><a href="#gdpr">11. EU / UK (GDPR)</a></li>
+      <li><a href="#changes">12. Policy Changes</a></li>
+      <li><a href="#contact">13. Contact</a></li>
+    </ul>
+  </aside>
+
+  <div class="policy-content">
+
+    <div class="policy-section" id="overview">
+      <div class="sec-num">Section 01</div>
+      <h2>Overview</h2>
+      <p>Flint Performance ("we," "us," or "our") is committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, store, and protect your information when you visit our website or use our coaching services.</p>
+      <p>By submitting our intake form or engaging with our services, you agree to the practices described in this policy. If you do not agree, please do not use our services.</p>
+      <div class="highlight-box"><p><strong>Plain language summary:</strong> We collect your information solely to provide personalized fitness coaching. We do not sell your data, use it for advertising, or share it beyond what's needed to operate our service.</p></div>
+    </div>
+
+    <div class="policy-section" id="information-collected">
+      <div class="sec-num">Section 02</div>
+      <h2>Information We Collect</h2>
+      <p>We collect information you provide directly through our new client intake form and subsequent coaching communications.</p>
+      <h3>Personal Identification</h3>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Data Type</th><th>Example</th><th>Why We Collect It</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Data Type">Full name</td><td data-label="Example">Alex Johnson</td><td data-label="Purpose">To identify and address you personally</td></tr>
+            <tr><td data-label="Data Type">Email address</td><td data-label="Example">alex@email.com</td><td data-label="Purpose">Primary communication channel</td></tr>
+            <tr><td data-label="Data Type">Phone number</td><td data-label="Example">(555) 000-0000</td><td data-label="Purpose">Scheduling and urgent contact</td></tr>
+            <tr><td data-label="Data Type">Date of birth</td><td data-label="Example">Jan 1, 1990</td><td data-label="Purpose">Age-appropriate programming; confirm 18+</td></tr>
+            <tr><td data-label="Data Type">Location / Timezone</td><td data-label="Example">Chicago, IL / CT</td><td data-label="Purpose">Schedule calls across time zones</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Health & Fitness Information</h3>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Data Type</th><th>Why We Collect It</th></tr></thead>
+          <tbody>
+            <tr><td>Height & weight</td><td>To build an appropriate baseline program</td></tr>
+            <tr><td>Fitness level & training history</td><td>To calibrate programming intensity and volume</td></tr>
+            <tr><td>Injuries & physical limitations</td><td>To ensure safe and appropriate exercise selection</td></tr>
+            <tr><td data-label="Data Type">Primary fitness goals</td><td data-label="Purpose">To align your program with your objectives</td></tr>
+            <tr><td>Nutrition habits & dietary restrictions</td><td>To provide relevant nutrition guidance</td></tr>
+            <tr><td>Sleep quality & stress levels</td><td>To factor recovery into your programming</td></tr>
+            <tr><td data-label="Data Type">Supplements currently taking</td><td data-label="Purpose">To provide informed nutritional recommendations</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Lifestyle & Professional Information</h3>
+      <p>We collect information about your occupation, work schedule, and daily lifestyle to build a plan that realistically fits your life. This is used solely for coaching purposes.</p>
+      <h3>Automatically Collected Information</h3>
+      <p>We do not currently use cookies, tracking pixels, or analytics tools. If this changes, this policy will be updated accordingly.</p>
+    </div>
+
+    <div class="policy-section" id="how-we-use">
+      <div class="sec-num">Section 03</div>
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect exclusively to provide and improve our coaching services — to deliver personalized fitness and nutrition coaching, communicate about your program, track your progress, and fulfill our coaching obligations.</p>
+      <div class="highlight-box em-box"><p><strong>We will never:</strong> sell your personal data, use it for advertising, share it with marketing platforms, or use it for any purpose unrelated to your coaching.</p></div>
+    </div>
+
+    <div class="policy-section" id="third-parties">
+      <div class="sec-num">Section 04</div>
+      <h2>Third-Party Services</h2>
+      <p>To operate our business, we use a limited number of trusted third-party tools. Your data may pass through or be stored by the following:</p>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Service</th><th>Purpose</th><th>Data Shared</th><th>Privacy Policy</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Service">Formspree</td><td data-label="Purpose">Form submission processing</td><td data-label="Data Shared">All intake form fields</td><td><a href="https://formspree.io/legal/privacy-policy" target="_blank">formspree.io/legal</a></td></tr>
+            <tr><td>Email provider</td><td>Communication & record keeping</td><td>Name, email, coaching notes</td><td>Dependent on provider</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>We do not use advertising networks, social media trackers, or data brokers. If we integrate additional tools, this policy will be updated accordingly.</p>
+    </div>
+
+    <div class="policy-section" id="data-storage">
+      <div class="sec-num">Section 05</div>
+      <h2>Storage & Security</h2>
+      <p>Your information is stored within Formspree and within our private email and coaching records. We take reasonable measures to protect your data, including secure password-protected accounts and restricting access to only those who need it.</p>
+      <p>No method of internet transmission is 100% secure. In the event of a breach affecting your personal information, we will notify you as required by applicable law.</p>
+    </div>
+
+    <div class="policy-section" id="retention">
+      <div class="sec-num">Section 06</div>
+      <h2>Data Retention</h2>
+      <p>We retain your personal information for as long as you are an active client and for a reasonable period thereafter — typically up to 2 years after your last coaching engagement — to fulfill any legal, accounting, or reporting requirements.</p>
+      <p>You may request deletion of your data at any time. Note that we may be required to retain certain records for legal or compliance purposes even after a deletion request.</p>
+    </div>
+
+    <div class="policy-section" id="your-rights">
+      <div class="sec-num">Section 07</div>
+      <h2>Your Rights</h2>
+      <p>Regardless of your location, you have the right to <strong style="color:var(--white);font-weight:500;">access</strong> a copy of your personal information, <strong style="color:var(--white);font-weight:500;">correct</strong> inaccurate data, <strong style="color:var(--white);font-weight:500;">delete</strong> your personal data (subject to legal requirements), receive your data in a <strong style="color:var(--white);font-weight:500;">portable</strong> format, and <strong style="color:var(--white);font-weight:500;">opt out</strong> of any non-essential communications at any time.</p>
+      <p>To exercise any of these rights, contact us using the information in Section 13. We will respond to all requests within 30 days.</p>
+    </div>
+
+    <div class="policy-section" id="health-data">
+      <div class="sec-num">Section 08</div>
+      <h2>Sensitive Health Information</h2>
+      <p>Some information we collect — injury history, physical limitations, stress levels, and nutrition habits — may be considered sensitive health-related data. We treat this with the highest level of care and confidentiality.</p>
+      <p>This information is used exclusively by your Flint Performance coach to design your program. It is never shared with third parties for commercial purposes and never used in marketing without your explicit written consent.</p>
+      <div class="highlight-box"><p><strong>Important:</strong> Flint Performance coaches are fitness professionals, not licensed medical practitioners. Nothing shared during coaching constitutes medical advice. Always consult a qualified physician before beginning a new fitness program, particularly if you have existing health conditions.</p></div>
+    </div>
+
+    <div class="policy-section" id="minors">
+      <div class="sec-num">Section 09</div>
+      <h2>Minors</h2>
+      <p>Our services are intended solely for individuals 18 years of age or older. We do not knowingly collect personal information from anyone under 18. All clients are required to confirm their age as part of our intake agreement.</p>
+      <p>If we become aware that we have inadvertently collected information from a minor, we will take immediate steps to delete that information from our records.</p>
+    </div>
+
+    <div class="policy-section" id="california">
+      <div class="sec-num">Section 10</div>
+      <h2>California Residents (CCPA)</h2>
+      <p>If you are a California resident, the CCPA provides you the right to know what personal information we collect and how we use it, request deletion of your data, and be free from discrimination for exercising your rights.</p>
+      <p>We do not sell personal information. To submit a verifiable consumer request, contact us using the information in Section 13. We will respond within 45 days as required by law.</p>
+    </div>
+
+    <div class="policy-section" id="gdpr">
+      <div class="sec-num">Section 11</div>
+      <h2>EU / UK Residents (GDPR)</h2>
+      <p>If you are located in the European Union or United Kingdom, our lawful basis for processing your personal data is <strong style="color:var(--white);font-weight:500;">contractual necessity</strong> — we need your information to deliver the services you requested.</p>
+      <p>You also have the right to lodge a complaint with your local data protection authority if you believe we have not handled your information correctly. By submitting your information from the EU or UK, your data may be transferred to and processed in the United States, where data protection laws may differ.</p>
+    </div>
+
+    <div class="policy-section" id="changes">
+      <div class="sec-num">Section 12</div>
+      <h2>Policy Changes</h2>
+      <p>We may update this Privacy Policy from time to time to reflect changes in our practices, services, or legal requirements. When we make changes, we will update the "Last Updated" date at the top of this page.</p>
+      <p>For significant changes, we will notify active clients via email at least 14 days before changes take effect. Your continued use of our services constitutes acceptance of the updated policy.</p>
+    </div>
+
+    <div class="policy-section" id="contact">
+      <div class="sec-num">Section 13</div>
+      <h2>Contact</h2>
+      <p>If you have any questions, concerns, or requests regarding this Privacy Policy or the handling of your personal information, please reach out directly. We aim to respond to all privacy-related inquiries within 5 business days.</p>
+      <div class="contact-card">
+        <div class="name">Flint Performance</div>
+        <p>Email: <a href="mailto:privacy@flintperformance.com">privacy@flintperformance.com</a></p>
+        <p>Website: <a href="index.html">flintperformance.com</a></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+</body>
+</html>

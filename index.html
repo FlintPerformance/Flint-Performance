@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flint Performance — The Spark That Starts the Fire</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; overflow-x:hidden; }
+
+  /* ─── HAMBURGER NAV ─────────────────────────── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 64px;
+    background:rgba(6,6,6,0.92); backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-logo {
+    font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px;
+    letter-spacing:0.06em; color:var(--white); text-decoration:none;
+    display:flex; align-items:center; gap:0;
+  }
+  .nav-logo .sp { color:var(--ember); }
+
+  .nav-links { display:flex; gap:36px; list-style:none; align-items:center; }
+  .nav-links a {
+    color:var(--muted); text-decoration:none; font-size:12px;
+    font-weight:500; letter-spacing:0.14em; text-transform:uppercase;
+    transition:color 0.2s;
+  }
+  .nav-links a:hover { color:var(--white); }
+  .nav-cta {
+    background:var(--ember) !important; color:var(--white) !important;
+    padding:10px 24px; border-radius:2px; font-weight:600 !important;
+    letter-spacing:0.1em !important; transition:background 0.2s !important;
+  }
+  .nav-cta:hover { background:var(--ember-hot) !important; }
+
+  /* Hamburger */
+  .hamburger {
+    display:none; flex-direction:column; gap:5px; cursor:pointer;
+    background:none; border:none; padding:4px; z-index:201;
+  }
+  .hamburger span {
+    display:block; width:24px; height:2px; background:var(--white);
+    border-radius:2px; transition:all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+  .hamburger.open span:nth-child(2) { opacity:0; }
+  .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+  .mobile-menu {
+    display:none; position:fixed; inset:0; z-index:190;
+    background:rgba(6,6,6,0.98); flex-direction:column;
+    justify-content:center; align-items:center; gap:40px;
+    padding:40px;
+  }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a {
+    font-family:'Bebas Neue',sans-serif; font-size:48px;
+    letter-spacing:0.08em; color:var(--white); text-decoration:none;
+    transition:color 0.2s;
+  }
+  .mobile-menu a:hover { color:var(--ember); }
+  .mobile-menu .m-cta {
+    background:var(--ember); color:var(--white) !important;
+    padding:16px 48px; border-radius:2px; font-size:36px !important;
+    margin-top:16px;
+  }
+
+  /* ─── HERO ───────────────────────────────────── */
+  .hero {
+    min-height:100vh; position:relative; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:100px 64px 80px;
+  }
+
+  /* Background atmosphere */
+  .hero-atmo {
+    position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 70% at 75% 40%, rgba(240,74,14,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 40% at 10% 80%, rgba(184,204,218,0.06) 0%, transparent 50%),
+      linear-gradient(to bottom, rgba(6,6,6,0) 0%, rgba(6,6,6,0.3) 100%);
+  }
+
+  /* Spark particle lines */
+  .spark-lines {
+    position:absolute; inset:0; pointer-events:none; overflow:hidden;
+  }
+  .spark-lines::before {
+    content:'';
+    position:absolute; top:0; left:62%; width:1px; height:100%;
+    background:linear-gradient(to bottom,
+      transparent 0%,
+      rgba(240,74,14,0.0) 20%,
+      rgba(240,74,14,0.25) 45%,
+      rgba(240,74,14,0.25) 55%,
+      rgba(240,74,14,0.0) 80%,
+      transparent 100%);
+  }
+  .spark-lines::after {
+    content:'';
+    position:absolute; top:0; left:78%; width:1px; height:100%;
+    background:linear-gradient(to bottom,
+      transparent 0%,
+      rgba(184,204,218,0.0) 30%,
+      rgba(184,204,218,0.12) 50%,
+      rgba(184,204,218,0.0) 70%,
+      transparent 100%);
+  }
+
+  /* Big background FLINT text */
+  .hero-bg-word {
+    position:absolute; bottom:-0.05em; right:-0.05em;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(200px,35vw,520px);
+    letter-spacing:0.02em; line-height:1;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(240,74,14,0.07);
+    pointer-events:none; user-select:none;
+    white-space:nowrap;
+  }
+
+  .hero-content { position:relative; z-index:2; max-width:900px; }
+
+  .hero-eyebrow {
+    display:flex; align-items:center; gap:16px; margin-bottom:32px;
+  }
+  .ey-line { width:56px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text {
+    font-size:11px; font-weight:600; letter-spacing:0.4em;
+    text-transform:uppercase; color:var(--ember);
+  }
+
+  .hero-title {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(72px,14vw,200px);
+    line-height:0.85; letter-spacing:0.01em;
+    margin-bottom:32px;
+  }
+  .hero-title .t-cold {
+    display:block;
+    -webkit-text-stroke:1.5px rgba(237,232,223,0.2);
+    color:transparent;
+  }
+  .hero-title .t-ember {
+    display:block; color:var(--ember);
+    text-shadow:0 0 80px rgba(240,74,14,0.4), 0 0 160px rgba(240,74,14,0.15);
+  }
+  .hero-title .t-white { display:block; color:var(--white); }
+
+  .hero-sub {
+    font-size:clamp(15px,2vw,18px); font-weight:300;
+    color:var(--cold); max-width:480px; line-height:1.8;
+    margin-bottom:48px; opacity:1;
+  }
+  .hero-sub strong { color:var(--white); font-weight:500; font-style:italic; }
+
+  .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+
+  .hero-stats {
+    position:relative; z-index:2;
+    display:flex; gap:0; margin-top:72px;
+    border-top:1px solid var(--border);
+  }
+  .stat {
+    flex:1; padding:28px 0 0;
+    border-right:1px solid var(--border);
+    padding-right:40px; margin-right:40px;
+  }
+  .stat:last-child { border-right:none; margin-right:0; padding-right:0; }
+  .stat-num {
+    font-family:'Bebas Neue',sans-serif; font-size:56px;
+    letter-spacing:0.02em; line-height:1; color:var(--ember);
+    text-shadow:0 0 40px rgba(240,74,14,0.3);
+  }
+  .stat-lbl {
+    font-size:11px; color:var(--muted); letter-spacing:0.2em;
+    text-transform:uppercase; margin-top:4px;
+  }
+
+  /* ─── BUTTONS ────────────────────────────────── */
+  .btn-ember {
+    display:inline-block; background:var(--ember); color:var(--white);
+    padding:16px 40px; border-radius:2px; font-size:13px; font-weight:600;
+    letter-spacing:0.16em; text-transform:uppercase; text-decoration:none;
+    transition:background 0.2s, transform 0.15s;
+    box-shadow:0 0 40px rgba(240,74,14,0.3);
+  }
+  .btn-ember:hover { background:var(--ember-hot); transform:translateY(-2px); box-shadow:0 0 60px rgba(240,74,14,0.4); }
+
+  .btn-ghost {
+    display:inline-block; background:transparent; color:var(--cold);
+    padding:16px 40px; border-radius:2px;
+    border:1px solid rgba(184,204,218,0.2); font-size:13px; font-weight:600;
+    letter-spacing:0.16em; text-transform:uppercase; text-decoration:none;
+    transition:border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color:var(--cold); color:var(--white); }
+
+  /* ─── SECTIONS ───────────────────────────────── */
+  section { padding:120px 64px; }
+
+  .lbl {
+    display:flex; align-items:center; gap:14px; margin-bottom:20px;
+    font-size:11px; font-weight:600; letter-spacing:0.4em;
+    text-transform:uppercase; color:var(--ember);
+  }
+  .lbl::before { content:''; display:block; width:40px; height:1px; background:var(--ember); flex-shrink:0; }
+
+  .sec-title {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(52px,7vw,96px);
+    line-height:0.88; letter-spacing:0.02em; margin-bottom:24px;
+  }
+  .sec-sub { font-size:16px; font-weight:300; color:var(--muted); max-width:520px; line-height:1.8; }
+
+  /* ─── ABOUT ──────────────────────────────────── */
+  .about { background:var(--gray); display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+
+  .feat-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:48px; }
+  .feat {
+    background:var(--gray-mid); padding:28px; position:relative;
+    overflow:hidden; transition:background 0.25s;
+  }
+  .feat::before {
+    content:''; position:absolute; top:0; left:0; bottom:0;
+    width:2px; background:var(--ember);
+    transform:scaleY(0); transform-origin:bottom;
+    transition:transform 0.35s ease;
+  }
+  .feat:hover { background:var(--gray-up); }
+  .feat:hover::before { transform:scaleY(1); }
+  .feat-icon { font-size:24px; margin-bottom:14px; }
+  .feat-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.06em; margin-bottom:8px; }
+  .feat-desc { font-size:13px; color:var(--muted); line-height:1.7; }
+
+  .manifesto {
+    background:var(--gray-mid);
+    border:1px solid rgba(240,74,14,0.12);
+    border-radius:2px; padding:56px;
+    position:relative; overflow:hidden;
+  }
+  .manifesto::before {
+    content:'';
+    position:absolute; top:-80px; right:-80px;
+    width:280px; height:280px; border-radius:50%;
+    background:radial-gradient(circle, rgba(240,74,14,0.15), transparent 70%);
+    pointer-events:none;
+  }
+  .manifesto-spark {
+    font-family:'Bebas Neue',sans-serif; font-size:13px;
+    letter-spacing:0.35em; text-transform:uppercase; color:var(--ember);
+    margin-bottom:20px; display:flex; align-items:center; gap:10px;
+  }
+  .manifesto-spark::before { content:''; display:block; width:24px; height:1px; background:var(--ember); }
+  .manifesto-quote {
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,3.5vw,38px);
+    letter-spacing:0.02em; line-height:1.2;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .manifesto-quote em { font-style:normal; color:var(--ember); }
+  .manifesto-body {
+    font-size:14px; font-weight:300; color:#9a9a9a;
+    line-height:1.85; position:relative; z-index:1;
+    border-top:1px solid var(--border); padding-top:24px;
+  }
+
+  /* ─── PRICING ────────────────────────────────── */
+  .pricing { background:var(--black); }
+  .pricing-top {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:56px; flex-wrap:wrap; gap:28px;
+  }
+  .billing-wrap { display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  .billing-note { font-size:12px; color:var(--muted); letter-spacing:0.08em; }
+
+  .billing-toggle {
+    display:flex; background:var(--gray-mid); border-radius:2px;
+    padding:3px; gap:2px;
+  }
+  .billing-toggle button {
+    background:transparent; border:none; color:var(--muted);
+    font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600;
+    letter-spacing:0.1em; text-transform:uppercase; padding:9px 16px;
+    border-radius:1px; cursor:pointer; transition:all 0.2s;
+    position:relative; white-space:nowrap;
+  }
+  .billing-toggle button.active { background:var(--ember); color:var(--white); }
+  .billing-toggle button .badge {
+    position:absolute; top:-8px; right:-4px;
+    background:var(--cold); color:var(--black);
+    font-size:8px; font-weight:700; padding:2px 5px;
+    border-radius:2px; letter-spacing:0.04em;
+  }
+
+  .plans { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .plan {
+    background:var(--gray); padding:48px 36px;
+    position:relative; overflow:hidden;
+    transition:background 0.2s;
+    display:flex; flex-direction:column;
+  }
+  .plan:hover { background:var(--gray-mid); }
+  .plan.featured {
+    background:var(--gray-mid);
+    outline:1px solid var(--ember); outline-offset:-1px;
+  }
+  .plan.featured::after {
+    content:'';
+    position:absolute; bottom:-60px; right:-60px;
+    width:200px; height:200px; border-radius:50%;
+    background:radial-gradient(circle, rgba(240,74,14,0.12), transparent 70%);
+    pointer-events:none;
+  }
+  .plan-badge {
+    position:absolute; top:0; right:0;
+    background:var(--ember); color:var(--white);
+    font-size:10px; font-weight:700; letter-spacing:0.2em;
+    text-transform:uppercase; padding:6px 16px;
+  }
+  .plan-level {
+    font-size:10px; font-weight:600; letter-spacing:0.3em;
+    text-transform:uppercase; color:var(--ember); margin-bottom:6px;
+  }
+  .plan-name {
+    font-family:'Bebas Neue',sans-serif; font-size:44px;
+    letter-spacing:0.04em; margin-bottom:0;
+  }
+  .plan-tagline { font-size:13px; color:var(--muted); margin-bottom:36px; font-style:italic; }
+  .plan-price {
+    font-family:'Bebas Neue',sans-serif; font-size:80px;
+    line-height:1; letter-spacing:0.01em;
+  }
+  .plan-price .dl { font-size:36px; vertical-align:top; margin-top:14px; display:inline-block; color:var(--ember); }
+  .plan-period { font-size:13px; color:var(--muted); margin-bottom:6px; }
+  .plan-savings { font-size:12px; color:var(--cold); font-weight:500; height:18px; margin-bottom:32px; }
+  .plan-div { height:1px; background:var(--border); margin:0 0 28px; }
+  .plan-features { list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:40px; flex:1; }
+  .plan-features li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:#bbb; line-height:1.5; }
+  .plan-features li .ck { color:var(--cold); flex-shrink:0; margin-top:2px; }
+  .plan-btn {
+    display:block; text-align:center; padding:14px;
+    font-size:12px; font-weight:700; letter-spacing:0.18em;
+    text-transform:uppercase; text-decoration:none; border-radius:2px;
+    transition:all 0.2s; cursor:pointer; border:none; width:100%;
+    margin-top:auto;
+  }
+  .btn-col { background:transparent; border:1px solid rgba(184,204,218,0.15); color:var(--cold); }
+  .btn-col:hover { border-color:var(--cold); color:var(--white); }
+  .btn-fem { background:var(--ember); color:var(--white); box-shadow:0 0 30px rgba(240,74,14,0.25); }
+  .btn-fem:hover { background:var(--ember-hot); box-shadow:0 0 50px rgba(240,74,14,0.35); }
+
+  /* ─── CONSULTS ───────────────────────────────── */
+  .consults { background:var(--gray); }
+  .consult-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:56px; }
+  .consult {
+    background:var(--gray-mid); padding:52px 48px;
+    position:relative; overflow:hidden;
+    transition:background 0.2s; display:flex; flex-direction:column;
+  }
+  .consult:hover { background:var(--gray-up); }
+  .consult-mins {
+    font-family:'Bebas Neue',sans-serif; font-size:96px; line-height:1;
+    letter-spacing:0.01em; color:var(--ember);
+    text-shadow:0 0 60px rgba(240,74,14,0.3);
+  }
+  .consult-mins span { font-size:32px; color:var(--muted); }
+  .consult-name { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; margin-bottom:16px; }
+  .consult-desc { font-size:14px; font-weight:300; color:var(--muted); line-height:1.8; margin-bottom:28px; }
+  .consult-price { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:0.03em; margin-bottom:28px; }
+  .consult-price span { font-family:'DM Sans',sans-serif; font-size:14px; color:var(--muted); font-weight:300; }
+  .consult-inc { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:36px; flex:1; }
+  .consult-inc li { display:flex; align-items:flex-start; gap:12px; font-size:13px; color:#888; line-height:1.5; }
+  .consult-inc li::before { content:'—'; color:var(--ember); flex-shrink:0; }
+
+  /* ─── FAQ ────────────────────────────────────── */
+  .faq { background:var(--black); }
+  .faq-list { margin-top:56px; display:flex; flex-direction:column; gap:2px; }
+  .faq-item {
+    background:var(--gray); padding:32px 40px;
+    border-left:2px solid transparent;
+    transition:border-color 0.2s, background 0.2s; cursor:default;
+  }
+  .faq-item:hover { border-color:var(--ember); background:var(--gray-mid); }
+  .faq-q { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:0.04em; margin-bottom:10px; }
+  .faq-a { font-size:14px; font-weight:300; color:#9a9a9a; line-height:1.8; max-width:700px; }
+
+  /* ─── CTA ────────────────────────────────────── */
+  .cta-sec {
+    position:relative; overflow:hidden;
+    background:var(--ember); padding:140px 64px;
+    text-align:center;
+  }
+  .cta-sec::before {
+    content:'IGNITE';
+    position:absolute; font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(120px,22vw,320px); letter-spacing:0.04em;
+    color:rgba(0,0,0,0.12); top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    white-space:nowrap; pointer-events:none; line-height:1;
+  }
+  .cta-sec .sec-title {
+    font-size:clamp(64px,11vw,140px); color:var(--white);
+    position:relative; text-shadow:none;
+  }
+  .cta-tagline {
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(20px,3vw,32px);
+    color:rgba(237,232,223,0.6); letter-spacing:0.12em;
+    margin-bottom:48px; position:relative;
+  }
+  .btn-white {
+    display:inline-block; background:var(--white); color:var(--ember);
+    padding:20px 60px; border-radius:2px; font-size:13px; font-weight:700;
+    letter-spacing:0.2em; text-transform:uppercase; text-decoration:none;
+    position:relative; transition:transform 0.15s, opacity 0.15s;
+  }
+  .btn-white:hover { transform:translateY(-3px); opacity:0.93; }
+
+  /* ─── FOOTER ─────────────────────────────────── */
+  footer {
+    background:#040404; padding:40px 64px;
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid var(--border); flex-wrap:wrap; gap:16px;
+  }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:26px; letter-spacing:0.06em; }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--ember); }
+
+  /* ─── ANIMATIONS ─────────────────────────────── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
+  .hero-eyebrow { animation:fadeUp 0.7s ease both; }
+  .hero-title   { animation:fadeUp 0.7s 0.12s ease both; }
+  .hero-sub     { animation:fadeUp 0.7s 0.22s ease both; }
+  .hero-actions { animation:fadeUp 0.7s 0.32s ease both; }
+  .hero-stats   { animation:fadeUp 0.7s 0.42s ease both; }
+
+  /* ─── DESKTOP LARGE ──────────────────────────── */
+  @media (min-width:1280px) {
+    nav { padding:22px 80px; }
+    section { padding:130px 80px; }
+    .hero { padding:0 80px 100px; }
+    footer { padding:44px 80px; }
+  }
+
+  /* ─── TABLET ─────────────────────────────────── */
+  @media (max-width:1024px) {
+    nav { padding:18px 40px; }
+    section { padding:80px 40px; }
+    .hero { padding:90px 40px 64px; }
+    .about { grid-template-columns:1fr; gap:48px; }
+    .plans { grid-template-columns:1fr; max-width:480px; margin:0 auto; }
+    .consult-grid { grid-template-columns:1fr; max-width:560px; margin:56px auto 0; }
+    footer { padding:32px 40px; }
+    .hero-stats { gap:0; }
+    .stat { padding-right:32px; margin-right:32px; }
+  }
+
+  /* ─── MOBILE ─────────────────────────────────── */
+  @media (max-width:768px) {
+    /* Nav */
+    nav { padding:16px 20px; }
+    .nav-links { display:none; }
+    .hamburger { display:flex; }
+
+    /* Hero */
+    .hero { padding:80px 20px 56px; min-height:100svh; }
+    .hero-bg-word { font-size:clamp(120px,50vw,240px); bottom:0; right:-0.02em; }
+    .hero-eyebrow { margin-bottom:20px; }
+    .ey-line { width:32px; }
+    .hero-title { font-size:clamp(64px,18vw,120px); margin-bottom:24px; }
+    .hero-title .t-cold { -webkit-text-stroke:1px rgba(237,232,223,0.18); }
+    .hero-sub { font-size:15px; margin-bottom:36px; max-width:100%; }
+    .hero-actions { flex-direction:column; gap:10px; }
+    .hero-actions a { text-align:center; padding:16px 24px; width:100%; }
+    .hero-stats { flex-direction:column; gap:0; margin-top:48px; border-top:1px solid var(--border); }
+    .stat { border-right:none; border-bottom:1px solid var(--border); margin-right:0; padding-right:0; padding:20px 0; flex-direction:row; align-items:center; gap:20px; }
+    .stat:last-child { border-bottom:none; }
+    .stat-num { font-size:40px; }
+
+    /* Sections */
+    section { padding:64px 20px; }
+    .sec-title { font-size:clamp(44px,11vw,64px); }
+    .sec-sub { font-size:15px; }
+
+    /* About */
+    .about { padding:64px 20px; gap:48px; }
+    .feat-grid { grid-template-columns:1fr; gap:2px; margin-top:32px; }
+    .manifesto { padding:32px 24px; }
+    .manifesto-quote { font-size:clamp(22px,5vw,30px); }
+
+    /* Pricing */
+    .pricing-top { flex-direction:column; align-items:flex-start; gap:20px; }
+    .billing-wrap { align-items:flex-start; }
+    .billing-toggle { width:100%; justify-content:stretch; }
+    .billing-toggle button { flex:1; padding:10px 8px; font-size:11px; }
+    .plans { max-width:100%; }
+    .plan { padding:36px 24px; }
+    .plan-price { font-size:64px; }
+    .plan-features li { font-size:13px; }
+
+    /* Consults */
+    .consults { padding:64px 20px; }
+    .consult-grid { margin-top:40px; }
+    .consult { padding:36px 24px; }
+    .consult-mins { font-size:72px; }
+    .consult-name { font-size:24px; }
+    .consult-desc, .consult-inc li { font-size:13px; }
+
+    /* FAQ */
+    .faq { padding:64px 20px; }
+    .faq-item { padding:24px 20px; }
+    .faq-q { font-size:20px; }
+    .faq-a { font-size:13px; }
+
+    /* CTA */
+    .cta-sec { padding:80px 20px; }
+    .cta-sec .sec-title { font-size:clamp(56px,14vw,96px); }
+    .cta-tagline { font-size:18px; margin-bottom:36px; }
+    .btn-white { padding:16px 40px; font-size:12px; }
+
+    /* Footer */
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:12px; }
+  }
+
+  /* ─── SMALL MOBILE ───────────────────────────── */
+  @media (max-width:390px) {
+    .hero-title { font-size:clamp(56px,16vw,80px); }
+    .plan-price { font-size:56px; }
+    .consult-mins { font-size:60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">FLINT<span class="sp">.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#pricing">Programs</a></li>
+    <li><a href="#consults">Consults</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="plan-checkout.html" class="nav-cta">Get Started</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#pricing" onclick="closeMenu()">Programs</a>
+  <a href="#consults" onclick="closeMenu()">Consults</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="plan-checkout.html" class="m-cta">Get Started</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-atmo"></div>
+  <div class="spark-lines"></div>
+  <div class="hero-bg-word">FLINT</div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="ey-line"></div>
+      <div class="ey-text">Flint Performance</div>
+    </div>
+    <h1 class="hero-title">
+      <span class="t-white">THE</span>
+      <span class="t-cold">SPARK</span>
+      <span class="t-ember">IGNITES.</span>
+    </h1>
+    <p class="hero-sub">
+      Elite fitness coaching for <strong>driven professionals</strong>. Cold mornings. Locked schedules. No excuses. The fire starts here.
+    </p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-ember">View Programs</a>
+      <a href="#consults" class="btn-ghost">Book a Consult</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-lbl">Coaching Tiers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl">Custom Built</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1:1</div>
+      <div class="stat-lbl">Direct Coaching</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="lbl">Why Flint</div>
+    <h2 class="sec-title">DISCIPLINE<br>IS THE<br>SPARK.</h2>
+    <p class="sec-sub">Flint doesn't wait for perfect conditions. Neither do you. We build programs around your real life — your schedule, your demands, your goals — and we light the match.</p>
+    <div class="feat-grid">
+      <div class="feat"><div class="feat-icon">⚡</div><div class="feat-name">Time-Smart</div><div class="feat-desc">Built for real schedules. Not the ones you wish you had.</div></div>
+      <div class="feat"><div class="feat-icon">🎯</div><div class="feat-name">Purposeful</div><div class="feat-desc">Every rep, every session has a reason. Zero junk volume.</div></div>
+      <div class="feat"><div class="feat-icon">📈</div><div class="feat-name">Tracked</div><div class="feat-desc">Progress monitored, plans adjusted, momentum maintained.</div></div>
+      <div class="feat"><div class="feat-icon">🤝</div><div class="feat-name">Accountable</div><div class="feat-desc">Your coach is as invested in your results as you are.</div></div>
+    </div>
+  </div>
+  <div class="manifesto">
+    <div class="manifesto-spark">Flint Philosophy</div>
+    <div class="manifesto-quote">Cold. Hard. <em>Unigniteable</em> — until it's not.</div>
+    <div class="manifesto-body">
+      Most people wait for motivation. Our clients create it. The gap between where you are and where you want to be doesn't close on its own — it closes when you strike the stone and commit to the fire.
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-top">
+    <div>
+      <div class="lbl">Coaching Programs</div>
+      <h2 class="sec-title">CHOOSE<br>YOUR<br>LEVEL</h2>
+    </div>
+    <div class="billing-wrap">
+      <div class="billing-note">Save up to 15% with longer commitments</div>
+      <div class="billing-toggle">
+        <button class="active" onclick="setBilling('monthly',this)">Monthly</button>
+        <button onclick="setBilling('3mo',this)">3 Mo <span class="badge">5%</span></button>
+        <button onclick="setBilling('6mo',this)">6 Mo <span class="badge">10%</span></button>
+        <button onclick="setBilling('12mo',this)">12 Mo <span class="badge">15%</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-level">Level I</div>
+      <div class="plan-name">Foundation</div>
+      <div class="plan-tagline">Strike the match.</div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="249">249</span></div>
+      <div class="plan-period">per month</div>
+      <div class="plan-savings" id="sv1"></div>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><span class="ck">✓</span> Custom workout plan built around your schedule & goals</li>
+        <li><span class="ck">✓</span> Monthly 1:1 check-in call with your coach</li>
+        <li><span class="ck">✓</span> Nutrition guidance & foundational eating strategy</li>
+        <li><span class="ck">✓</span> Ongoing plan adjustments as you progress</li>
+      </ul>
+      <a href="flint-intake-form.html" class="plan-btn btn-col">Get Started</a>
+    </div>
+
+    <div class="plan featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-level">Level II</div>
+      <div class="plan-name">Momentum</div>
+      <div class="plan-tagline">Fan the flame.</div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="329">329</span></div>
+      <div class="plan-period">per month</div>
+      <div class="plan-savings" id="sv2"></div>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><span class="ck">✓</span> Everything in Level I</li>
+        <li><span class="ck">✓</span> Bi-weekly check-in calls (2x / month)</li>
+        <li><span class="ck">✓</span> Enhanced nutrition strategy & meal timing</li>
+        <li><span class="ck">✓</span> Program rebuilt every 4–6 weeks</li>
+        <li><span class="ck">✓</span> Email support between sessions</li>
+      </ul>
+      <a href="flint-intake-form.html" class="plan-btn btn-fem">Get Started</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-level">Level III</div>
+      <div class="plan-name">Peak</div>
+      <div class="plan-tagline">Become the fire.</div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="399">399</span></div>
+      <div class="plan-period">per month</div>
+      <div class="plan-savings" id="sv3"></div>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><span class="ck">✓</span> Everything in Level II</li>
+        <li><span class="ck">✓</span> Weekly 1:1 check-in calls</li>
+        <li><span class="ck">✓</span> Fully custom meal plan</li>
+        <li><span class="ck">✓</span> Unlimited messaging with your coach</li>
+        <li><span class="ck">✓</span> Priority scheduling for all consults</li>
+        <li><span class="ck">✓</span> 24–48hr response guarantee</li>
+      </ul>
+      <a href="plan-checkout.html?plan=3" class="plan-btn btn-col">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTS -->
+<section class="consults" id="consults">
+  <div class="lbl">Phone Consultations</div>
+  <h2 class="sec-title">NOT SURE<br>WHERE TO<br>START?</h2>
+  <p class="sec-sub">Book a private call. One conversation is all it takes to get clarity on your goals and find the right path forward.</p>
+  <div class="consult-grid">
+    <div class="consult">
+      <div class="consult-mins">30<span>min</span></div>
+      <div class="consult-name">Discovery Call</div>
+      <p class="consult-desc">Focused and direct. We assess your goals, your lifestyle, and where you are right now — then tell you exactly what you need.</p>
+      <div class="consult-price">$75 <span>/ session</span></div>
+      <ul class="consult-inc">
+        <li>Goal assessment & priority setting</li>
+        <li>Training history review</li>
+        <li>Program recommendation</li>
+        <li>Q&A with your coach</li>
+      </ul>
+      <a href="book-consult.html?session=30" class="plan-btn btn-col">Book Now</a>
+    </div>
+    <div class="consult">
+      <div class="consult-mins">60<span>min</span></div>
+      <div class="consult-name">Deep Dive</div>
+      <p class="consult-desc">A full hour. We cover your entire history, your lifestyle demands, your nutrition, and build a complete roadmap — start to finish.</p>
+      <div class="consult-price">$135 <span>/ session</span></div>
+      <ul class="consult-inc">
+        <li>Full lifestyle & schedule audit</li>
+        <li>Nutrition & recovery baseline</li>
+        <li>Custom roadmap to your goals</li>
+        <li>No stone unturned</li>
+      </ul>
+      <a href="book-consult.html?session=60" class="plan-btn btn-fem">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="lbl">FAQ</div>
+  <h2 class="sec-title">COMMON<br>QUESTIONS</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">How does the coaching work?</div><div class="faq-a">After signing up you complete an onboarding intake form covering your goals, schedule, training history, and lifestyle. Your coach builds your custom plan and you're rolling within a few days.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I switch levels later?</div><div class="faq-a">Yes. Upgrade or downgrade at the end of any billing period. We want you in the tier that actually fits your life — not locked into something that doesn't serve you.</div></div>
+    <div class="faq-item"><div class="faq-q">What equipment do I need?</div><div class="faq-a">Whatever you have access to. Full gym, home setup, or minimal equipment — your plan is built around your actual situation, not an idealized one.</div></div>
+    <div class="faq-item"><div class="faq-q">How much time do I need per week?</div><div class="faq-a">As little as 3 hours a week can produce serious results. Programs are built around your availability — not the other way around.</div></div>
+    <div class="faq-item"><div class="faq-q">What if I travel a lot for work?</div><div class="faq-a">We plan for it. Your program includes travel-friendly alternatives so you never fall off — hotel gym, airport layover, or nothing but a hallway.</div></div>
+    <div class="faq-item"><div class="faq-q">How do the multi-month discounts work?</div><div class="faq-a">Choose a 3, 6, or 12-month commitment at checkout and the discount applies automatically — up to 15% off on the annual plan.</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec" id="start">
+  <h2 class="sec-title">STRIKE<br>THE STONE.</h2>
+  <div class="cta-tagline">The fire doesn't start itself.</div>
+  <a href="plan-checkout.html" class="btn-white">Get Started Today</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  // Hamburger
+  const hb = document.getElementById('hamburger');
+  const mm = document.getElementById('mobileMenu');
+  hb.addEventListener('click', () => {
+    hb.classList.toggle('open');
+    mm.classList.toggle('open');
+    document.body.style.overflow = mm.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMenu() {
+    hb.classList.remove('open');
+    mm.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Pricing toggle
+  const bases = {1:249, 2:329, 3:399};
+  const discs = {monthly:0, '3mo':0.05, '6mo':0.10, '12mo':0.15};
+  function setBilling(p, btn) {
+    document.querySelectorAll('.billing-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const d = discs[p];
+    document.querySelectorAll('.pv').forEach((el, i) => {
+      el.textContent = Math.round(bases[i+1] * (1-d));
+    });
+    for (let i=1; i<=3; i++) {
+      const el = document.getElementById('sv'+i);
+      el.textContent = d > 0 ? `Save $${Math.round(bases[i]*d)}/mo` : '';
+    }
+  }
+</script>
+</body>
+</html>

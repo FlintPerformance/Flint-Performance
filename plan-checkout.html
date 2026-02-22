@@ -77,6 +77,9 @@
     font-size:9px; font-weight:700; letter-spacing:0.16em;
     text-transform:uppercase; padding:4px 10px;
   }
+  .plan-card-savings { font-size:11px; color:var(--cold); margin-top:4px; min-height:14px; }
+  .billing-upfront-note { font-size:12px; color:var(--cold); font-style:italic; margin-top:10px; display:none; }
+  .billing-upfront-note.visible { display:block; }
 
   /* BILLING TOGGLE */
   .billing-section { margin-bottom:36px; }
@@ -245,6 +248,7 @@
             <div class="plan-price-wrap">
               <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-1">249</span></div>
               <div class="plan-mo">per month</div>
+              <div class="plan-card-savings" id="cs-1"></div>
             </div>
             <div class="plan-divider"></div>
             <ul class="plan-feats">
@@ -265,6 +269,7 @@
             <div class="plan-price-wrap">
               <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-2">349</span></div>
               <div class="plan-mo">per month</div>
+              <div class="plan-card-savings" id="cs-2"></div>
             </div>
             <div class="plan-divider"></div>
             <ul class="plan-feats">
@@ -284,6 +289,7 @@
             <div class="plan-price-wrap">
               <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-3">449</span></div>
               <div class="plan-mo">per month</div>
+              <div class="plan-card-savings" id="cs-3"></div>
             </div>
             <div class="plan-divider"></div>
             <ul class="plan-feats">
@@ -296,31 +302,19 @@
         </div>
       </div>
 
-      <!-- BILLING CYCLE -->
+      <!-- COMMITMENT LENGTH -->
       <div class="billing-section">
-        <div class="billing-label">Billing Cycle</div>
+        <div class="billing-label">Commitment Length</div>
         <div class="billing-toggle">
           <button class="active" onclick="setBilling('monthly',this)">Monthly</button>
           <button onclick="setBilling('3mo',this)">3 Mo <span class="badge">5% OFF</span></button>
           <button onclick="setBilling('6mo',this)">6 Mo <span class="badge">10% OFF</span></button>
           <button onclick="setBilling('12mo',this)">12 Mo <span class="badge">15% OFF</span></button>
         </div>
+        <div class="billing-upfront-note" id="billing-note">Multi-month plans are billed in full upfront at the discounted rate.</div>
       </div>
 
-      <!-- BILLING INFO -->
-      <div class="form-section">
-        <div class="section-label">Your Info</div>
-        <div class="field-group">
-          <div class="field" id="f-fname"><label>First Name <span class="req">*</span></label><input type="text" id="fname" placeholder="Alex" autocomplete="given-name"/><div class="err-msg">Required.</div></div>
-          <div class="field" id="f-lname"><label>Last Name <span class="req">*</span></label><input type="text" id="lname" placeholder="Johnson" autocomplete="family-name"/><div class="err-msg">Required.</div></div>
-        </div>
-        <div class="field-group full">
-          <div class="field" id="f-email"><label>Email Address <span class="req">*</span></label><input type="email" id="email" placeholder="alex@email.com" autocomplete="email" inputmode="email"/><div class="err-msg">Please enter a valid email.</div></div>
-        </div>
-      </div>
-
-      <!-- ORDER SUMMARY + PAYMENT -->
-      <div class="form-divider"></div>
+      <!-- ORDER SUMMARY -->
       <div class="form-section">
         <div class="section-label">Order Summary</div>
         <div class="order-summary">
@@ -329,7 +323,7 @@
             <span class="order-val" id="sum-plan">Level II — Ember</span>
           </div>
           <div class="order-row">
-            <span class="order-key">Billing cycle</span>
+            <span class="order-key">Commitment</span>
             <span class="order-val" id="sum-cycle">Monthly</span>
           </div>
           <div class="order-row" id="sum-savings-row" style="display:none;">
@@ -343,6 +337,21 @@
         </div>
       </div>
 
+      <div class="form-divider"></div>
+
+      <!-- YOUR INFO -->
+      <div class="form-section">
+        <div class="section-label">Your Info</div>
+        <div class="field-group">
+          <div class="field" id="f-fname"><label>First Name <span class="req">*</span></label><input type="text" id="fname" placeholder="Alex" autocomplete="given-name"/><div class="err-msg">Required.</div></div>
+          <div class="field" id="f-lname"><label>Last Name <span class="req">*</span></label><input type="text" id="lname" placeholder="Johnson" autocomplete="family-name"/><div class="err-msg">Required.</div></div>
+        </div>
+        <div class="field-group full">
+          <div class="field" id="f-email"><label>Email Address <span class="req">*</span></label><input type="email" id="email" placeholder="alex@email.com" autocomplete="email" inputmode="email"/><div class="err-msg">Please enter a valid email.</div></div>
+        </div>
+      </div>
+
+      <!-- CARD DETAILS -->
       <div class="form-section">
         <div class="section-label">Card Details</div>
         <div class="field-group full">
@@ -457,21 +466,33 @@
   }
 
   function updateSummary() {
-    const monthly = getMonthlyRate(currentPlan, currentCycle);
-    const total   = getTotalPrice(currentPlan, currentCycle);
-    const m       = moCount[currentCycle];
-    const disc    = discounts[currentCycle];
+    const total      = getTotalPrice(currentPlan, currentCycle);
+    const m          = moCount[currentCycle];
+    const disc       = discounts[currentCycle];
     const totalSaved = Math.round(bases[currentPlan] * m * disc);
 
-    // Update plan card price displays (show effective monthly rate)
+    // Update plan card price displays and per-month labels
     for (let i = 1; i <= 3; i++) {
       document.getElementById('pp-' + i).textContent = getMonthlyRate(i, currentCycle);
     }
-
-    // Update per-month labels on plan cards
     document.querySelectorAll('.plan-mo').forEach(el => {
       el.textContent = currentCycle === 'monthly' ? 'per month' : 'per month (avg)';
     });
+
+    // Per-card savings lines (same format as homepage)
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById('cs-' + i);
+      if (disc > 0) {
+        const upfront = Math.round(bases[i] * m * (1 - disc));
+        const saved   = Math.round(bases[i] * m * disc);
+        el.textContent = `$${upfront} billed upfront \u00b7 save $${saved} total`;
+      } else {
+        el.textContent = '';
+      }
+    }
+
+    // Show/hide upfront note below toggle
+    document.getElementById('billing-note').classList.toggle('visible', currentCycle !== 'monthly');
 
     document.getElementById('sum-plan').textContent = planNames[currentPlan];
     document.getElementById('sum-cycle').textContent = cycleLabels[currentCycle];
@@ -482,7 +503,7 @@
     if (disc > 0) {
       savRow.style.display = 'flex';
       document.getElementById('sum-savings').textContent =
-        `$${monthly}/mo \u00d7 ${m} months \u00b7 save $${totalSaved} total (${Math.round(disc * 100)}% off)`;
+        `$${total} billed upfront \u00b7 save $${totalSaved} total`;
     } else {
       savRow.style.display = 'none';
     }

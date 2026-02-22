@@ -240,8 +240,8 @@
             <input type="radio" name="plan" value="1">
             <div class="plan-check">✓</div>
             <div class="plan-level">Level I</div>
-            <div class="plan-name">Foundation</div>
-            <div class="plan-tagline">Strike the match.</div>
+            <div class="plan-name">Spark</div>
+            <div class="plan-tagline">Strike the steel.</div>
             <div class="plan-price-wrap">
               <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-1">249</span></div>
               <div class="plan-mo">per month</div>
@@ -260,10 +260,10 @@
             <div class="plan-badge-tag">Popular</div>
             <div class="plan-check">✓</div>
             <div class="plan-level">Level II</div>
-            <div class="plan-name">Momentum</div>
+            <div class="plan-name">Ember</div>
             <div class="plan-tagline">Fan the flame.</div>
             <div class="plan-price-wrap">
-              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-2">329</span></div>
+              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-2">349</span></div>
               <div class="plan-mo">per month</div>
             </div>
             <div class="plan-divider"></div>
@@ -279,10 +279,10 @@
             <input type="radio" name="plan" value="3">
             <div class="plan-check">✓</div>
             <div class="plan-level">Level III</div>
-            <div class="plan-name">Peak</div>
+            <div class="plan-name">Flame</div>
             <div class="plan-tagline">Become the fire.</div>
             <div class="plan-price-wrap">
-              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-3">399</span></div>
+              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-3">449</span></div>
               <div class="plan-mo">per month</div>
             </div>
             <div class="plan-divider"></div>
@@ -326,7 +326,7 @@
         <div class="order-summary">
           <div class="order-row">
             <span class="order-key">Plan</span>
-            <span class="order-val" id="sum-plan">Level II — Momentum</span>
+            <span class="order-val" id="sum-plan">Level II — Ember</span>
           </div>
           <div class="order-row">
             <span class="order-key">Billing cycle</span>
@@ -338,7 +338,7 @@
           </div>
           <div class="order-row">
             <span class="order-total-key">Due Today</span>
-            <span class="order-total-val" id="sum-total">$329</span>
+            <span class="order-total-val" id="sum-total">$349</span>
           </div>
         </div>
       </div>
@@ -356,7 +356,7 @@
 
       <div class="stripe-error" id="stripe-error"></div>
       <button class="btn-submit" id="pay-btn" onclick="handlePayment()">
-        <span id="pay-btn-text">Pay $329 Upfront & Continue</span>
+        <span id="pay-btn-text">Pay $349 Upfront & Continue</span>
       </button>
       <div class="secure-note">🔒 Payments secured by Stripe. You'll complete your intake form next.</div>
     </div>
@@ -370,9 +370,9 @@
       </div>
 
       <div class="confirm-details" id="confirm-details">
-        <div class="confirm-row"><span class="ck">Plan</span><span class="cv" id="cd-plan">Level II — Momentum</span></div>
+        <div class="confirm-row"><span class="ck">Plan</span><span class="cv" id="cd-plan">Level II — Ember</span></div>
         <div class="confirm-row"><span class="ck">Billing</span><span class="cv" id="cd-cycle">Monthly</span></div>
-        <div class="confirm-row"><span class="ck">Charged</span><span class="cv" id="cd-total">$329</span></div>
+        <div class="confirm-row"><span class="ck">Charged</span><span class="cv" id="cd-total">$349</span></div>
         <div class="confirm-row"><span class="ck">Email</span><span class="cv" id="cd-email">—</span></div>
       </div>
 
@@ -432,8 +432,8 @@
     else { el.style.display = 'none'; }
   });
 
-  const bases = { 1: 249, 2: 329, 3: 399 };
-  const planNames = { 1: 'Level I — Foundation', 2: 'Level II — Momentum', 3: 'Level III — Peak' };
+  const bases = { 1: 249, 2: 349, 3: 449 };
+  const planNames = { 1: 'Level I — Spark', 2: 'Level II — Ember', 3: 'Level III — Flame' };
   const discounts = { monthly: 0, '3mo': 0.05, '6mo': 0.10, '12mo': 0.15 };
   const moCount   = { monthly: 1, '3mo': 3, '6mo': 6, '12mo': 12 };
   const cycleLabels = {

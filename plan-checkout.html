@@ -356,7 +356,7 @@
 
       <div class="stripe-error" id="stripe-error"></div>
       <button class="btn-submit" id="pay-btn" onclick="handlePayment()">
-        <span id="pay-btn-text">Pay $329 & Continue</span>
+        <span id="pay-btn-text">Pay $329 Upfront & Continue</span>
       </button>
       <div class="secure-note">🔒 Payments secured by Stripe. You'll complete your intake form next.</div>
     </div>
@@ -435,34 +435,54 @@
   const bases = { 1: 249, 2: 329, 3: 399 };
   const planNames = { 1: 'Level I — Foundation', 2: 'Level II — Momentum', 3: 'Level III — Peak' };
   const discounts = { monthly: 0, '3mo': 0.05, '6mo': 0.10, '12mo': 0.15 };
-  const cycleLabels = { monthly: 'Monthly', '3mo': '3-Month', '6mo': '6-Month', '12mo': '12-Month (Annual)' };
+  const moCount   = { monthly: 1, '3mo': 3, '6mo': 6, '12mo': 12 };
+  const cycleLabels = {
+    monthly: 'Monthly',
+    '3mo':   '3 Months — billed upfront',
+    '6mo':   '6 Months — billed upfront',
+    '12mo':  '12 Months — billed upfront'
+  };
 
   let currentPlan = 2;
   let currentCycle = 'monthly';
 
-  function getPrice(plan, cycle) {
+  // Effective monthly rate shown on plan cards
+  function getMonthlyRate(plan, cycle) {
     return Math.round(bases[plan] * (1 - discounts[cycle]));
   }
 
-  function updateSummary() {
-    const price = getPrice(currentPlan, currentCycle);
-    const savings = Math.round(bases[currentPlan] * discounts[currentCycle]);
-    const disc = discounts[currentCycle];
+  // Actual charge: full term paid upfront
+  function getTotalPrice(plan, cycle) {
+    return Math.round(bases[plan] * moCount[cycle] * (1 - discounts[cycle]));
+  }
 
-    // Update plan price displays
+  function updateSummary() {
+    const monthly = getMonthlyRate(currentPlan, currentCycle);
+    const total   = getTotalPrice(currentPlan, currentCycle);
+    const m       = moCount[currentCycle];
+    const disc    = discounts[currentCycle];
+    const totalSaved = Math.round(bases[currentPlan] * m * disc);
+
+    // Update plan card price displays (show effective monthly rate)
     for (let i = 1; i <= 3; i++) {
-      document.getElementById('pp-' + i).textContent = getPrice(i, currentCycle);
+      document.getElementById('pp-' + i).textContent = getMonthlyRate(i, currentCycle);
     }
+
+    // Update per-month labels on plan cards
+    document.querySelectorAll('.plan-mo').forEach(el => {
+      el.textContent = currentCycle === 'monthly' ? 'per month' : 'per month (avg)';
+    });
 
     document.getElementById('sum-plan').textContent = planNames[currentPlan];
     document.getElementById('sum-cycle').textContent = cycleLabels[currentCycle];
-    document.getElementById('sum-total').textContent = '$' + price;
-    document.getElementById('pay-btn-text').textContent = `Pay $${price} & Continue`;
+    document.getElementById('sum-total').textContent = '$' + total;
+    document.getElementById('pay-btn-text').textContent = `Pay $${total} Upfront & Continue`;
 
     const savRow = document.getElementById('sum-savings-row');
     if (disc > 0) {
       savRow.style.display = 'flex';
-      document.getElementById('sum-savings').textContent = `Save $${savings}/mo (${Math.round(disc * 100)}% off)`;
+      document.getElementById('sum-savings').textContent =
+        `$${monthly}/mo \u00d7 ${m} months \u00b7 save $${totalSaved} total (${Math.round(disc * 100)}% off)`;
     } else {
       savRow.style.display = 'none';
     }
@@ -519,7 +539,7 @@
       errEl.textContent = error.message;
       errEl.style.display = 'block';
       btn.disabled = false;
-      btnText.textContent = `Pay $${getPrice(currentPlan, currentCycle)} & Continue`;
+      btnText.textContent = `Pay $${getTotalPrice(currentPlan, currentCycle)} Upfront & Continue`;
       return;
     }
 
@@ -531,7 +551,7 @@
   }
 
   function showConfirmation() {
-    const price = getPrice(currentPlan, currentCycle);
+    const price = getTotalPrice(currentPlan, currentCycle);
     document.getElementById('cd-plan').textContent = planNames[currentPlan];
     document.getElementById('cd-cycle').textContent = cycleLabels[currentCycle];
     document.getElementById('cd-total').textContent = '$' + price;

@@ -648,7 +648,7 @@
       <h2 class="sec-title">CHOOSE<br>YOUR<br>LEVEL</h2>
     </div>
     <div class="billing-wrap">
-      <div class="billing-note">Save up to 15% with longer commitments</div>
+      <div class="billing-note">Multi-month plans billed upfront &middot; save up to 15%</div>
       <div class="billing-toggle">
         <button class="active" onclick="setBilling('monthly',this)">Monthly</button>
         <button onclick="setBilling('3mo',this)">3 Mo <span class="badge">5%</span></button>
@@ -761,7 +761,7 @@
     <div class="faq-item"><div class="faq-q">What equipment do I need?</div><div class="faq-a">Whatever you have access to. Full gym, home setup, or minimal equipment — your plan is built around your actual situation, not an idealized one.</div></div>
     <div class="faq-item"><div class="faq-q">How much time do I need per week?</div><div class="faq-a">As little as 3 hours a week can produce serious results. Programs are built around your availability — not the other way around.</div></div>
     <div class="faq-item"><div class="faq-q">What if I travel a lot for work?</div><div class="faq-a">We plan for it. Your program includes travel-friendly alternatives so you never fall off — hotel gym, airport layover, or nothing but a hallway.</div></div>
-    <div class="faq-item"><div class="faq-q">How do the multi-month discounts work?</div><div class="faq-a">Choose a 3, 6, or 12-month commitment at checkout and the discount applies automatically — up to 15% off on the annual plan.</div></div>
+    <div class="faq-item"><div class="faq-q">How do the multi-month discounts work?</div><div class="faq-a">When you choose a 3, 6, or 12-month plan you pay the full term upfront in a single charge — that's why the rate is lower. The longer the commitment, the bigger the discount: 5% for 3 months, 10% for 6, 15% for 12. You can see the exact amount due before you enter any payment info.</div></div>
   </div>
 </section>
 
@@ -797,16 +797,30 @@
   // Pricing toggle
   const bases = {1:249, 2:329, 3:399};
   const discs = {monthly:0, '3mo':0.05, '6mo':0.10, '12mo':0.15};
+  const moCount = {monthly:1, '3mo':3, '6mo':6, '12mo':12};
   function setBilling(p, btn) {
     document.querySelectorAll('.billing-toggle button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const d = discs[p];
+    const m = moCount[p];
+    // Show effective monthly rate
     document.querySelectorAll('.pv').forEach((el, i) => {
       el.textContent = Math.round(bases[i+1] * (1-d));
     });
+    // Update period label
+    document.querySelectorAll('.plan-period').forEach(el => {
+      el.textContent = p === 'monthly' ? 'per month' : 'per month (avg)';
+    });
+    // Show total billed upfront + total savings
     for (let i=1; i<=3; i++) {
       const el = document.getElementById('sv'+i);
-      el.textContent = d > 0 ? `Save $${Math.round(bases[i]*d)}/mo` : '';
+      if (d > 0) {
+        const upfront = Math.round(bases[i] * m * (1-d));
+        const saved   = Math.round(bases[i] * m * d);
+        el.textContent = `$${upfront} billed upfront \u00b7 save $${saved} total`;
+      } else {
+        el.textContent = '';
+      }
     }
   }
 </script>

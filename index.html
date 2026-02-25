@@ -215,23 +215,6 @@
   /* ─── ABOUT ──────────────────────────────────── */
   .about { background:var(--gray); display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
 
-  .feat-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:48px; }
-  .feat {
-    background:var(--gray-mid); padding:28px; position:relative;
-    overflow:hidden; transition:background 0.25s;
-  }
-  .feat::before {
-    content:''; position:absolute; top:0; left:0; bottom:0;
-    width:2px; background:var(--ember);
-    transform:scaleY(0); transform-origin:bottom;
-    transition:transform 0.35s ease;
-  }
-  .feat:hover { background:var(--gray-up); }
-  .feat:hover::before { transform:scaleY(1); }
-  .feat-icon { font-size:24px; margin-bottom:14px; }
-  .feat-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.06em; margin-bottom:8px; }
-  .feat-desc { font-size:13px; color:var(--muted); line-height:1.7; }
-
   .manifesto {
     background:var(--gray-mid);
     border:1px solid rgba(240,74,14,0.12);
@@ -447,28 +430,16 @@
   .btn-fem { background:var(--ember); color:var(--white); box-shadow:0 0 30px rgba(240,74,14,0.25); }
   .btn-fem:hover { background:var(--ember-hot); box-shadow:0 0 50px rgba(240,74,14,0.35); }
 
-  /* ─── CONSULTS ───────────────────────────────── */
-  .consults { background:var(--gray); }
-  .consult-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:56px; }
-  .consult {
-    background:var(--gray-mid); padding:52px 48px;
-    position:relative; overflow:hidden;
-    transition:background 0.2s; display:flex; flex-direction:column;
-  }
-  .consult:hover { background:var(--gray-up); }
-  .consult-mins {
-    font-family:'Bebas Neue',sans-serif; font-size:96px; line-height:1;
-    letter-spacing:0.01em; color:var(--ember);
-    text-shadow:0 0 60px rgba(240,74,14,0.3);
-  }
-  .consult-mins span { font-size:32px; color:var(--muted); }
-  .consult-name { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; margin-bottom:16px; }
-  .consult-desc { font-size:14px; font-weight:300; color:var(--muted); line-height:1.8; margin-bottom:28px; }
-  .consult-price { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:0.03em; margin-bottom:28px; }
-  .consult-price span { font-family:'DM Sans',sans-serif; font-size:14px; color:var(--muted); font-weight:300; }
-  .consult-inc { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:36px; flex:1; }
-  .consult-inc li { display:flex; align-items:flex-start; gap:12px; font-size:13px; color:#888; line-height:1.5; }
-  .consult-inc li::before { content:'—'; color:var(--ember); flex-shrink:0; }
+  /* ─── CONSULT STRIP ──────────────────────────── */
+  .consult-strip { border-top:1px solid var(--border); margin-top:56px; padding-top:48px; display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap; }
+  .consult-strip-sub { font-size:14px; color:var(--muted); font-weight:300; line-height:1.6; max-width:320px; margin-top:8px; }
+  .consult-pills { display:flex; gap:12px; flex-wrap:wrap; }
+  .consult-pill { display:flex; align-items:center; gap:16px; padding:20px 28px; background:var(--gray-mid); border:1px solid var(--border); text-decoration:none; transition:border-color .2s, background .2s; }
+  .consult-pill:hover { border-color:var(--ember); background:var(--gray-up); }
+  .consult-pill-mins { font-family:'Bebas Neue',sans-serif; font-size:40px; line-height:1; letter-spacing:0.02em; color:var(--ember); }
+  .consult-pill-info { display:flex; flex-direction:column; gap:2px; }
+  .consult-pill-name { font-size:13px; font-weight:600; color:var(--white); }
+  .consult-pill-price { font-size:12px; color:var(--muted); font-weight:300; }
 
   /* ─── FAQ ────────────────────────────────────── */
   .faq { background:var(--black); }
@@ -550,7 +521,6 @@
     .challenge-inner { grid-template-columns:1fr; }
     .testi-grid { grid-template-columns:1fr; max-width:560px; margin:56px auto 0; }
     .plans { grid-template-columns:1fr; max-width:480px; margin:0 auto; }
-    .consult-grid { grid-template-columns:1fr; max-width:560px; margin:56px auto 0; }
     footer { padding:32px 40px; }
   }
 
@@ -579,7 +549,6 @@
 
     /* About */
     .about { padding:64px 20px; gap:48px; }
-    .feat-grid { grid-template-columns:1fr; gap:2px; margin-top:32px; }
     .manifesto { padding:32px 24px; }
     .manifesto-quote { font-size:clamp(22px,5vw,30px); }
 
@@ -610,13 +579,8 @@
     .plan-price { font-size:64px; }
     .plan-features li { font-size:13px; }
 
-    /* Consults */
-    .consults { padding:64px 20px; }
-    .consult-grid { margin-top:40px; }
-    .consult { padding:36px 24px; }
-    .consult-mins { font-size:72px; }
-    .consult-name { font-size:24px; }
-    .consult-desc, .consult-inc li { font-size:13px; }
+    /* Consult strip */
+    .consult-strip { flex-direction:column; align-items:flex-start; }
 
     /* FAQ */
     .faq { padding:64px 20px; }
@@ -638,7 +602,6 @@
   @media (max-width:390px) {
     .hero-title { font-size:clamp(56px,16vw,80px); }
     .plan-price { font-size:56px; }
-    .consult-mins { font-size:60px; }
   }
 </style>
 </head>
@@ -650,7 +613,6 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#pricing">Programs</a></li>
-    <li><a href="#consults">Consults</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="plan-checkout.html" class="nav-cta">Get Started</a></li>
   </ul>
@@ -663,7 +625,6 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="#pricing" onclick="closeMenu()">Programs</a>
-  <a href="#consults" onclick="closeMenu()">Consults</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
   <a href="plan-checkout.html" class="m-cta">Get Started</a>
 </div>
@@ -689,7 +650,7 @@
     </p>
     <div class="hero-actions">
       <a href="#pricing" class="btn-ember">View Programs</a>
-      <a href="#consults" class="btn-ghost">Book a Consult</a>
+      <a href="#pricing" class="btn-ghost">Book a Consult</a>
     </div>
   </div>
 
@@ -701,12 +662,6 @@
     <div class="lbl">Why Flint</div>
     <h2 class="sec-title">DISCIPLINE<br>IS THE<br>SPARK.</h2>
     <p class="sec-sub">Flint doesn't wait for perfect conditions. Neither do you. We build programs around your real life — your schedule, your demands, your goals — and we light the match.</p>
-    <div class="feat-grid">
-      <div class="feat"><div class="feat-icon">⚡</div><div class="feat-name">Time-Smart</div><div class="feat-desc">Built for real schedules. Not the ones you wish you had.</div></div>
-      <div class="feat"><div class="feat-icon">🎯</div><div class="feat-name">Purposeful</div><div class="feat-desc">Every rep, every session has a reason. Zero junk volume.</div></div>
-      <div class="feat"><div class="feat-icon">📈</div><div class="feat-name">Tracked</div><div class="feat-desc">Progress monitored, plans adjusted, momentum maintained.</div></div>
-      <div class="feat"><div class="feat-icon">🤝</div><div class="feat-name">Accountable</div><div class="feat-desc">Your coach is as invested in your results as you are.</div></div>
-    </div>
   </div>
   <div class="manifesto">
     <div class="manifesto-spark">Flint Philosophy</div>
@@ -857,6 +812,29 @@
       <a href="plan-checkout.html?plan=3" class="plan-btn btn-col">Get Started</a>
     </div>
   </div>
+
+  <div class="consult-strip">
+    <div>
+      <div class="lbl">Not sure which level?</div>
+      <p class="consult-strip-sub">Book a private call. One conversation is enough to find the right path forward.</p>
+    </div>
+    <div class="consult-pills">
+      <a href="book-consult.html?session=30" class="consult-pill">
+        <div class="consult-pill-mins">30<span style="font-size:18px;color:var(--muted)">min</span></div>
+        <div class="consult-pill-info">
+          <div class="consult-pill-name">Discovery Call</div>
+          <div class="consult-pill-price">$75 / session</div>
+        </div>
+      </a>
+      <a href="book-consult.html?session=60" class="consult-pill">
+        <div class="consult-pill-mins">60<span style="font-size:18px;color:var(--muted)">min</span></div>
+        <div class="consult-pill-info">
+          <div class="consult-pill-name">Deep Dive</div>
+          <div class="consult-pill-price">$135 / session</div>
+        </div>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- RESULTS -->
@@ -893,52 +871,15 @@
   </div>
 </section>
 
-<!-- CONSULTS -->
-<section class="consults" id="consults">
-  <div class="lbl">Phone Consultations</div>
-  <h2 class="sec-title">NOT SURE<br>WHERE TO<br>START?</h2>
-  <p class="sec-sub">Book a private call. One conversation is all it takes to get clarity on your goals and find the right path forward.</p>
-  <div class="consult-grid">
-    <div class="consult">
-      <div class="consult-mins">30<span>min</span></div>
-      <div class="consult-name">Discovery Call</div>
-      <p class="consult-desc">Focused and direct. We assess your goals, your lifestyle, and where you are right now — then tell you exactly what you need.</p>
-      <div class="consult-price">$75 <span>/ session</span></div>
-      <ul class="consult-inc">
-        <li>Goal assessment & priority setting</li>
-        <li>Training history review</li>
-        <li>Program recommendation</li>
-        <li>Q&A with your coach</li>
-      </ul>
-      <a href="book-consult.html?session=30" class="plan-btn btn-col">Book Now</a>
-    </div>
-    <div class="consult">
-      <div class="consult-mins">60<span>min</span></div>
-      <div class="consult-name">Deep Dive</div>
-      <p class="consult-desc">A full hour. We cover your entire history, your lifestyle demands, your nutrition, and build a complete roadmap — start to finish.</p>
-      <div class="consult-price">$135 <span>/ session</span></div>
-      <ul class="consult-inc">
-        <li>Full lifestyle & schedule audit</li>
-        <li>Nutrition & recovery baseline</li>
-        <li>Custom roadmap to your goals</li>
-        <li>No stone unturned</li>
-      </ul>
-      <a href="book-consult.html?session=60" class="plan-btn btn-fem">Book Now</a>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section class="faq" id="faq">
   <div class="lbl">FAQ</div>
   <h2 class="sec-title">COMMON<br>QUESTIONS</h2>
   <div class="faq-list">
     <div class="faq-item"><div class="faq-q">How does the coaching work?</div><div class="faq-a">After signing up you complete an onboarding intake form covering your goals, schedule, training history, and lifestyle. Your coach builds your custom plan and you're rolling within a few days.</div></div>
-    <div class="faq-item"><div class="faq-q">Can I switch levels later?</div><div class="faq-a">Yes. Upgrade or downgrade at the end of any billing period. We want you in the tier that actually fits your life — not locked into something that doesn't serve you.</div></div>
-    <div class="faq-item"><div class="faq-q">What equipment do I need?</div><div class="faq-a">Whatever you have access to. Full gym, home setup, or minimal equipment — your plan is built around your actual situation, not an idealized one.</div></div>
     <div class="faq-item"><div class="faq-q">How much time do I need per week?</div><div class="faq-a">As little as 3 hours a week can produce serious results. Programs are built around your availability — not the other way around.</div></div>
     <div class="faq-item"><div class="faq-q">What if I travel a lot for work?</div><div class="faq-a">We plan for it. Your program includes travel-friendly alternatives so you never fall off — hotel gym, airport layover, or nothing but a hallway.</div></div>
-    <div class="faq-item"><div class="faq-q">How do the multi-month discounts work?</div><div class="faq-a">When you choose a 3, 6, or 12-month plan you pay the full term upfront in a single charge — that's why the rate is lower. The longer the commitment, the bigger the discount: 5% for 3 months, 10% for 6, 15% for 12. You can see the exact amount due before you enter any payment info.</div></div>
+    <div class="faq-item"><div class="faq-q">What equipment do I need?</div><div class="faq-a">Whatever you have access to. Full gym, home setup, or minimal equipment — your plan is built around your actual situation, not an idealized one.</div></div>
   </div>
 </section>
 

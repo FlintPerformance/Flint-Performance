@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12-Week Ignition — Flint Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+    --focus:     rgba(240,74,14,0.45);
+    --error:     #ff4040;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+  nav { position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-back { font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--white); }
+
+  main { flex:1; display:flex; justify-content:center; padding:64px 24px 100px; }
+  .page-container { width:100%; max-width:760px; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom:48px; }
+  .eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .ey-line { width:36px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,9vw,80px); letter-spacing:0.02em; line-height:0.9; margin-bottom:14px; }
+  .page-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; }
+
+  /* IGNITION PROGRAM CARD */
+  .ignition-card {
+    background:var(--gray-mid); border:1px solid rgba(240,74,14,0.2);
+    border-radius:2px; padding:32px 36px; margin-bottom:36px;
+    position:relative; overflow:hidden;
+  }
+  .ignition-card::after {
+    content:''; position:absolute; bottom:-60px; right:-60px;
+    width:200px; height:200px; border-radius:50%;
+    background:radial-gradient(circle, rgba(240,74,14,0.1), transparent 70%);
+    pointer-events:none;
+  }
+  .ignition-tag {
+    font-size:10px; font-weight:600; letter-spacing:0.3em;
+    text-transform:uppercase; color:var(--ember); margin-bottom:6px;
+  }
+  .ignition-name {
+    font-family:'Bebas Neue',sans-serif; font-size:40px;
+    letter-spacing:0.04em; margin-bottom:4px;
+  }
+  .ignition-sub { font-size:13px; color:var(--muted); font-style:italic; margin-bottom:24px; }
+  .ignition-price-wrap { display:flex; align-items:baseline; gap:12px; margin-bottom:24px; }
+  .ignition-price {
+    font-family:'Bebas Neue',sans-serif; font-size:64px;
+    line-height:1; letter-spacing:0.02em;
+  }
+  .ignition-price .dl { font-size:28px; vertical-align:top; margin-top:10px; display:inline-block; color:var(--ember); }
+  .ignition-price-note { font-size:13px; color:var(--muted); }
+  .ignition-divider { height:1px; background:var(--border); margin-bottom:20px; }
+  .ignition-feats { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; }
+  .ignition-feats li { font-size:13px; color:#999; display:flex; gap:8px; line-height:1.5; }
+  .ignition-feats li::before { content:'✓'; color:var(--cold); flex-shrink:0; }
+
+  /* FORM */
+  .form-section { margin-bottom:28px; }
+  .section-label { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:0.08em; color:var(--ember); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .section-label::before { content:''; display:block; width:20px; height:1px; background:var(--ember); flex-shrink:0; }
+
+  .field-group { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .field-group.full { grid-template-columns:1fr; }
+  .field { display:flex; flex-direction:column; gap:8px; }
+  .field label { font-size:10px; font-weight:600; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); }
+  .field label .req { color:var(--ember); margin-left:2px; }
+  .field input {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; color:var(--white); font-family:'DM Sans',sans-serif;
+    font-size:15px; padding:14px 16px; width:100%;
+    transition:border-color 0.2s, box-shadow 0.2s; outline:none; -webkit-appearance:none;
+  }
+  .field input:focus { border-color:var(--focus); box-shadow:0 0 0 3px rgba(240,74,14,0.07); }
+  .field input.error { border-color:var(--error); }
+  .field input::placeholder { color:#2e2e2e; }
+  .field .err-msg { font-size:12px; color:var(--error); display:none; }
+  .field.has-error .err-msg { display:block; }
+
+  /* ORDER SUMMARY */
+  .form-divider { height:1px; background:var(--border); margin:28px 0; }
+  .order-summary {
+    background:var(--gray-mid); border:1px solid rgba(240,74,14,0.12);
+    border-radius:2px; padding:24px 28px; margin-bottom:20px;
+  }
+  .order-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+  .order-row:last-child { margin-bottom:0; padding-top:12px; border-top:1px solid var(--border); }
+  .order-key { font-size:13px; color:var(--muted); }
+  .order-val { font-size:13px; color:var(--white); font-weight:500; }
+  .order-total-key { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:0.06em; color:var(--white); }
+  .order-total-val { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:0.03em; color:var(--ember); }
+
+  /* STRIPE */
+  .stripe-field {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; padding:14px 16px;
+    transition:border-color 0.2s, box-shadow 0.2s;
+  }
+  .stripe-field.focused { border-color:var(--focus); box-shadow:0 0 0 3px rgba(240,74,14,0.07); }
+  .card-err { font-size:12px; color:var(--error); margin-top:6px; display:none; }
+
+  .stripe-error { font-size:13px; color:var(--error); margin-bottom:12px; display:none; }
+  .btn-submit {
+    width:100%; background:var(--ember); border:none; color:var(--white);
+    padding:18px; border-radius:2px; font-family:'DM Sans',sans-serif;
+    font-size:13px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+    cursor:pointer; transition:all 0.2s;
+    box-shadow:0 0 40px rgba(240,74,14,0.25);
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .btn-submit:hover { background:var(--ember-hot); }
+  .btn-submit:disabled { opacity:0.5; cursor:not-allowed; box-shadow:none; }
+  .secure-note { text-align:center; font-size:12px; color:var(--muted); margin-top:12px; display:flex; align-items:center; justify-content:center; gap:6px; }
+
+  /* CONFIRMATION SCREEN */
+  .confirm-screen { display:none; animation:fadeUp 0.5s ease; }
+  .confirm-screen.active { display:block; }
+  .confirm-hero { text-align:center; padding:60px 20px 48px; border-bottom:1px solid var(--border); margin-bottom:48px; }
+  .confirm-icon { width:80px; height:80px; border-radius:50%; border:1px solid var(--cold); background:rgba(184,204,218,0.06); display:flex; align-items:center; justify-content:center; margin:0 auto 28px; font-size:32px; }
+  .confirm-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,12vw,88px); letter-spacing:0.04em; line-height:0.88; margin-bottom:16px; }
+  .confirm-title .em { color:var(--ember); }
+  .confirm-sub { font-size:16px; font-weight:300; color:var(--muted); max-width:440px; margin:0 auto; line-height:1.8; }
+  .confirm-sub strong { color:var(--white); font-weight:500; }
+
+  .confirm-details {
+    background:var(--gray-mid); border:1px solid var(--border);
+    border-radius:2px; padding:32px; margin-bottom:32px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .confirm-row { display:flex; justify-content:space-between; align-items:baseline; font-size:14px; }
+  .confirm-row .ck { color:var(--muted); }
+  .confirm-row .cv { color:var(--white); font-weight:500; text-align:right; }
+
+  .confirm-next {
+    background:var(--gray); border:1px solid rgba(240,74,14,0.12);
+    border-radius:2px; padding:28px 32px; margin-bottom:28px;
+  }
+  .confirm-next h3 { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:0.05em; margin-bottom:16px; }
+  .confirm-next ol { list-style:none; display:flex; flex-direction:column; gap:12px; counter-reset:steps; }
+  .confirm-next ol li { display:flex; gap:16px; align-items:flex-start; font-size:14px; color:#999; line-height:1.6; counter-increment:steps; }
+  .confirm-next ol li::before { content:counter(steps); font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--ember); flex-shrink:0; width:20px; }
+
+  .btn-intake {
+    display:block; text-align:center; width:100%;
+    background:var(--ember); color:var(--white); padding:18px;
+    border-radius:2px; font-family:'DM Sans',sans-serif;
+    font-size:13px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+    text-decoration:none; transition:background 0.2s;
+    box-shadow:0 0 40px rgba(240,74,14,0.25);
+  }
+  .btn-intake:hover { background:var(--ember-hot); }
+  .intake-note { text-align:center; font-size:12px; color:var(--muted); margin-top:10px; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+  /* FOOTER */
+  footer { background:#040404; padding:36px 64px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); flex-wrap:wrap; gap:12px; margin-top:auto; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; letter-spacing:0.06em; }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--ember); }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    main { padding:40px 16px 80px; }
+    .page-title { font-size:clamp(44px,12vw,64px); }
+    .ignition-feats { grid-template-columns:1fr; }
+    .field-group { grid-template-columns:1fr; }
+    .order-row { flex-direction:column; gap:2px; }
+    .order-val, .order-total-val { text-align:left; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<main>
+  <div class="page-container">
+
+    <!-- CHECKOUT VIEW -->
+    <div id="checkout-view">
+      <div class="page-header">
+        <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">12-Week Ignition Program</div></div>
+        <h1 class="page-title">YOUR PLAN.<br>YOUR PACE.</h1>
+        <p class="page-desc">A complete workout plan and nutrition guidance delivered upfront, with a check-in every four weeks to keep you on track. Structure without the full 1:1 commitment.</p>
+      </div>
+
+      <!-- WHAT'S INCLUDED -->
+      <div class="ignition-card">
+        <div class="ignition-tag">Limited Enrollment &mdash; 15 Spots Per Round</div>
+        <div class="ignition-name">The Ignition</div>
+        <div class="ignition-sub">12 weeks of structured, self-directed coaching.</div>
+        <div class="ignition-price-wrap">
+          <div class="ignition-price"><span class="dl">$</span>349</div>
+          <div class="ignition-price-note">flat program fee &mdash; one charge, 12 weeks</div>
+        </div>
+        <div class="ignition-divider"></div>
+        <ul class="ignition-feats">
+          <li>Custom 12-week workout plan</li>
+          <li>Nutrition &amp; food guidance</li>
+          <li>Check-in call every 4 weeks (3 total)</li>
+          <li>Coaching notes after each check-in</li>
+          <li>Built around your schedule &amp; equipment</li>
+          <li>Clear structure from day one</li>
+        </ul>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="form-section">
+        <div class="section-label">Order Summary</div>
+        <div class="order-summary">
+          <div class="order-row">
+            <span class="order-key">Program</span>
+            <span class="order-val">12-Week Ignition</span>
+          </div>
+          <div class="order-row">
+            <span class="order-key">Duration</span>
+            <span class="order-val">12 Weeks</span>
+          </div>
+          <div class="order-row">
+            <span class="order-key">Check-ins</span>
+            <span class="order-val">Every 4 weeks (3 total)</span>
+          </div>
+          <div class="order-row">
+            <span class="order-total-key">Due Today</span>
+            <span class="order-total-val">$349</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- YOUR INFO -->
+      <div class="form-section">
+        <div class="section-label">Your Info</div>
+        <div class="field-group">
+          <div class="field" id="f-fname"><label>First Name <span class="req">*</span></label><input type="text" id="fname" placeholder="Alex" autocomplete="given-name"/><div class="err-msg">Required.</div></div>
+          <div class="field" id="f-lname"><label>Last Name <span class="req">*</span></label><input type="text" id="lname" placeholder="Johnson" autocomplete="family-name"/><div class="err-msg">Required.</div></div>
+        </div>
+        <div class="field-group full">
+          <div class="field" id="f-email"><label>Email Address <span class="req">*</span></label><input type="email" id="email" placeholder="alex@email.com" autocomplete="email" inputmode="email"/><div class="err-msg">Please enter a valid email.</div></div>
+        </div>
+      </div>
+
+      <!-- CARD DETAILS -->
+      <div class="form-section">
+        <div class="section-label">Card Details</div>
+        <div class="field-group full">
+          <div class="field">
+            <label>Payment <span class="req">*</span></label>
+            <div class="stripe-field" id="card-element"></div>
+            <div class="card-err" id="card-errors"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stripe-error" id="stripe-error"></div>
+      <button class="btn-submit" id="pay-btn" onclick="handlePayment()">
+        <span id="pay-btn-text">Pay $349 &amp; Claim Your Spot</span>
+      </button>
+      <div class="secure-note">🔒 Payments secured by Stripe. You'll complete your intake form next.</div>
+    </div>
+
+    <!-- CONFIRMATION VIEW -->
+    <div class="confirm-screen" id="confirm-view">
+      <div class="confirm-hero">
+        <div class="confirm-icon">✓</div>
+        <h2 class="confirm-title">YOU'RE<br><span class="em">IGNITED.</span></h2>
+        <p class="confirm-sub">Your spot is secured. Fill out your intake form so your coach can build your plan and get everything ready before day one.</p>
+      </div>
+
+      <div class="confirm-details">
+        <div class="confirm-row"><span class="ck">Program</span><span class="cv">12-Week Ignition</span></div>
+        <div class="confirm-row"><span class="ck">Charged</span><span class="cv">$349</span></div>
+        <div class="confirm-row"><span class="ck">Email</span><span class="cv" id="cd-email">—</span></div>
+      </div>
+
+      <div class="confirm-next">
+        <h3>What Happens Next</h3>
+        <ol>
+          <li>Complete your intake form — your coach needs your goals, schedule, and training history to build your plan</li>
+          <li>Your custom 12-week workout plan and nutrition guidance are delivered within 48 hours</li>
+          <li>Your first check-in call is scheduled at week 4 — stay the course until then</li>
+        </ol>
+      </div>
+
+      <a href="flint-intake-form.html" class="btn-intake">Complete Your Intake Form →</a>
+      <div class="intake-note">Takes about 5 minutes. Don't skip it — this is how your plan gets built.</div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  const STRIPE_KEY = 'pk_test_51RlkLuG7pdJAKoNhPdqEKz4KTrzFAAQHE1MydINGhyIU54WYfeKxd7SnzhEfgtYBPS47r6wwcRnIkAAiwfen1JWV00nfViGdKG';
+  const stripe = Stripe(STRIPE_KEY);
+  const elements = stripe.elements({
+    appearance: {
+      theme: 'night',
+      variables: {
+        colorPrimary: '#f04a0e',
+        colorBackground: '#161616',
+        colorText: '#ede8df',
+        colorDanger: '#ff4040',
+        fontFamily: 'DM Sans, sans-serif',
+        borderRadius: '2px',
+      }
+    }
+  });
+
+  const cardElement = elements.create('card', {
+    style: {
+      base: {
+        color: '#ede8df', fontFamily: 'DM Sans, sans-serif',
+        fontSize: '15px', fontWeight: '300',
+        '::placeholder': { color: '#2e2e2e' }
+      },
+      invalid: { color: '#ff4040' }
+    }
+  });
+  cardElement.mount('#card-element');
+  cardElement.on('change', e => {
+    const el = document.getElementById('card-errors');
+    if (e.error) { el.textContent = e.error.message; el.style.display = 'block'; }
+    else { el.style.display = 'none'; }
+  });
+
+  function req(id) {
+    const el = document.getElementById(id), w = el.closest('.field');
+    if (!el.value.trim()) { w.classList.add('has-error'); el.classList.add('error'); return false; }
+    w.classList.remove('has-error'); el.classList.remove('error'); return true;
+  }
+  function reqEmail(id) {
+    const el = document.getElementById(id), w = el.closest('.field');
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+    if (!ok) { w.classList.add('has-error'); el.classList.add('error'); return false; }
+    w.classList.remove('has-error'); el.classList.remove('error'); return true;
+  }
+
+  async function handlePayment() {
+    const valid = req('fname') & req('lname') & reqEmail('email');
+    if (!valid) return;
+
+    const btn = document.getElementById('pay-btn');
+    const btnText = document.getElementById('pay-btn-text');
+    const errEl = document.getElementById('stripe-error');
+    btn.disabled = true;
+    btnText.textContent = 'Processing...';
+    errEl.style.display = 'none';
+
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+      billing_details: {
+        name: document.getElementById('fname').value + ' ' + document.getElementById('lname').value,
+        email: document.getElementById('email').value,
+      }
+    });
+
+    if (error) {
+      errEl.textContent = error.message;
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btnText.textContent = 'Pay $349 & Claim Your Spot';
+      return;
+    }
+
+    // NOTE: In production, send paymentMethod.id + amount ($349 = 34900 cents) + program
+    // to your backend to create and confirm a PaymentIntent server-side.
+    // See: https://stripe.com/docs/payments/accept-a-payment
+
+    document.getElementById('cd-email').textContent = document.getElementById('email').value;
+    document.getElementById('checkout-view').style.display = 'none';
+    const cv = document.getElementById('confirm-view');
+    cv.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

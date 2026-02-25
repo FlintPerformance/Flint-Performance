@@ -330,6 +330,35 @@
     color:var(--cold); border:1px solid rgba(184,204,218,0.2); padding:5px 10px; border-radius:2px;
   }
 
+  /* ─── CHALLENGE ─────────────────────────────── */
+  .challenge { background:var(--gray); border-top:2px solid var(--ember); }
+  .challenge-inner { display:grid; grid-template-columns:1fr 360px; gap:64px; align-items:start; margin-top:56px; }
+  .challenge-feats { list-style:none; display:flex; flex-direction:column; gap:12px; margin:28px 0 0; }
+  .challenge-feats li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:#bbb; line-height:1.5; }
+  .challenge-feats li .ck { color:var(--cold); flex-shrink:0; }
+  .spot-card {
+    background:var(--gray-mid); border:1px solid rgba(240,74,14,0.25);
+    border-radius:2px; padding:36px 32px;
+  }
+  .spot-num {
+    font-family:'Bebas Neue',sans-serif; font-size:100px; line-height:1;
+    letter-spacing:0.01em; color:var(--ember);
+    text-shadow:0 0 60px rgba(240,74,14,0.35);
+  }
+  .spot-lbl { font-size:11px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; }
+  .spot-div { height:1px; background:var(--border); margin-bottom:24px; }
+  .spot-weeks { font-family:'Bebas Neue',sans-serif; font-size:44px; letter-spacing:0.03em; margin-bottom:4px; }
+  .spot-weeks-lbl { font-size:11px; color:var(--muted); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:20px; }
+  .spot-note { font-size:13px; font-weight:300; color:var(--muted); line-height:1.7; margin-bottom:28px; }
+  .btn-challenge {
+    display:block; text-align:center; background:var(--ember); color:var(--white);
+    padding:14px; border-radius:2px; font-family:'DM Sans',sans-serif;
+    font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+    text-decoration:none; transition:background 0.2s;
+    box-shadow:0 0 30px rgba(240,74,14,0.25);
+  }
+  .btn-challenge:hover { background:var(--ember-hot); }
+
   /* ─── PRICING ────────────────────────────────── */
   .pricing { background:var(--black); }
   .pricing-top {
@@ -515,6 +544,7 @@
     .hero { padding:90px 40px 64px; }
     .about { grid-template-columns:1fr; gap:48px; }
     .coach-sec { grid-template-columns:1fr; gap:48px; }
+    .challenge-inner { grid-template-columns:1fr; }
     .testi-grid { grid-template-columns:1fr; max-width:560px; margin:56px auto 0; }
     .plans { grid-template-columns:1fr; max-width:480px; margin:0 auto; }
     .consult-grid { grid-template-columns:1fr; max-width:560px; margin:56px auto 0; }
@@ -552,6 +582,11 @@
 
     /* Coach */
     .coach-sec { padding:64px 20px; gap:40px; }
+
+    /* Challenge */
+    .challenge { padding:64px 20px; }
+    .challenge-inner { margin-top:36px; gap:36px; }
+    .spot-num { font-size:72px; }
     .coach-photo { aspect-ratio:4/3; }
     .cred-val { font-size:32px; }
     .cred-div { margin:0 20px; }
@@ -712,6 +747,35 @@
         <div class="cred-val">NASM</div>
         <div class="cred-lbl">Certified</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE -->
+<section class="challenge" id="challenge">
+  <div class="lbl">Limited Enrollment</div>
+  <h2 class="sec-title">THE 12-WEEK<br>IGNITION.</h2>
+  <p class="sec-sub">Not a monthly subscription. A focused 12-week assault on exactly where you are right now — one goal, one plan, zero drift. Built for the professional who's done maintaining and ready to move.</p>
+  <div class="challenge-inner">
+    <div>
+      <ul class="challenge-feats">
+        <li><span class="ck">✓</span> Full Level III coaching for the entire 12 weeks</li>
+        <li><span class="ck">✓</span> Custom 12-week periodized training plan built before day one</li>
+        <li><span class="ck">✓</span> Fully custom meal plan designed around your schedule and goals</li>
+        <li><span class="ck">✓</span> Weekly 1:1 check-in calls throughout the full program</li>
+        <li><span class="ck">✓</span> Unlimited coach messaging — no waiting, no queues</li>
+        <li><span class="ck">✓</span> Mid-point program rebuild at week 6 based on your progress</li>
+        <li><span class="ck">✓</span> Final performance review and long-term roadmap at week 12</li>
+      </ul>
+    </div>
+    <div class="spot-card">
+      <div class="spot-num">15</div>
+      <div class="spot-lbl">Spots Remaining This Round</div>
+      <div class="spot-div"></div>
+      <div class="spot-weeks">12 Weeks.</div>
+      <div class="spot-weeks-lbl">Zero compromise</div>
+      <p class="spot-note">Once spots fill, enrollment closes. The next round opens when current clients complete the program.</p>
+      <a href="book-consult.html?session=30" class="btn-challenge">Apply for a Spot &rarr;</a>
     </div>
   </div>
 </section>

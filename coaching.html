@@ -116,16 +116,25 @@
     .consult-strip { flex-direction:column; align-items:flex-start; }
     footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
   }
+
+  /* ─── ACCESSIBILITY ──────────────────────────── */
+  .skip-link { position:absolute; top:-200px; left:16px; z-index:9999; background:var(--ember); color:var(--white); padding:12px 20px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+  .skip-link:focus { top:16px; }
+  :focus-visible { outline:2px solid var(--ember); outline-offset:3px; border-radius:2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<nav>
-  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+<nav aria-label="Site navigation">
+  <a href="index.html" class="nav-logo" aria-label="Flint Performance — home">FLINT<span class="sp">.</span></a>
   <a href="index.html" class="nav-back">← Back to site</a>
 </nav>
 
-<main>
+<main id="main-content">
 
   <div class="page-header">
     <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">1-on-1 Coaching</div></div>

@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1:1 Coaching — Flint Performance</title>
+<title>1:1 Online Coaching Plans — Flint Performance</title>
+<meta name="description" content="Choose your Flint coaching level. Three tiers of fully custom 1-on-1 online fitness coaching for busy professionals. Apply and start today.">
+<meta property="og:title" content="1:1 Coaching Plans — Flint Performance">
+<meta property="og:description" content="Three levels of fully custom online fitness coaching built around your real life. Apply for your coaching spot.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flintperformance.com/coaching.html">
+<link rel="canonical" href="https://flintperformance.com/coaching.html">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -143,7 +149,7 @@
       <div class="plan-level">Level I</div>
       <div class="plan-name">Spark</div>
       <div class="plan-tagline">Strike the steel.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="249">249</span></div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="349">349</span></div>
       <div class="plan-period">per month</div>
       <div class="plan-savings" id="sv1"></div>
       <div class="plan-div"></div>
@@ -153,7 +159,7 @@
         <li><span class="ck">✓</span> Nutrition guidance &amp; foundational eating strategy</li>
         <li><span class="ck">✓</span> Ongoing plan adjustments as you progress</li>
       </ul>
-      <a href="plan-checkout.html?plan=1" class="plan-btn btn-col">Get Started</a>
+      <a href="apply.html?plan=1" class="plan-btn btn-col">Apply Now</a>
     </div>
 
     <div class="plan featured">
@@ -161,7 +167,7 @@
       <div class="plan-level">Level II</div>
       <div class="plan-name">Ember</div>
       <div class="plan-tagline">Fan the flame.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="349">349</span></div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="499">499</span></div>
       <div class="plan-period">per month</div>
       <div class="plan-savings" id="sv2"></div>
       <div class="plan-div"></div>
@@ -172,14 +178,14 @@
         <li><span class="ck">✓</span> Program rebuilt every 4–6 weeks</li>
         <li><span class="ck">✓</span> Email support between sessions</li>
       </ul>
-      <a href="plan-checkout.html?plan=2" class="plan-btn btn-fem">Get Started</a>
+      <a href="apply.html?plan=2" class="plan-btn btn-fem">Apply Now</a>
     </div>
 
     <div class="plan">
       <div class="plan-level">Level III</div>
       <div class="plan-name">Flame</div>
       <div class="plan-tagline">Become the fire.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="449">449</span></div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="649">649</span></div>
       <div class="plan-period">per month</div>
       <div class="plan-savings" id="sv3"></div>
       <div class="plan-div"></div>
@@ -191,7 +197,7 @@
         <li><span class="ck">✓</span> Priority scheduling for all consults</li>
         <li><span class="ck">✓</span> 24–48hr response guarantee</li>
       </ul>
-      <a href="plan-checkout.html?plan=3" class="plan-btn btn-col">Get Started</a>
+      <a href="apply.html?plan=3" class="plan-btn btn-col">Apply Now</a>
     </div>
 
   </div>
@@ -206,14 +212,14 @@
         <div class="consult-pill-mins">30<span style="font-size:18px;color:var(--muted)">min</span></div>
         <div class="consult-pill-info">
           <div class="consult-pill-name">Discovery Call</div>
-          <div class="consult-pill-price">$75 / session</div>
+          <div class="consult-pill-price">$99 / session</div>
         </div>
       </a>
       <a href="book-consult.html?session=60" class="consult-pill">
         <div class="consult-pill-mins">60<span style="font-size:18px;color:var(--muted)">min</span></div>
         <div class="consult-pill-info">
           <div class="consult-pill-name">Deep Dive</div>
-          <div class="consult-pill-price">$135 / session</div>
+          <div class="consult-pill-price">$175 / session</div>
         </div>
       </a>
     </div>
@@ -248,7 +254,7 @@
     document.querySelectorAll('.plan-period').forEach(el => {
       el.textContent = currentCycle === 'monthly' ? 'per month' : 'per month (avg)';
     });
-    [['sv1',249],['sv2',349],['sv3',449]].forEach(([id, base]) => {
+    [['sv1',349],['sv2',499],['sv3',649]].forEach(([id, base]) => {
       const el = document.getElementById(id);
       if (disc > 0) {
         const total = Math.round(base * mo * (1 - disc));

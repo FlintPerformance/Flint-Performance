@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flint Performance — The Spark That Starts the Fire</title>
+<title>Flint Performance — Elite Online Fitness Coaching for Busy Professionals</title>
+<meta name="description" content="1-on-1 online fitness coaching for driven professionals. Custom programs built around your real schedule, lifestyle, and goals. Cold mornings. No excuses.">
+<meta name="keywords" content="online fitness coach, personal trainer for busy professionals, 1-on-1 coaching, executive fitness coaching, remote personal trainer, online personal training">
+<meta property="og:title" content="Flint Performance — The Spark That Starts the Fire">
+<meta property="og:description" content="Elite 1-on-1 fitness coaching for driven professionals. Programs built around your schedule, your goals, your real life.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flintperformance.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flint Performance — The Spark That Starts the Fire">
+<meta name="twitter:description" content="Elite 1-on-1 fitness coaching for driven professionals. Programs built around your schedule, your goals, your real life.">
+<link rel="canonical" href="https://flintperformance.com/">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -453,6 +463,38 @@
   .faq-q { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:0.04em; margin-bottom:10px; }
   .faq-a { font-size:14px; font-weight:300; color:#9a9a9a; line-height:1.8; max-width:700px; }
 
+  /* ─── LEAD MAGNET ────────────────────────────── */
+  .leadmag { background:var(--gray); border-top:2px solid rgba(184,204,218,0.1); }
+  .lm-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .lm-bullets { list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:28px; }
+  .lm-bullets li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:#bbb; line-height:1.5; }
+  .lm-bullets li::before { content:'—'; color:var(--cold); flex-shrink:0; }
+  .lm-card { background:var(--gray-mid); border:1px solid rgba(184,204,218,0.15); border-radius:2px; padding:44px 40px; }
+  .lm-card-label { font-size:10px; font-weight:700; letter-spacing:0.36em; text-transform:uppercase; color:var(--cold); margin-bottom:10px; }
+  .lm-card-title { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:0.04em; margin-bottom:12px; }
+  .lm-card-sub { font-size:14px; font-weight:300; color:var(--muted); line-height:1.7; margin-bottom:28px; }
+  .lm-field { margin-bottom:12px; }
+  .lm-field input {
+    width:100%; background:rgba(237,232,223,0.04); border:1px solid rgba(237,232,223,0.1);
+    border-radius:2px; color:var(--white); font-family:'DM Sans',sans-serif;
+    font-size:15px; padding:14px 16px; outline:none; transition:border-color 0.2s;
+  }
+  .lm-field input:focus { border-color:var(--cold); }
+  .lm-field input::placeholder { color:#444; }
+  .lm-btn {
+    width:100%; background:var(--cold); color:var(--black); border:none; padding:15px;
+    border-radius:2px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700;
+    letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; transition:opacity 0.2s; margin-bottom:12px;
+  }
+  .lm-btn:hover { opacity:0.88; }
+  .lm-btn:disabled { opacity:0.5; cursor:not-allowed; }
+  .lm-fine { font-size:11px; color:var(--muted); text-align:center; }
+  .lm-success { display:none; text-align:center; padding:20px 0; }
+  .lm-success.active { display:block; }
+  .lm-success-icon { font-size:36px; color:var(--cold); margin-bottom:14px; }
+  .lm-success-title { font-family:'Bebas Neue',sans-serif; font-size:34px; letter-spacing:0.06em; margin-bottom:10px; }
+  .lm-success-sub { font-size:14px; font-weight:300; color:var(--muted); line-height:1.7; }
+
   /* ─── CTA ────────────────────────────────────── */
   .cta-sec {
     position:relative; overflow:hidden;
@@ -521,6 +563,7 @@
     .challenge-inner { grid-template-columns:1fr; }
     .testi-grid { grid-template-columns:1fr; max-width:560px; margin:56px auto 0; }
     .plans { grid-template-columns:1fr; max-width:480px; margin:0 auto; }
+    .lm-inner { grid-template-columns:1fr; gap:48px; }
     footer { padding:32px 40px; }
   }
 
@@ -587,6 +630,10 @@
     .faq-q { font-size:20px; }
     .faq-a { font-size:13px; }
 
+    /* Lead Magnet */
+    .leadmag { padding:64px 20px; }
+    .lm-card { padding:32px 24px; }
+
     /* CTA */
     .cta-sec { padding:80px 20px; }
     .cta-sec .sec-title { font-size:clamp(56px,14vw,96px); }
@@ -603,6 +650,26 @@
     .plan-price { font-size:56px; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Flint Performance",
+  "description": "1-on-1 online fitness coaching for driven professionals. Custom programs built around your real schedule, lifestyle, and goals.",
+  "url": "https://flintperformance.com",
+  "priceRange": "$$$",
+  "serviceArea": { "@type": "Country", "name": "United States" },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "1-on-1 Coaching Plans",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Level I Spark — Online Fitness Coaching", "price": "349", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Level II Ember — Online Fitness Coaching", "price": "499", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Level III Flame — Online Fitness Coaching", "price": "649", "priceCurrency": "USD" }
+    ]
+  }
+}
+</script>
 </head>
 <body>
 
@@ -612,9 +679,9 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="coaching.html">Coaching</a></li>
-    <li><a href="ignition-checkout.html">Challenge</a></li>
+    <li><a href="shop.html">Shop</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="coaching.html" class="nav-cta">Get Started</a></li>
+    <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -625,9 +692,9 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="coaching.html" onclick="closeMenu()">Coaching</a>
-  <a href="ignition-checkout.html" onclick="closeMenu()">Challenge</a>
+  <a href="shop.html" onclick="closeMenu()">Shop</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
-  <a href="coaching.html" class="m-cta">Get Started</a>
+  <a href="apply.html" class="m-cta">Apply Now</a>
 </div>
 
 <!-- HERO -->
@@ -650,7 +717,7 @@
       Elite fitness coaching for <strong>driven professionals</strong>. Cold mornings. Locked schedules. No excuses. The fire starts here.
     </p>
     <div class="hero-actions">
-      <a href="coaching.html" class="btn-ember">View Coaching</a>
+      <a href="apply.html" class="btn-ember">Apply for Coaching</a>
       <a href="book-consult.html" class="btn-ghost">Book a Consult</a>
     </div>
   </div>
@@ -760,7 +827,7 @@
       <div class="plan-level">Level I</div>
       <div class="plan-name">Spark</div>
       <div class="plan-tagline">Strike the steel.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="249">249</span></div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="349">349</span></div>
       <div class="plan-period">per month</div>
       <div class="plan-savings" id="sv1"></div>
       <div class="plan-div"></div>
@@ -770,7 +837,7 @@
         <li><span class="ck">✓</span> Nutrition guidance & foundational eating strategy</li>
         <li><span class="ck">✓</span> Ongoing plan adjustments as you progress</li>
       </ul>
-      <a href="plan-checkout.html?plan=1" class="plan-btn btn-col">Get Started</a>
+      <a href="apply.html?plan=1" class="plan-btn btn-col">Apply Now</a>
     </div>
 
     <div class="plan featured">
@@ -778,7 +845,7 @@
       <div class="plan-level">Level II</div>
       <div class="plan-name">Ember</div>
       <div class="plan-tagline">Fan the flame.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="349">349</span></div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="499">499</span></div>
       <div class="plan-period">per month</div>
       <div class="plan-savings" id="sv2"></div>
       <div class="plan-div"></div>
@@ -789,14 +856,14 @@
         <li><span class="ck">✓</span> Program rebuilt every 4–6 weeks</li>
         <li><span class="ck">✓</span> Email support between sessions</li>
       </ul>
-      <a href="plan-checkout.html?plan=2" class="plan-btn btn-fem">Get Started</a>
+      <a href="apply.html?plan=2" class="plan-btn btn-fem">Apply Now</a>
     </div>
 
     <div class="plan">
       <div class="plan-level">Level III</div>
       <div class="plan-name">Flame</div>
       <div class="plan-tagline">Become the fire.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="449">449</span></div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="649">649</span></div>
       <div class="plan-period">per month</div>
       <div class="plan-savings" id="sv3"></div>
       <div class="plan-div"></div>
@@ -808,7 +875,7 @@
         <li><span class="ck">✓</span> Priority scheduling for all consults</li>
         <li><span class="ck">✓</span> 24–48hr response guarantee</li>
       </ul>
-      <a href="plan-checkout.html?plan=3" class="plan-btn btn-col">Get Started</a>
+      <a href="apply.html?plan=3" class="plan-btn btn-col">Apply Now</a>
     </div>
   </div>
 
@@ -822,14 +889,14 @@
         <div class="consult-pill-mins">30<span style="font-size:18px;color:var(--muted)">min</span></div>
         <div class="consult-pill-info">
           <div class="consult-pill-name">Discovery Call</div>
-          <div class="consult-pill-price">$75 / session</div>
+          <div class="consult-pill-price">$99 / session</div>
         </div>
       </a>
       <a href="book-consult.html?session=60" class="consult-pill">
         <div class="consult-pill-mins">60<span style="font-size:18px;color:var(--muted)">min</span></div>
         <div class="consult-pill-info">
           <div class="consult-pill-name">Deep Dive</div>
-          <div class="consult-pill-price">$135 / session</div>
+          <div class="consult-pill-price">$175 / session</div>
         </div>
       </a>
     </div>
@@ -882,11 +949,48 @@
   </div>
 </section>
 
+<!-- LEAD MAGNET -->
+<section class="leadmag" id="free-reset">
+  <div class="lm-inner">
+    <div>
+      <div class="lbl">Free Download</div>
+      <h2 class="sec-title">THE FLINT<br>5-DAY<br>RESET.</h2>
+      <p class="sec-sub">A 5-day training protocol built for time-starved professionals. No gym required. 30–45 minutes a day. Built around what you actually have — not what's ideal.</p>
+      <ul class="lm-bullets">
+        <li>Full training guide for each of the 5 days</li>
+        <li>Daily nutrition targets &amp; timing guidance</li>
+        <li>Progress &amp; habit tracking sheet</li>
+        <li>The cold discipline framework — the mental reset that starts everything</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lm-card">
+        <div class="lm-card-label">Free Download</div>
+        <div class="lm-card-title">THE 5-DAY RESET</div>
+        <p class="lm-card-sub">Enter your email and we'll send it straight to you. No spam — just the guide.</p>
+        <form id="leadForm" action="https://formspree.io/f/mnjbgvpy" method="POST">
+          <input type="hidden" name="form_type" value="lead_magnet_5day_reset">
+          <div class="lm-field">
+            <input type="email" name="email" id="lm-email" placeholder="your@email.com" required autocomplete="email" inputmode="email">
+          </div>
+          <button type="submit" class="lm-btn" id="lm-submit-btn">Send Me the Reset &rarr;</button>
+          <p class="lm-fine">No spam. One email with your guide. That's it.</p>
+        </form>
+        <div class="lm-success" id="lmSuccess">
+          <div class="lm-success-icon">✓</div>
+          <div class="lm-success-title">CHECK YOUR INBOX.</div>
+          <p class="lm-success-sub">The 5-Day Reset is on its way. Now go strike the stone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-sec" id="start">
-  <h2 class="sec-title">STRIKE<br>THE STONE.</h2>
-  <div class="cta-tagline">The fire doesn't start itself.</div>
-  <a href="plan-checkout.html" class="btn-white">Get Started Today</a>
+  <h2 class="sec-title">APPLY.<br>GET BUILT.</h2>
+  <div class="cta-tagline">Spots are limited. Applications reviewed within 24 hours.</div>
+  <a href="apply.html" class="btn-white">Apply for Coaching</a>
 </section>
 
 <!-- FOOTER -->
@@ -911,8 +1015,32 @@
     document.body.style.overflow = '';
   }
 
+  // Lead magnet form
+  document.getElementById('leadForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('lm-submit-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const resp = await fetch(this.action, {
+        method: 'POST', body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        this.style.display = 'none';
+        document.getElementById('lmSuccess').classList.add('active');
+      } else {
+        btn.textContent = 'Send Me the Reset →';
+        btn.disabled = false;
+      }
+    } catch(err) {
+      btn.textContent = 'Send Me the Reset →';
+      btn.disabled = false;
+    }
+  });
+
   // Pricing toggle
-  const bases = {1:249, 2:349, 3:449};
+  const bases = {1:349, 2:499, 3:649};
   const discs = {monthly:0, '3mo':0.05, '6mo':0.10, '12mo':0.15};
   const moCount = {monthly:1, '3mo':3, '6mo':6, '12mo':12};
   function setBilling(p, btn) {

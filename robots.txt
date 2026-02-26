@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow internal checkout and form pages from indexing
+Disallow: /plan-checkout.html
+Disallow: /ignition-checkout.html
+Disallow: /flint-intake-form.html
+
+Sitemap: https://flintperformance.com/sitemap.xml

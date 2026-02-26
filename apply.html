@@ -31,11 +31,24 @@
   html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
   body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
 
-  nav { position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  nav { position:sticky; top:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
   .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
   .nav-logo .sp { color:var(--ember); }
-  .nav-back { font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
-  .nav-back:hover { color:var(--white); }
+  .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--white); }
+  .nav-cta { background:var(--ember) !important; color:var(--white) !important; padding:10px 22px; border-radius:2px; font-weight:600 !important; }
+  .nav-cta:hover { background:var(--ember-hot) !important; }
+  .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+  .hamburger span { width:22px; height:1.5px; background:var(--white); display:block; transition:all 0.25s; }
+  .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+  .hamburger.open span:nth-child(2) { opacity:0; }
+  .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+  .mobile-menu { display:none; position:fixed; inset:0; z-index:199; background:rgba(6,6,6,0.98); backdrop-filter:blur(20px); flex-direction:column; align-items:center; justify-content:center; gap:32px; }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,10vw,56px); letter-spacing:0.06em; color:var(--white); text-decoration:none; transition:color 0.2s; }
+  .mobile-menu a:hover { color:var(--ember); }
+  .mobile-menu .m-cta { color:var(--ember); }
 
   main { flex:1; display:flex; justify-content:center; padding:64px 24px 100px; }
   .page-container { width:100%; max-width:720px; }
@@ -184,6 +197,8 @@
   /* MOBILE */
   @media (max-width:768px) {
     nav { padding:16px 20px; }
+    .nav-links { display:none; }
+    .hamburger { display:flex; }
     main { padding:40px 16px 80px; }
     .page-title { font-size:clamp(52px,14vw,72px); }
     .plan-selector { grid-template-columns:1fr; }
@@ -220,10 +235,25 @@
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<nav aria-label="Site navigation">
+<nav aria-label="Main navigation">
   <a href="index.html" class="nav-logo" aria-label="Flint Performance — home">FLINT<span class="sp">.</span></a>
-  <a href="index.html" class="nav-back">← Back to site</a>
+  <ul class="nav-links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="coaching.html">Coaching</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="apply.html" class="active nav-cta">Apply Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="coaching.html" onclick="closeMenu()">Coaching</a>
+  <a href="shop.html" onclick="closeMenu()">Shop</a>
+  <a href="apply.html" class="m-cta" onclick="closeMenu()">Apply Now</a>
+</div>
 
 <main id="main-content">
   <div class="page-container">
@@ -506,6 +536,25 @@
 </footer>
 
 <script>
+  // Hamburger nav
+  const hbEl = document.getElementById('hamburger');
+  const mmEl = document.getElementById('mobileMenu');
+  if (hbEl) {
+    hbEl.addEventListener('click', () => {
+      const isOpen = mmEl.classList.toggle('open');
+      hbEl.classList.toggle('open');
+      hbEl.setAttribute('aria-expanded', isOpen);
+      hbEl.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+      mmEl.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+  }
+  function closeMenu() {
+    if (hbEl) { hbEl.classList.remove('open'); hbEl.setAttribute('aria-expanded','false'); hbEl.setAttribute('aria-label','Open navigation menu'); }
+    if (mmEl) { mmEl.classList.remove('open'); mmEl.setAttribute('aria-hidden','true'); }
+    document.body.style.overflow = '';
+  }
+
   // Pre-select plan from URL param
   const params = new URLSearchParams(window.location.search);
   const planParam = parseInt(params.get('plan'));

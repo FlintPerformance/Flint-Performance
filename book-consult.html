@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book a Consult — Flint Performance</title>
+<title>Book a Coaching Consult — Flint Performance</title>
+<meta name="description" content="Book a 1-on-1 call with your Flint coach. 30-min discovery call or 60-min deep dive — find the right coaching path for your goals and schedule.">
+<meta property="og:title" content="Book a Coaching Consult — Flint Performance">
+<meta property="og:description" content="Book a private call with your coach. 30 or 60 minutes. One conversation to find the right path forward.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flintperformance.com/book-consult.html">
+<link rel="canonical" href="https://flintperformance.com/book-consult.html">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://js.stripe.com/v3/"></script>
 <style>
@@ -196,7 +202,7 @@
             <div class="session-dur">30<span>min</span></div>
             <div class="session-name">Discovery Call</div>
             <div class="session-desc">Goal assessment, training history review, and program recommendation.</div>
-            <div class="session-price">$75</div>
+            <div class="session-price">$99</div>
           </label>
           <label class="session-card" id="card-60" onclick="selectSession(60)">
             <input type="radio" name="session" value="60">
@@ -204,7 +210,7 @@
             <div class="session-dur">60<span>min</span></div>
             <div class="session-name">Deep Dive</div>
             <div class="session-desc">Full lifestyle audit, nutrition baseline, and complete roadmap to your goals.</div>
-            <div class="session-price">$135</div>
+            <div class="session-price">$175</div>
           </label>
         </div>
       </div>
@@ -281,7 +287,7 @@
             <div class="order-item" id="order-item">30-Min Discovery Call</div>
           </div>
           <div class="order-total">
-            <div class="order-price" id="order-price">$75</div>
+            <div class="order-price" id="order-price">$99</div>
             <div class="order-price-sub">one-time charge</div>
           </div>
         </div>
@@ -370,8 +376,8 @@
 
   let currentSession = 30;
   const sessions = {
-    30: { label: '30-Min Discovery Call', price: '$75', amount: 7500 },
-    60: { label: '60-Min Deep Dive', price: '$135', amount: 13500 }
+    30: { label: '30-Min Discovery Call', price: '$99', amount: 9900 },
+    60: { label: '60-Min Deep Dive', price: '$175', amount: 17500 }
   };
 
   function selectSession(mins) {

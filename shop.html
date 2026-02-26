@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flint Shop — Training Guides, Meal Plans & More</title>
+<meta name="description" content="Downloadable fitness guides from Flint Performance. Workout split programs, fat loss explained, high-protein cookbook, meal plans, and peptide reference guide.">
+<meta name="keywords" content="workout split PDF, fat loss guide, fitness meal plan, high protein cookbook, peptide guide, online fitness download">
+<meta property="og:title" content="Flint Shop — Training Guides & Digital Programs">
+<meta property="og:description" content="Downloadable fitness guides built with the same principles behind Flint 1-on-1 coaching. Instant delivery. No fluff.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flintperformance.com/shop.html">
+<link rel="canonical" href="https://flintperformance.com/shop.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "Flint Performance Shop",
+  "description": "Downloadable fitness guides and programs from Flint Performance",
+  "url": "https://flintperformance.com/shop.html",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Digital Fitness Products",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Workout Splits Guide", "price": "27", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Fat Loss Explained", "price": "37", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "The Flint Cookbook", "price": "27", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "8-Week Meal Plan", "price": "47", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Peptide Reference Guide", "price": "37", "priceCurrency": "USD" }
+    ]
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--white); }
+  .nav-cta { background:var(--ember) !important; color:var(--white) !important; padding:10px 22px; border-radius:2px; font-weight:600 !important; }
+  .nav-cta:hover { background:var(--ember-hot) !important; }
+
+  /* LAYOUT */
+  main { flex:1; padding:80px 64px 120px; max-width:1200px; margin:0 auto; width:100%; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom:72px; }
+  .eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .ey-line { width:36px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(64px,10vw,108px); letter-spacing:0.02em; line-height:0.88; margin-bottom:20px; }
+  .page-title .em { color:var(--ember); }
+  .page-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; max-width:560px; }
+
+  /* FILTER TABS */
+  .filter-bar { display:flex; gap:4px; margin-bottom:48px; flex-wrap:wrap; }
+  .filter-btn {
+    background:var(--gray-mid); border:1px solid var(--border); color:var(--muted);
+    font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:0.14em; text-transform:uppercase; padding:9px 18px;
+    border-radius:2px; cursor:pointer; transition:all 0.2s;
+  }
+  .filter-btn:hover { color:var(--white); border-color:rgba(237,232,223,0.15); }
+  .filter-btn.active { background:var(--ember); border-color:var(--ember); color:var(--white); }
+
+  /* PRODUCT GRID */
+  .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+
+  /* PRODUCT CARD */
+  .product-card {
+    background:var(--gray); border:1px solid var(--border);
+    display:flex; flex-direction:column;
+    transition:background 0.2s, border-color 0.2s;
+    position:relative; overflow:hidden;
+  }
+  .product-card:hover { background:var(--gray-mid); border-color:rgba(237,232,223,0.1); }
+  .product-card.featured { border-color:rgba(240,74,14,0.3); background:var(--gray-mid); }
+  .product-card.featured::after {
+    content:''; position:absolute; bottom:-40px; right:-40px;
+    width:160px; height:160px; border-radius:50%;
+    background:radial-gradient(circle, rgba(240,74,14,0.1), transparent 70%);
+    pointer-events:none;
+  }
+
+  /* PRODUCT COVER */
+  .product-cover {
+    aspect-ratio:4/3; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .product-cover-bg { position:absolute; inset:0; }
+  .product-cover-word {
+    position:relative; z-index:2;
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,8vw,80px);
+    letter-spacing:0.04em; line-height:1; text-align:center;
+    padding:0 20px; color:transparent;
+  }
+  .product-cover-sub {
+    position:absolute; bottom:16px; left:20px; right:20px;
+    z-index:3; font-size:10px; font-weight:700;
+    letter-spacing:0.28em; text-transform:uppercase;
+  }
+  .badge-new {
+    position:absolute; top:16px; right:16px; z-index:4;
+    background:var(--ember); color:var(--white);
+    font-size:9px; font-weight:700; letter-spacing:0.18em;
+    text-transform:uppercase; padding:5px 12px; border-radius:2px;
+  }
+
+  /* PRODUCT INFO */
+  .product-info { padding:28px 28px 32px; flex:1; display:flex; flex-direction:column; }
+  .product-tag { font-size:9px; font-weight:700; letter-spacing:0.32em; text-transform:uppercase; color:var(--ember); margin-bottom:8px; }
+  .product-name { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:0.04em; line-height:1; margin-bottom:6px; }
+  .product-subtitle { font-size:13px; color:var(--muted); font-style:italic; margin-bottom:16px; }
+  .product-desc { font-size:13px; font-weight:300; color:#999; line-height:1.75; margin-bottom:20px; flex:1; }
+  .product-includes { list-style:none; display:flex; flex-direction:column; gap:7px; margin-bottom:28px; }
+  .product-includes li { display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#888; line-height:1.4; }
+  .product-includes li::before { content:'—'; color:var(--cold); flex-shrink:0; }
+  .product-footer { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:auto; border-top:1px solid var(--border); padding-top:24px; }
+  .product-price { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; letter-spacing:0.02em; color:var(--white); }
+  .product-price .dl { font-size:20px; vertical-align:top; margin-top:8px; display:inline-block; color:var(--ember); }
+  .product-price-note { font-size:11px; color:var(--muted); margin-top:3px; }
+  .btn-buy {
+    display:inline-block; background:var(--ember); color:var(--white);
+    padding:12px 24px; border-radius:2px; font-size:11px; font-weight:700;
+    letter-spacing:0.18em; text-transform:uppercase; text-decoration:none;
+    transition:all 0.2s; box-shadow:0 0 24px rgba(240,74,14,0.2); white-space:nowrap;
+  }
+  .btn-buy:hover { background:var(--ember-hot); box-shadow:0 0 40px rgba(240,74,14,0.35); transform:translateY(-1px); }
+  .btn-buy-ghost {
+    display:inline-block; background:transparent; color:var(--cold);
+    padding:12px 24px; border-radius:2px; font-size:11px; font-weight:700;
+    letter-spacing:0.18em; text-transform:uppercase; text-decoration:none;
+    border:1px solid rgba(184,204,218,0.2); transition:all 0.2s; white-space:nowrap;
+  }
+  .btn-buy-ghost:hover { border-color:var(--cold); color:var(--white); }
+
+  /* BUNDLE CTA */
+  .bundle-strip {
+    margin-top:2px; background:var(--gray-mid);
+    border:1px solid rgba(184,204,218,0.12);
+    padding:48px 56px; display:flex; align-items:center;
+    justify-content:space-between; gap:40px; flex-wrap:wrap;
+    position:relative; overflow:hidden;
+  }
+  .bundle-strip::before {
+    content:'BUNDLE'; position:absolute; right:-0.04em; bottom:-0.12em;
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(80px,14vw,180px);
+    letter-spacing:0.04em; color:transparent;
+    -webkit-text-stroke:1px rgba(184,204,218,0.05); pointer-events:none; line-height:1;
+  }
+  .bundle-label { font-size:10px; font-weight:700; letter-spacing:0.32em; text-transform:uppercase; color:var(--cold); margin-bottom:10px; }
+  .bundle-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,60px); letter-spacing:0.03em; margin-bottom:10px; }
+  .bundle-desc { font-size:14px; font-weight:300; color:var(--muted); max-width:440px; line-height:1.7; }
+  .bundle-price-wrap { text-align:right; flex-shrink:0; }
+  .bundle-was { font-size:13px; color:var(--muted); text-decoration:line-through; margin-bottom:4px; }
+  .bundle-price { font-family:'Bebas Neue',sans-serif; font-size:72px; line-height:1; letter-spacing:0.02em; color:var(--white); }
+  .bundle-price .dl { font-size:30px; vertical-align:top; margin-top:12px; display:inline-block; color:var(--cold); }
+  .bundle-save { font-size:12px; color:var(--cold); margin-bottom:20px; font-weight:500; }
+
+  /* COACHING UPSELL */
+  .coaching-strip {
+    margin-top:80px; background:var(--ember);
+    padding:64px 56px; display:flex; align-items:center;
+    justify-content:space-between; gap:32px; flex-wrap:wrap;
+    position:relative; overflow:hidden;
+  }
+  .coaching-strip::before {
+    content:'FLINT'; position:absolute; right:-0.03em; bottom:-0.1em;
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(100px,20vw,260px);
+    letter-spacing:0.04em; color:rgba(0,0,0,0.12); pointer-events:none; line-height:1;
+  }
+  .coaching-strip-text .lbl { color:rgba(237,232,223,0.6); margin-bottom:12px; }
+  .lbl { font-size:11px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; }
+  .coaching-strip-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,6vw,72px); line-height:0.9; letter-spacing:0.03em; color:var(--white); margin-bottom:14px; }
+  .coaching-strip-sub { font-size:15px; font-weight:300; color:rgba(237,232,223,0.75); max-width:440px; line-height:1.7; }
+  .btn-coaching {
+    display:inline-block; background:var(--white); color:var(--ember);
+    padding:16px 40px; border-radius:2px; font-size:12px; font-weight:700;
+    letter-spacing:0.18em; text-transform:uppercase; text-decoration:none;
+    transition:transform 0.15s, opacity 0.15s; position:relative; flex-shrink:0;
+  }
+  .btn-coaching:hover { transform:translateY(-2px); opacity:0.93; }
+
+  /* FOOTER */
+  footer { background:#040404; padding:36px 64px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); flex-wrap:wrap; gap:12px; margin-top:auto; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; letter-spacing:0.06em; }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--ember); }
+
+  /* TABLET */
+  @media (max-width:1024px) {
+    main { padding:60px 40px 100px; }
+    .product-grid { grid-template-columns:repeat(2,1fr); }
+    .bundle-strip { padding:36px 40px; }
+    .coaching-strip { padding:48px 40px; }
+  }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    .nav-links { display:none; }
+    main { padding:48px 20px 80px; }
+    .product-grid { grid-template-columns:1fr; }
+    .product-cover { aspect-ratio:16/9; }
+    .product-info { padding:24px 20px 28px; }
+    .bundle-strip { flex-direction:column; align-items:flex-start; padding:32px 24px; }
+    .bundle-price-wrap { text-align:left; }
+    .coaching-strip { flex-direction:column; align-items:flex-start; padding:40px 24px; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="coaching.html">Coaching</a></li>
+    <li><a href="shop.html" class="active">Shop</a></li>
+    <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Digital Products</div></div>
+    <h1 class="page-title">THE FLINT<br><span class="em">SHOP.</span></h1>
+    <p class="page-desc">The same principles behind Flint 1-on-1 coaching — in downloadable guides. Built for professionals who want results without the guesswork. Instant delivery. No fluff.</p>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="product-grid">
+
+    <!-- WORKOUT SPLITS -->
+    <div class="product-card">
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #0e0e0e 0%, #1a1008 60%, rgba(240,74,14,0.15) 100%);"></div>
+        <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(240,74,14,0.3);">SPLITS</div>
+        <div class="product-cover-sub" style="color:var(--ember);">Workout Programming Guide</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Training</div>
+        <div class="product-name">Workout Splits Guide</div>
+        <div class="product-subtitle">Build your week. Build your body.</div>
+        <p class="product-desc">The 4-day and 5-day training splits used inside Flint coaching programs. Upper/lower, push/pull/legs, and hybrid configurations — with full exercise selection, sets, reps, and progression guidelines.</p>
+        <ul class="product-includes">
+          <li>4-day Upper/Lower split — full 8-week program</li>
+          <li>5-day Push/Pull/Legs split — 8-week program</li>
+          <li>Hybrid 4-day split for strength + conditioning</li>
+          <li>Exercise substitution chart (home & travel)</li>
+          <li>Progressive overload guidelines</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div class="product-price"><span class="dl">$</span>27</div>
+            <div class="product-price-note">Instant PDF download</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for this product -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAT LOSS EXPLAINED -->
+    <div class="product-card featured">
+      <div class="badge-new">Best Seller</div>
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #111 0%, #1a0808 60%, rgba(240,74,14,0.2) 100%);"></div>
+        <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(240,74,14,0.45); font-size:clamp(28px,5vw,56px);">FAT LOSS</div>
+        <div class="product-cover-sub" style="color:var(--ember);">The Full Breakdown</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Nutrition &middot; Strategy</div>
+        <div class="product-name">Fat Loss Explained</div>
+        <div class="product-subtitle">The science. The strategy. The execution.</div>
+        <p class="product-desc">Everything you need to know about sustainable fat loss — without the bro-science. Calorie targets, deficit mechanics, protein strategy, body recomposition, and the exact framework Flint uses with every client.</p>
+        <ul class="product-includes">
+          <li>How to calculate your calorie target — accurately</li>
+          <li>Protein strategy for muscle preservation</li>
+          <li>Deficit sizing: how aggressive is too aggressive</li>
+          <li>Recomposition protocol for beginners and intermediates</li>
+          <li>Troubleshooting: when fat loss stalls</li>
+          <li>Tracking methods that actually work for busy people</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div class="product-price"><span class="dl">$</span>37</div>
+            <div class="product-price-note">Instant PDF download</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for this product -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- COOKBOOK -->
+    <div class="product-card">
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #0a0e10 0%, #080d12 60%, rgba(184,204,218,0.12) 100%);"></div>
+        <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(184,204,218,0.3);">COOK</div>
+        <div class="product-cover-sub" style="color:var(--cold);">High-Performance Recipes</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Nutrition</div>
+        <div class="product-name">The Flint Cookbook</div>
+        <div class="product-subtitle">40 recipes. Zero excuses.</div>
+        <p class="product-desc">40 high-protein recipes built for people who don't have time to cook complicated meals. Batch-prep friendly, travel adaptable, and built around foods that actually hit your macros without making you miserable.</p>
+        <ul class="product-includes">
+          <li>40 high-protein recipes (30–50g protein per serving)</li>
+          <li>Batch-prep Sunday guide — cook once, eat all week</li>
+          <li>Travel & hotel-friendly no-cook options</li>
+          <li>Macro breakdown for every recipe</li>
+          <li>Shopping list templates</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div class="product-price"><span class="dl">$</span>27</div>
+            <div class="product-price-note">Instant PDF download</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for this product -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEAL PLAN -->
+    <div class="product-card">
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #0a0c0e 0%, #0d1014 60%, rgba(184,204,218,0.1) 100%);"></div>
+        <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(184,204,218,0.25); font-size:clamp(26px,4.5vw,52px);">8 WEEKS</div>
+        <div class="product-cover-sub" style="color:var(--cold);">Structured Meal Plan</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Nutrition &middot; Planning</div>
+        <div class="product-name">8-Week Meal Plan</div>
+        <div class="product-subtitle">Structure. Macros. Results.</div>
+        <p class="product-desc">A full 8-week structured meal plan built around a 2,000–2,500 calorie baseline (includes scaling instructions). Three meals + optional snacks per day. Designed for fat loss with muscle retention. Every meal has macros and swap options so you're never stuck.</p>
+        <ul class="product-includes">
+          <li>56 days of structured meals — breakfast, lunch, dinner</li>
+          <li>Calorie scaling guide (cut, maintain, or bulk)</li>
+          <li>Flexible swap options for every meal</li>
+          <li>Full macro breakdown per day &amp; per week</li>
+          <li>Weekly grocery lists — ready to shop</li>
+          <li>Eating out guide: how to stay on track at restaurants</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div class="product-price"><span class="dl">$</span>47</div>
+            <div class="product-price-note">Instant PDF download</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for this product -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PEPTIDE GUIDE -->
+    <div class="product-card">
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #060610 0%, #0a0a18 60%, rgba(120,100,220,0.1) 100%);"></div>
+        <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(180,170,230,0.3); font-size:clamp(26px,4.5vw,52px);">PEPTIDES</div>
+        <div class="product-cover-sub" style="color:#a090d8;">Research Reference Guide</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Performance &middot; Reference</div>
+        <div class="product-name">Peptide Reference Guide</div>
+        <div class="product-subtitle">What the research actually says.</div>
+        <p class="product-desc">An educational reference covering the most researched performance peptides — mechanisms of action, studied dosing protocols, recovery and body composition applications, and what the current literature actually supports. No hype, no anecdote-as-evidence.</p>
+        <ul class="product-includes">
+          <li>10+ peptides covered in depth (BPC-157, TB-500, CJC-1295, Ipamorelin, and more)</li>
+          <li>Mechanisms of action — how each peptide works</li>
+          <li>Studied protocols and dosing ranges from the research</li>
+          <li>Recovery, body composition, and performance applications</li>
+          <li>Side effect profiles and contraindications</li>
+          <li>Legal status &amp; sourcing considerations (educational)</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div class="product-price"><span class="dl">$</span>37</div>
+            <div class="product-price-note">Instant PDF download</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for this product -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL BUNDLE -->
+    <div class="product-card featured" style="grid-column:span 1;">
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #0e0a06 0%, #1a1206 60%, rgba(240,74,14,0.25) 100%);"></div>
+        <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(240,74,14,0.5); font-size:clamp(36px,6vw,70px);">BUNDLE</div>
+        <div class="product-cover-sub" style="color:var(--ember);">Complete Collection</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag">Best Value</div>
+        <div class="product-name">The Flint Stack</div>
+        <div class="product-subtitle">Every guide. One price.</div>
+        <p class="product-desc">All five Flint guides in one download. Workout splits, fat loss strategy, cookbook, 8-week meal plan, and peptide reference. Everything you need to train, eat, and recover like a professional — at a fraction of the individual cost.</p>
+        <ul class="product-includes">
+          <li>Workout Splits Guide</li>
+          <li>Fat Loss Explained</li>
+          <li>The Flint Cookbook</li>
+          <li>8-Week Meal Plan</li>
+          <li>Peptide Reference Guide</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div style="font-size:12px;color:var(--muted);text-decoration:line-through;margin-bottom:2px;">$175 separately</div>
+            <div class="product-price"><span class="dl">$</span>97</div>
+            <div class="product-price-note" style="color:var(--cold);">Save $78 — all 5 guides</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for the bundle -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Get the Stack</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /product-grid -->
+
+  <!-- COACHING UPSELL STRIP -->
+  <div class="coaching-strip">
+    <div class="coaching-strip-text">
+      <div class="lbl" style="color:rgba(237,232,223,0.55);">Want more than a guide?</div>
+      <div class="coaching-strip-title">GET A COACH<br>IN YOUR CORNER.</div>
+      <p class="coaching-strip-sub">Guides give you the framework. A coach builds it around your actual life, adjusts when things change, and keeps you from wasting months on the wrong path.</p>
+    </div>
+    <a href="apply.html" class="btn-coaching">Apply for Coaching</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <div style="display:flex;gap:24px;">
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+</body>
+</html>

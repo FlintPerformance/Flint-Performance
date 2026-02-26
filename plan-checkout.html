@@ -43,41 +43,32 @@
   .page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,9vw,80px); letter-spacing:0.02em; line-height:0.9; margin-bottom:14px; }
   .page-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; }
 
-  /* PLAN SELECTOR */
-  .plan-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:40px; }
-  .plan-card {
-    background:var(--gray-mid); border:1px solid var(--border);
-    padding:24px 20px; cursor:pointer; position:relative;
-    transition:border-color 0.2s, background 0.2s; border-radius:2px;
+  /* SELECTED PLAN CARD */
+  .selected-plan {
+    background:var(--gray-mid); border:1px solid rgba(240,74,14,0.35);
+    border-radius:2px; padding:32px 36px; margin-bottom:36px;
+    position:relative; overflow:hidden;
   }
-  .plan-card:hover { border-color:rgba(240,74,14,0.3); background:var(--gray-up); }
-  .plan-card.selected { border-color:var(--ember); background:rgba(240,74,14,0.06); }
-  .plan-card input[type="radio"] { display:none; }
-  .plan-check {
-    position:absolute; top:14px; right:14px;
-    width:18px; height:18px; border-radius:50%;
-    border:1px solid var(--border); display:flex; align-items:center;
-    justify-content:center; font-size:10px; transition:all 0.2s;
+  .selected-plan::after {
+    content:''; position:absolute; bottom:-60px; right:-60px;
+    width:220px; height:220px; border-radius:50%;
+    background:radial-gradient(circle, rgba(240,74,14,0.1), transparent 70%);
+    pointer-events:none;
   }
-  .plan-card.selected .plan-check { background:var(--ember); border-color:var(--ember); color:var(--white); }
   .plan-level { font-size:10px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--ember); margin-bottom:4px; }
-  .plan-name { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.04em; margin-bottom:4px; }
-  .plan-tagline { font-size:12px; color:var(--muted); font-style:italic; margin-bottom:16px; }
-  .plan-price-wrap { margin-bottom:16px; }
-  .plan-price { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; letter-spacing:0.02em; }
-  .plan-price .dl { font-size:20px; vertical-align:top; margin-top:8px; display:inline-block; color:var(--ember); }
-  .plan-mo { font-size:12px; color:var(--muted); margin-top:2px; }
-  .plan-divider { height:1px; background:var(--border); margin:14px 0; }
-  .plan-feats { list-style:none; display:flex; flex-direction:column; gap:8px; }
-  .plan-feats li { font-size:12px; color:#999; display:flex; gap:8px; line-height:1.5; }
+  .plan-name { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:0.04em; margin-bottom:4px; }
+  .plan-tagline { font-size:13px; color:var(--muted); font-style:italic; margin-bottom:20px; }
+  .plan-price-wrap { display:flex; align-items:baseline; gap:12px; margin-bottom:4px; }
+  .plan-price { font-family:'Bebas Neue',sans-serif; font-size:60px; line-height:1; letter-spacing:0.02em; }
+  .plan-price .dl { font-size:26px; vertical-align:top; margin-top:10px; display:inline-block; color:var(--ember); }
+  .plan-mo { font-size:13px; color:var(--muted); }
+  .plan-card-savings { font-size:11px; color:var(--cold); min-height:16px; margin-bottom:20px; }
+  .plan-divider { height:1px; background:var(--border); margin-bottom:20px; }
+  .plan-feats { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+  .plan-feats li { font-size:13px; color:#999; display:flex; gap:8px; line-height:1.5; }
   .plan-feats li::before { content:'✓'; color:var(--cold); flex-shrink:0; }
-  .plan-badge-tag {
-    position:absolute; top:0; right:0;
-    background:var(--ember); color:var(--white);
-    font-size:9px; font-weight:700; letter-spacing:0.16em;
-    text-transform:uppercase; padding:4px 10px;
-  }
-  .plan-card-savings { font-size:11px; color:var(--cold); margin-top:4px; min-height:14px; }
+  .change-plan { font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+  .change-plan:hover { color:var(--white); }
   .billing-upfront-note { font-size:12px; color:var(--cold); font-style:italic; margin-top:10px; display:none; }
   .billing-upfront-note.visible { display:block; }
 
@@ -235,71 +226,19 @@
         <p class="page-desc">Choose your coaching level, lock in your billing cycle, and complete payment. You'll fill out your intake form right after.</p>
       </div>
 
-      <!-- PLAN SELECTOR -->
-      <div class="form-section">
-        <div class="section-label">Choose Your Level</div>
-        <div class="plan-cards">
-          <label class="plan-card" id="pc-1" onclick="selectPlan(1)">
-            <input type="radio" name="plan" value="1">
-            <div class="plan-check">✓</div>
-            <div class="plan-level">Level I</div>
-            <div class="plan-name">Spark</div>
-            <div class="plan-tagline">Strike the steel.</div>
-            <div class="plan-price-wrap">
-              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-1">249</span></div>
-              <div class="plan-mo">per month</div>
-              <div class="plan-card-savings" id="cs-1"></div>
-            </div>
-            <div class="plan-divider"></div>
-            <ul class="plan-feats">
-              <li>Custom workout plan</li>
-              <li>Monthly check-in call</li>
-              <li>Nutrition guidance</li>
-              <li>Ongoing adjustments</li>
-            </ul>
-          </label>
-
-          <label class="plan-card selected" id="pc-2" onclick="selectPlan(2)">
-            <input type="radio" name="plan" value="2" checked>
-            <div class="plan-badge-tag">Popular</div>
-            <div class="plan-check">✓</div>
-            <div class="plan-level">Level II</div>
-            <div class="plan-name">Ember</div>
-            <div class="plan-tagline">Fan the flame.</div>
-            <div class="plan-price-wrap">
-              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-2">349</span></div>
-              <div class="plan-mo">per month</div>
-              <div class="plan-card-savings" id="cs-2"></div>
-            </div>
-            <div class="plan-divider"></div>
-            <ul class="plan-feats">
-              <li>Everything in Level I</li>
-              <li>Bi-weekly check-ins</li>
-              <li>Enhanced nutrition</li>
-              <li>Email support</li>
-            </ul>
-          </label>
-
-          <label class="plan-card" id="pc-3" onclick="selectPlan(3)">
-            <input type="radio" name="plan" value="3">
-            <div class="plan-check">✓</div>
-            <div class="plan-level">Level III</div>
-            <div class="plan-name">Flame</div>
-            <div class="plan-tagline">Become the fire.</div>
-            <div class="plan-price-wrap">
-              <div class="plan-price"><span class="dl">$</span><span class="pp" id="pp-3">449</span></div>
-              <div class="plan-mo">per month</div>
-              <div class="plan-card-savings" id="cs-3"></div>
-            </div>
-            <div class="plan-divider"></div>
-            <ul class="plan-feats">
-              <li>Everything in Level II</li>
-              <li>Weekly check-ins</li>
-              <li>Custom meal plan</li>
-              <li>Unlimited messaging</li>
-            </ul>
-          </label>
+      <!-- SELECTED PLAN -->
+      <div class="selected-plan">
+        <div class="plan-level" id="card-level">Level II</div>
+        <div class="plan-name" id="card-name">Ember</div>
+        <div class="plan-tagline" id="card-tagline">Fan the flame.</div>
+        <div class="plan-price-wrap">
+          <div class="plan-price"><span class="dl">$</span><span id="card-price">349</span></div>
+          <div class="plan-mo" id="card-mo">per month</div>
         </div>
+        <div class="plan-card-savings" id="card-savings"></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats" id="card-feats"></ul>
+        <a href="coaching.html" class="change-plan">← Change level</a>
       </div>
 
       <!-- COMMITMENT LENGTH -->
@@ -441,80 +380,67 @@
     else { el.style.display = 'none'; }
   });
 
-  const bases = { 1: 249, 2: 349, 3: 449 };
-  const planNames = { 1: 'Level I — Spark', 2: 'Level II — Ember', 3: 'Level III — Flame' };
-  const discounts = { monthly: 0, '3mo': 0.05, '6mo': 0.10, '12mo': 0.15 };
-  const moCount   = { monthly: 1, '3mo': 3, '6mo': 6, '12mo': 12 };
-  const cycleLabels = {
-    monthly: 'Monthly',
-    '3mo':   '3 Months — billed upfront',
-    '6mo':   '6 Months — billed upfront',
-    '12mo':  '12 Months — billed upfront'
+  const plans = {
+    1: {
+      level: 'Level I', name: 'Spark', tagline: 'Strike the steel.', base: 249,
+      feats: ['Custom workout plan built around your schedule & goals','Monthly 1:1 check-in call with your coach','Nutrition guidance & foundational eating strategy','Ongoing plan adjustments as you progress']
+    },
+    2: {
+      level: 'Level II', name: 'Ember', tagline: 'Fan the flame.', base: 349,
+      feats: ['Everything in Level I','Bi-weekly check-in calls (2x / month)','Enhanced nutrition strategy & meal timing','Program rebuilt every 4–6 weeks','Email support between sessions']
+    },
+    3: {
+      level: 'Level III', name: 'Flame', tagline: 'Become the fire.', base: 449,
+      feats: ['Everything in Level II','Weekly 1:1 check-in calls','Fully custom meal plan','Unlimited messaging with your coach','Priority scheduling & 24–48hr response guarantee']
+    }
   };
+  const planNames   = { 1: 'Level I — Spark', 2: 'Level II — Ember', 3: 'Level III — Flame' };
+  const discounts   = { monthly: 0, '3mo': 0.05, '6mo': 0.10, '12mo': 0.15 };
+  const moCount     = { monthly: 1, '3mo': 3, '6mo': 6, '12mo': 12 };
+  const cycleLabels = { monthly: 'Monthly', '3mo': '3 Months — billed upfront', '6mo': '6 Months — billed upfront', '12mo': '12 Months — billed upfront' };
 
-  let currentPlan = 2;
+  let currentPlan  = 2;
   let currentCycle = 'monthly';
 
-  // Effective monthly rate shown on plan cards
-  function getMonthlyRate(plan, cycle) {
-    return Math.round(bases[plan] * (1 - discounts[cycle]));
-  }
-
-  // Actual charge: full term paid upfront
   function getTotalPrice(plan, cycle) {
-    return Math.round(bases[plan] * moCount[cycle] * (1 - discounts[cycle]));
+    return Math.round(plans[plan].base * moCount[cycle] * (1 - discounts[cycle]));
   }
 
   function updateSummary() {
-    const total      = getTotalPrice(currentPlan, currentCycle);
-    const m          = moCount[currentCycle];
-    const disc       = discounts[currentCycle];
-    const totalSaved = Math.round(bases[currentPlan] * m * disc);
+    const p     = plans[currentPlan];
+    const disc  = discounts[currentCycle];
+    const m     = moCount[currentCycle];
+    const rate  = Math.round(p.base * (1 - disc));
+    const total = getTotalPrice(currentPlan, currentCycle);
+    const saved = Math.round(p.base * m * disc);
 
-    // Update plan card price displays and per-month labels
-    for (let i = 1; i <= 3; i++) {
-      document.getElementById('pp-' + i).textContent = getMonthlyRate(i, currentCycle);
-    }
-    document.querySelectorAll('.plan-mo').forEach(el => {
-      el.textContent = currentCycle === 'monthly' ? 'per month' : 'per month (avg)';
-    });
+    // Plan card
+    document.getElementById('card-level').textContent   = p.level;
+    document.getElementById('card-name').textContent    = p.name;
+    document.getElementById('card-tagline').textContent = p.tagline;
+    document.getElementById('card-price').textContent   = rate;
+    document.getElementById('card-mo').textContent      = disc > 0 ? 'per month (avg)' : 'per month';
+    document.getElementById('card-savings').textContent = disc > 0 ? `$${total} billed upfront · save $${saved} total` : '';
 
-    // Per-card savings lines (same format as homepage)
-    for (let i = 1; i <= 3; i++) {
-      const el = document.getElementById('cs-' + i);
-      if (disc > 0) {
-        const upfront = Math.round(bases[i] * m * (1 - disc));
-        const saved   = Math.round(bases[i] * m * disc);
-        el.textContent = `$${upfront} billed upfront \u00b7 save $${saved} total`;
-      } else {
-        el.textContent = '';
-      }
-    }
+    const featsList = document.getElementById('card-feats');
+    featsList.innerHTML = p.feats.map(f => `<li>${f}</li>`).join('');
 
-    // Show/hide upfront note below toggle
+    // Billing note
     document.getElementById('billing-note').classList.toggle('visible', currentCycle !== 'monthly');
 
-    document.getElementById('sum-plan').textContent = planNames[currentPlan];
+    // Order summary
+    document.getElementById('sum-plan').textContent  = planNames[currentPlan];
     document.getElementById('sum-cycle').textContent = cycleLabels[currentCycle];
     document.getElementById('sum-total').textContent = '$' + total;
-    document.getElementById('pay-btn-text').textContent = `Pay $${total} Upfront & Continue`;
+    document.getElementById('pay-btn-text').textContent = `Pay $${total} & Continue`;
 
     const savRow = document.getElementById('sum-savings-row');
     if (disc > 0) {
       savRow.style.display = 'flex';
-      document.getElementById('sum-savings').textContent =
-        `$${total} billed upfront \u00b7 save $${totalSaved} total`;
+      document.getElementById('sum-savings').textContent = `$${total} billed upfront · save $${saved} total`;
     } else {
       savRow.style.display = 'none';
     }
-  }
-
-  function selectPlan(n) {
-    currentPlan = n;
-    for (let i = 1; i <= 3; i++) {
-      document.getElementById('pc-' + i).classList.toggle('selected', i === n);
-    }
-    updateSummary();
   }
 
   function setBilling(cycle, btn) {
@@ -540,9 +466,9 @@
     const valid = req('fname') & req('lname') & reqEmail('email');
     if (!valid) return;
 
-    const btn = document.getElementById('pay-btn');
+    const btn    = document.getElementById('pay-btn');
     const btnText = document.getElementById('pay-btn-text');
-    const errEl = document.getElementById('stripe-error');
+    const errEl  = document.getElementById('stripe-error');
     btn.disabled = true;
     btnText.textContent = 'Processing...';
     errEl.style.display = 'none';
@@ -560,7 +486,7 @@
       errEl.textContent = error.message;
       errEl.style.display = 'block';
       btn.disabled = false;
-      btnText.textContent = `Pay $${getTotalPrice(currentPlan, currentCycle)} Upfront & Continue`;
+      btnText.textContent = `Pay $${getTotalPrice(currentPlan, currentCycle)} & Continue`;
       return;
     }
 
@@ -573,22 +499,21 @@
 
   function showConfirmation() {
     const price = getTotalPrice(currentPlan, currentCycle);
-    document.getElementById('cd-plan').textContent = planNames[currentPlan];
+    document.getElementById('cd-plan').textContent  = planNames[currentPlan];
     document.getElementById('cd-cycle').textContent = cycleLabels[currentCycle];
     document.getElementById('cd-total').textContent = '$' + price;
     document.getElementById('cd-email').textContent = document.getElementById('email').value;
 
     document.getElementById('checkout-view').style.display = 'none';
-    const cv = document.getElementById('confirm-view');
-    cv.classList.add('active');
+    document.getElementById('confirm-view').classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Init — read ?plan= from URL to pre-select
-  const params = new URLSearchParams(window.location.search);
+  // Init — read ?plan= from URL, default to Level II
+  const params    = new URLSearchParams(window.location.search);
   const planParam = parseInt(params.get('plan'));
-  if (planParam >= 1 && planParam <= 3) selectPlan(planParam);
-  else updateSummary();
+  currentPlan = (planParam >= 1 && planParam <= 3) ? planParam : 2;
+  updateSummary();
 </script>
 </body>
 </html>

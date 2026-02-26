@@ -230,13 +230,30 @@
     .coaching-strip { flex-direction:column; align-items:flex-start; padding:40px 24px; }
     footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
   }
+
+  /* ─── ACCESSIBILITY ──────────────────────────── */
+  .skip-link { position:absolute; top:-200px; left:16px; z-index:9999; background:var(--ember); color:var(--white); padding:12px 20px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+  .skip-link:focus { top:16px; }
+  :focus-visible { outline:2px solid var(--ember); outline-offset:3px; border-radius:2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ─── MERCH STYLES ───────────────────────────── */
+  .merch-cover-icon { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; }
+  .merch-cover-icon svg { width:clamp(40px,8vw,80px); height:auto; }
+  .section-divider { grid-column:1 / -1; padding:40px 0 16px; border-top:1px solid var(--border); display:flex; align-items:center; gap:20px; }
+  .section-divider-label { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; color:var(--muted); white-space:nowrap; }
+  .section-divider-line { flex:1; height:1px; background:var(--border); }
+  .merch-badge { background:var(--cold); color:var(--black); font-size:8px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; padding:4px 10px; border-radius:2px; }
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<nav>
-  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
-  <ul class="nav-links">
+<nav aria-label="Main navigation">
+  <a href="index.html" class="nav-logo" aria-label="Flint Performance — home">FLINT<span class="sp">.</span></a>
+  <ul class="nav-links" role="list">
     <li><a href="index.html">Home</a></li>
     <li><a href="coaching.html">Coaching</a></li>
     <li><a href="shop.html" class="active">Shop</a></li>
@@ -244,20 +261,29 @@
   </ul>
 </nav>
 
-<main>
+<main id="main-content">
 
   <!-- PAGE HEADER -->
   <div class="page-header">
-    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Digital Products</div></div>
+    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Digital Products &amp; Merch</div></div>
     <h1 class="page-title">THE FLINT<br><span class="em">SHOP.</span></h1>
-    <p class="page-desc">The same principles behind Flint 1-on-1 coaching — in downloadable guides. Built for professionals who want results without the guesswork. Instant delivery. No fluff.</p>
+    <p class="page-desc">Downloadable guides and Flint gear. Everything built around the same principles behind our 1-on-1 coaching. Instant delivery on guides. Ships within 3–5 days on merch.</p>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-bar" role="group" aria-label="Filter products by category">
+    <button class="filter-btn active" onclick="filterProducts('all',this)" aria-pressed="true">All</button>
+    <button class="filter-btn" onclick="filterProducts('training',this)" aria-pressed="false">Training</button>
+    <button class="filter-btn" onclick="filterProducts('nutrition',this)" aria-pressed="false">Nutrition</button>
+    <button class="filter-btn" onclick="filterProducts('performance',this)" aria-pressed="false">Performance</button>
+    <button class="filter-btn" onclick="filterProducts('merch',this)" aria-pressed="false">Merch</button>
   </div>
 
   <!-- PRODUCT GRID -->
-  <div class="product-grid">
+  <div class="product-grid" id="product-grid">
 
     <!-- WORKOUT SPLITS -->
-    <div class="product-card">
+    <div class="product-card" data-category="training">
       <div class="product-cover">
         <div class="product-cover-bg" style="background:linear-gradient(135deg, #0e0e0e 0%, #1a1008 60%, rgba(240,74,14,0.15) 100%);"></div>
         <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(240,74,14,0.3);">SPLITS</div>
@@ -287,7 +313,7 @@
     </div>
 
     <!-- FAT LOSS EXPLAINED -->
-    <div class="product-card featured">
+    <div class="product-card featured" data-category="nutrition">
       <div class="badge-new">Best Seller</div>
       <div class="product-cover">
         <div class="product-cover-bg" style="background:linear-gradient(135deg, #111 0%, #1a0808 60%, rgba(240,74,14,0.2) 100%);"></div>
@@ -319,7 +345,7 @@
     </div>
 
     <!-- COOKBOOK -->
-    <div class="product-card">
+    <div class="product-card" data-category="nutrition">
       <div class="product-cover">
         <div class="product-cover-bg" style="background:linear-gradient(135deg, #0a0e10 0%, #080d12 60%, rgba(184,204,218,0.12) 100%);"></div>
         <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(184,204,218,0.3);">COOK</div>
@@ -349,7 +375,7 @@
     </div>
 
     <!-- MEAL PLAN -->
-    <div class="product-card">
+    <div class="product-card" data-category="nutrition">
       <div class="product-cover">
         <div class="product-cover-bg" style="background:linear-gradient(135deg, #0a0c0e 0%, #0d1014 60%, rgba(184,204,218,0.1) 100%);"></div>
         <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(184,204,218,0.25); font-size:clamp(26px,4.5vw,52px);">8 WEEKS</div>
@@ -380,7 +406,7 @@
     </div>
 
     <!-- PEPTIDE GUIDE -->
-    <div class="product-card">
+    <div class="product-card" data-category="performance">
       <div class="product-cover">
         <div class="product-cover-bg" style="background:linear-gradient(135deg, #060610 0%, #0a0a18 60%, rgba(120,100,220,0.1) 100%);"></div>
         <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(180,170,230,0.3); font-size:clamp(26px,4.5vw,52px);">PEPTIDES</div>
@@ -411,7 +437,7 @@
     </div>
 
     <!-- FULL BUNDLE -->
-    <div class="product-card featured" style="grid-column:span 1;">
+    <div class="product-card featured" data-category="all" style="grid-column:span 1;">
       <div class="product-cover">
         <div class="product-cover-bg" style="background:linear-gradient(135deg, #0e0a06 0%, #1a1206 60%, rgba(240,74,14,0.25) 100%);"></div>
         <div class="product-cover-word" style="-webkit-text-stroke:1.5px rgba(240,74,14,0.5); font-size:clamp(36px,6vw,70px);">BUNDLE</div>
@@ -441,6 +467,120 @@
       </div>
     </div>
 
+    <!-- MERCH DIVIDER -->
+    <div class="section-divider" data-category="merch" data-divider="true">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">MERCH</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <!-- SNAPBACK HAT -->
+    <div class="product-card" data-category="merch">
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #060606 0%, #0f0f0f 60%, rgba(240,74,14,0.08) 100%);"></div>
+        <div class="merch-cover-icon">
+          <svg viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 40 Q4 28 40 24 Q76 28 76 40 L72 44 L8 44 Z" stroke="rgba(240,74,14,0.5)" stroke-width="1.5" fill="rgba(240,74,14,0.08)"/>
+            <path d="M8 44 L72 44 L70 52 L10 52 Z" stroke="rgba(237,232,223,0.2)" stroke-width="1" fill="rgba(237,232,223,0.04)"/>
+            <path d="M4 40 L2 46 L8 46 L8 44" stroke="rgba(237,232,223,0.2)" stroke-width="1" fill="rgba(237,232,223,0.04)"/>
+            <text x="40" y="37" font-family="sans-serif" font-size="9" font-weight="900" fill="rgba(240,74,14,0.7)" text-anchor="middle" letter-spacing="2">FLINT.</text>
+          </svg>
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:rgba(240,74,14,0.5);">Snapback</div>
+        </div>
+        <div class="product-cover-sub" style="color:var(--ember);">Structured Snapback Hat</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag" style="display:flex;align-items:center;gap:8px;">Headwear <span class="merch-badge">New</span></div>
+        <div class="product-name">FLINT. Snapback</div>
+        <div class="product-subtitle">Black. Structured. Understated.</div>
+        <p class="product-desc">Black structured snapback with "FLINT." embroidered on the front panel in ember orange. Flat brim. One size fits most with adjustable snap closure. The kind of hat you wear every day without thinking about it.</p>
+        <ul class="product-includes">
+          <li>Black structured 6-panel snapback</li>
+          <li>"FLINT." embroidered in ember orange — front panel</li>
+          <li>Flat brim, adjustable snap closure</li>
+          <li>100% cotton / one size fits most</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div class="product-price"><span class="dl">$</span>35</div>
+            <div class="product-price-note">Ships in 3–5 days</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for this product -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEE SHIRT -->
+    <div class="product-card featured" data-category="merch">
+      <div class="badge-new">New</div>
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #060606 0%, #0d0d0d 60%, rgba(184,204,218,0.06) 100%);"></div>
+        <div class="merch-cover-icon">
+          <svg viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 10 L8 20 L16 26 L16 58 L64 58 L64 26 L72 20 L60 10 L50 18 Q40 22 30 18 Z" stroke="rgba(184,204,218,0.3)" stroke-width="1.5" fill="rgba(184,204,218,0.05)"/>
+            <text x="40" y="39" font-family="sans-serif" font-size="7" font-weight="900" fill="rgba(184,204,218,0.5)" text-anchor="middle" letter-spacing="1">BUILT IN</text>
+            <text x="40" y="49" font-family="sans-serif" font-size="7" font-weight="900" fill="rgba(184,204,218,0.5)" text-anchor="middle" letter-spacing="1">THE COLD</text>
+          </svg>
+        </div>
+        <div class="product-cover-sub" style="color:var(--cold);">Premium Heavyweight Tee</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag" style="display:flex;align-items:center;gap:8px;">Apparel <span class="merch-badge">New</span></div>
+        <div class="product-name">Built in the Cold Tee</div>
+        <div class="product-subtitle">Heavyweight. Minimal. Permanent.</div>
+        <p class="product-desc">Black heavyweight 100% cotton tee. "BUILT IN THE COLD" printed across the chest in cold steel blue. Flint wordmark on the left sleeve. Boxy, oversized cut — built to last, not to fade after six washes.</p>
+        <ul class="product-includes">
+          <li>280gsm 100% cotton heavyweight — black</li>
+          <li>"BUILT IN THE COLD" chest print in cold blue</li>
+          <li>"FLINT." left sleeve print in ember orange</li>
+          <li>Oversized boxy fit — sizes XS through 3XL</li>
+          <li>Pre-shrunk, garment-washed finish</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div class="product-price"><span class="dl">$</span>38</div>
+            <div class="product-price-note">Ships in 3–5 days</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for this product -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- STICKER PACK -->
+    <div class="product-card" data-category="merch">
+      <div class="product-cover">
+        <div class="product-cover-bg" style="background:linear-gradient(135deg, #060606 0%, #0c0c0c 60%, rgba(240,74,14,0.06) 100%);"></div>
+        <div class="merch-cover-icon" style="gap:12px;flex-direction:row;">
+          <div style="width:52px;height:52px;border:1.5px solid rgba(240,74,14,0.4);border-radius:2px;display:flex;align-items:center;justify-content:center;background:rgba(240,74,14,0.06);font-family:sans-serif;font-size:8px;font-weight:900;color:rgba(240,74,14,0.6);letter-spacing:1px;">FLINT.</div>
+          <div style="width:44px;height:44px;border:1.5px solid rgba(184,204,218,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(184,204,218,0.04);font-family:sans-serif;font-size:6px;font-weight:900;color:rgba(184,204,218,0.5);letter-spacing:0.5px;text-align:center;line-height:1.3;">BUILT IN<br>THE COLD</div>
+          <div style="width:40px;height:40px;border:1.5px solid rgba(240,74,14,0.3);border-radius:2px;display:flex;align-items:center;justify-content:center;background:rgba(240,74,14,0.04);transform:rotate(-8deg);font-size:16px;">🔥</div>
+        </div>
+        <div class="product-cover-sub" style="color:var(--ember);">3-Pack</div>
+      </div>
+      <div class="product-info">
+        <div class="product-tag" style="display:flex;align-items:center;gap:8px;">Accessories <span class="merch-badge">New</span></div>
+        <div class="product-name">Flint Sticker Pack</div>
+        <div class="product-subtitle">Three stickers. One fire.</div>
+        <p class="product-desc">Three premium die-cut vinyl stickers. Weatherproof and fade-resistant — they'll outlive your water bottle, laptop, and every bad habit you're trying to break. Put them where you'll see them every day.</p>
+        <ul class="product-includes">
+          <li>"FLINT." wordmark — rectangular die-cut, ember orange on black</li>
+          <li>"BUILT IN THE COLD" — circular sticker, cold blue on black</li>
+          <li>Spark flame icon — ember gradient, 2-inch circle</li>
+          <li>Premium vinyl — waterproof, UV-resistant, 5+ year lifespan</li>
+        </ul>
+        <div class="product-footer">
+          <div>
+            <div class="product-price"><span class="dl">$</span>12</div>
+            <div class="product-price-note">Ships in 3–5 days</div>
+          </div>
+          <!-- Replace href with your Stripe Payment Link for this product -->
+          <a href="#" class="btn-buy" onclick="alert('Connect your Stripe Payment Link here.')">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /product-grid -->
 
   <!-- COACHING UPSELL STRIP -->
@@ -464,5 +604,30 @@
   </div>
 </footer>
 
+<script>
+  function filterProducts(category, btn) {
+    // Update button states
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
+
+    const grid = document.getElementById('product-grid');
+    const cards = grid.querySelectorAll('[data-category]');
+
+    cards.forEach(card => {
+      if (card.dataset.divider) {
+        // Show/hide the merch section divider
+        card.style.display = (category === 'all' || category === 'merch') ? '' : 'none';
+        return;
+      }
+      const cat = card.dataset.category;
+      const show = category === 'all' || cat === category || cat === 'all';
+      card.style.display = show ? '' : 'none';
+    });
+  }
+</script>
 </body>
 </html>

@@ -191,16 +191,41 @@
     .scarcity-bar { flex-direction:column; align-items:flex-start; gap:8px; }
     footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
   }
+
+  /* ─── ACCESSIBILITY ──────────────────────────── */
+  .skip-link { position:absolute; top:-200px; left:16px; z-index:9999; background:var(--ember); color:var(--white); padding:12px 20px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+  .skip-link:focus { top:16px; }
+  :focus-visible { outline:2px solid var(--ember); outline-offset:3px; border-radius:2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ─── PLAN COMPARISON ────────────────────────── */
+  .plan-compare { margin-bottom:40px; overflow-x:auto; }
+  .pc-table { width:100%; border-collapse:collapse; min-width:480px; }
+  .pc-table th, .pc-table td { padding:14px 16px; text-align:center; border-bottom:1px solid var(--border); font-size:13px; }
+  .pc-table th:first-child, .pc-table td:first-child { text-align:left; color:var(--muted); font-weight:400; padding-left:0; font-size:12px; }
+  .pc-table thead th { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.06em; padding-bottom:6px; border-bottom:none; }
+  .pc-table thead .th-level { font-size:9px; font-weight:700; letter-spacing:0.3em; text-transform:uppercase; color:var(--ember); display:block; margin-bottom:2px; font-family:'DM Sans',sans-serif; }
+  .pc-table thead .th-price { font-size:13px; color:var(--muted); font-family:'DM Sans',sans-serif; font-weight:300; display:block; margin-top:2px; font-family:'DM Sans',sans-serif; letter-spacing:0; }
+  .pc-feat-yes { color:var(--cold); font-weight:600; }
+  .pc-feat-no { color:#333; }
+  .pc-feat-text { color:var(--white); }
+  .pc-feat-em { color:var(--ember); font-weight:500; }
+  .pc-col-featured { background:rgba(240,74,14,0.04); border-left:1px solid rgba(240,74,14,0.2); border-right:1px solid rgba(240,74,14,0.2); }
+  .pc-col-featured.pc-head-cell { border-top:2px solid var(--ember); }
+  .pc-shirt-note { font-size:12px; color:var(--cold); background:rgba(184,204,218,0.06); border:1px solid rgba(184,204,218,0.12); border-radius:2px; padding:12px 16px; margin-bottom:40px; display:flex; align-items:center; gap:10px; }
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<nav>
-  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+<nav aria-label="Site navigation">
+  <a href="index.html" class="nav-logo" aria-label="Flint Performance — home">FLINT<span class="sp">.</span></a>
   <a href="index.html" class="nav-back">← Back to site</a>
 </nav>
 
-<main>
+<main id="main-content">
   <div class="page-container">
 
     <!-- APPLICATION FORM VIEW -->
@@ -217,10 +242,73 @@
         <div class="scarcity-text"><strong>Limited availability.</strong> Coaching spots are capped to maintain quality. Applications are reviewed on a rolling basis.</div>
       </div>
 
+      <!-- PLAN COMPARISON -->
+      <div class="plan-compare" role="region" aria-label="Plan comparison">
+        <table class="pc-table" aria-label="Coaching plan feature comparison">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col"><span class="th-level">Level I</span> SPARK <span class="th-price">$349 / mo</span></th>
+              <th scope="col" class="pc-col-featured pc-head-cell"><span class="th-level">Level II</span> EMBER <span class="th-price">$499 / mo</span></th>
+              <th scope="col"><span class="th-level">Level III</span> FLAME <span class="th-price">$649 / mo</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Check-in calls</td>
+              <td class="pc-feat-text">Monthly (1×)</td>
+              <td class="pc-col-featured pc-feat-text">Bi-weekly (2×)</td>
+              <td class="pc-feat-em">Weekly (4×)</td>
+            </tr>
+            <tr>
+              <td>Custom workout plan</td>
+              <td class="pc-feat-yes">✓</td>
+              <td class="pc-col-featured pc-feat-yes">✓</td>
+              <td class="pc-feat-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Nutrition guidance</td>
+              <td class="pc-feat-text">Foundation</td>
+              <td class="pc-col-featured pc-feat-text">Enhanced + meal timing</td>
+              <td class="pc-feat-em">Full custom meal plan</td>
+            </tr>
+            <tr>
+              <td>Email support</td>
+              <td class="pc-feat-no">—</td>
+              <td class="pc-col-featured pc-feat-yes">✓</td>
+              <td class="pc-feat-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Unlimited messaging</td>
+              <td class="pc-feat-no">—</td>
+              <td class="pc-col-featured pc-feat-no">—</td>
+              <td class="pc-feat-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Response guarantee</td>
+              <td class="pc-feat-no">—</td>
+              <td class="pc-col-featured pc-feat-no">—</td>
+              <td class="pc-feat-em">24–48 hrs</td>
+            </tr>
+            <tr>
+              <td>Free Flint tee</td>
+              <td class="pc-feat-yes">✓</td>
+              <td class="pc-col-featured pc-feat-yes">✓</td>
+              <td class="pc-feat-yes">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pc-shirt-note" role="note">
+        <span style="font-size:18px;">👕</span>
+        <span>Every coaching client receives a <strong style="color:var(--white);">free Flint t-shirt</strong> when they start. We'll ask for your size below.</span>
+      </div>
+
       <!-- PLAN INTEREST -->
       <div class="form-section">
-        <div class="section-label">Coaching Level Interest</div>
-        <div class="plan-selector">
+        <div class="section-label">Choose Your Level</div>
+        <div class="plan-selector" role="radiogroup" aria-label="Select coaching level">
           <label class="plan-option" id="po1" onclick="selectPlan(1)">
             <input type="radio" name="plan" value="1">
             <div class="plan-opt-check">✓</div>
@@ -259,8 +347,27 @@
             <div class="field" id="f-lname"><label>Last Name <span class="req">*</span></label><input type="text" name="last_name" id="lname" placeholder="Johnson" autocomplete="family-name"/><div class="err-msg">Required.</div></div>
           </div>
           <div class="field-group">
-            <div class="field" id="f-email"><label>Email Address <span class="req">*</span></label><input type="email" name="email" id="email" placeholder="alex@email.com" autocomplete="email" inputmode="email"/><div class="err-msg">Please enter a valid email.</div></div>
-            <div class="field" id="f-phone"><label>Phone Number <span class="req">*</span></label><input type="tel" name="phone" id="phone" placeholder="(555) 000-0000" autocomplete="tel" inputmode="tel"/><div class="err-msg">Required.</div></div>
+            <div class="field" id="f-email"><label for="email">Email Address <span class="req" aria-hidden="true">*</span></label><input type="email" name="email" id="email" placeholder="alex@email.com" autocomplete="email" inputmode="email" aria-required="true" aria-describedby="email-err"/><div class="err-msg" id="email-err" role="alert">Please enter a valid email.</div></div>
+            <div class="field" id="f-phone"><label for="phone">Phone Number <span class="req" aria-hidden="true">*</span></label><input type="tel" name="phone" id="phone" placeholder="(555) 000-0000" autocomplete="tel" inputmode="tel" aria-required="true" aria-describedby="phone-err"/><div class="err-msg" id="phone-err" role="alert">Required.</div></div>
+          </div>
+          <div class="field-group">
+            <div class="field" id="f-shirt">
+              <label for="shirt_size">T-Shirt Size <span class="req" aria-hidden="true">*</span> <span style="font-size:11px;color:var(--cold);font-weight:400;letter-spacing:0;text-transform:none;">— your free Flint tee</span></label>
+              <select name="shirt_size" id="shirt_size" aria-required="true" aria-describedby="shirt-err">
+                <option value="">Select your size...</option>
+                <option>XS</option>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>2XL</option>
+                <option>3XL</option>
+              </select>
+              <div class="err-msg" id="shirt-err" role="alert">Required.</div>
+            </div>
+            <div class="field" style="align-self:flex-end;padding-bottom:2px;">
+              <p style="font-size:12px;color:var(--muted);line-height:1.6;">All coaching clients receive a Flint tee when they start. Shipped to your door.</p>
+            </div>
           </div>
         </div>
 
@@ -443,7 +550,7 @@
   document.getElementById('applyForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const valid = req('fname') & req('lname') & reqEmail('email') & req('phone') &
-                  reqSel('hours') & reqSel('schedule') &
+                  reqSel('shirt_size') & reqSel('hours') & reqSel('schedule') &
                   reqHidden('goal_field','goal-err') & reqHidden('exp_field','exp-err') &
                   reqHidden('prev_field','prev-err') &
                   req('obstacle') & req('goal90');

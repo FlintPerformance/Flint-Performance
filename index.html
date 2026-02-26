@@ -649,6 +649,14 @@
     .hero-title { font-size:clamp(56px,16vw,80px); }
     .plan-price { font-size:56px; }
   }
+
+  /* ─── ACCESSIBILITY ──────────────────────────── */
+  .skip-link { position:absolute; top:-200px; left:16px; z-index:9999; background:var(--ember); color:var(--white); padding:12px 20px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+  .skip-link:focus { top:16px; }
+  :focus-visible { outline:2px solid var(--ember); outline-offset:3px; border-radius:2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -672,24 +680,25 @@
 </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">FLINT<span class="sp">.</span></a>
-  <ul class="nav-links">
+<nav aria-label="Main navigation">
+  <a href="index.html" class="nav-logo" aria-label="Flint Performance — home">FLINT<span class="sp">.</span></a>
+  <ul class="nav-links" role="list">
     <li><a href="#about">About</a></li>
     <li><a href="coaching.html">Coaching</a></li>
     <li><a href="shop.html">Shop</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="coaching.html" onclick="closeMenu()">Coaching</a>
   <a href="shop.html" onclick="closeMenu()">Shop</a>
@@ -698,7 +707,7 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="main-content">
   <div class="hero-atmo"></div>
   <div class="spark-lines"></div>
   <div class="hero-bg-word">FLINT</div>
@@ -1005,13 +1014,19 @@
   const hb = document.getElementById('hamburger');
   const mm = document.getElementById('mobileMenu');
   hb.addEventListener('click', () => {
+    const isOpen = mm.classList.toggle('open');
     hb.classList.toggle('open');
-    mm.classList.toggle('open');
-    document.body.style.overflow = mm.classList.contains('open') ? 'hidden' : '';
+    hb.setAttribute('aria-expanded', isOpen);
+    hb.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    mm.setAttribute('aria-hidden', !isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
   function closeMenu() {
     hb.classList.remove('open');
     mm.classList.remove('open');
+    hb.setAttribute('aria-expanded', 'false');
+    hb.setAttribute('aria-label', 'Open navigation menu');
+    mm.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 

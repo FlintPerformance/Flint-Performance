@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1:1 Coaching — Flint Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-back { font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--white); }
+
+  /* LAYOUT */
+  main { flex:1; padding:80px 64px 120px; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom:64px; }
+  .eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .ey-line { width:36px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,8vw,96px); letter-spacing:0.02em; line-height:0.9; margin-bottom:20px; }
+  .page-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; max-width:560px; }
+
+  /* BILLING TOGGLE */
+  .billing-bar { display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:48px; }
+  .billing-note { font-size:13px; color:var(--muted); }
+  .billing-toggle { display:flex; background:var(--gray-mid); border-radius:2px; padding:3px; gap:2px; }
+  .billing-toggle button { background:transparent; border:none; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:10px 18px; border-radius:1px; cursor:pointer; transition:all 0.2s; position:relative; white-space:nowrap; }
+  .billing-toggle button.active { background:var(--ember); color:var(--white); }
+  .billing-toggle button .badge { position:absolute; top:-8px; right:-4px; background:var(--cold); color:var(--black); font-size:8px; font-weight:700; padding:2px 5px; border-radius:2px; }
+
+  /* PLAN CARDS */
+  .plans { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:64px; }
+  .plan { background:var(--gray-mid); border:1px solid var(--border); padding:44px 36px; position:relative; overflow:hidden; display:flex; flex-direction:column; }
+  .plan.featured { border-color:rgba(240,74,14,0.4); background:rgba(240,74,14,0.04); }
+  .plan.featured::after { content:''; position:absolute; top:-80px; right:-80px; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle, rgba(240,74,14,0.12), transparent 70%); pointer-events:none; }
+  .plan-badge { position:absolute; top:0; right:0; background:var(--ember); color:var(--white); font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; padding:5px 12px; }
+  .plan-level { font-size:10px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--ember); margin-bottom:4px; }
+  .plan-name { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:0.04em; margin-bottom:4px; }
+  .plan-tagline { font-size:13px; color:var(--muted); font-style:italic; margin-bottom:28px; }
+  .plan-price { font-family:'Bebas Neue',sans-serif; font-size:72px; line-height:1; letter-spacing:0.02em; }
+  .plan-price .dl { font-size:28px; vertical-align:top; margin-top:14px; display:inline-block; color:var(--ember); }
+  .plan-period { font-size:13px; color:var(--muted); margin-top:4px; margin-bottom:6px; }
+  .plan-savings { font-size:11px; color:var(--cold); min-height:16px; margin-bottom:24px; }
+  .plan-div { height:1px; background:var(--border); margin-bottom:24px; }
+  .plan-features { list-style:none; display:flex; flex-direction:column; gap:12px; margin-bottom:36px; flex:1; }
+  .plan-features li { display:flex; gap:12px; font-size:13px; color:#999; line-height:1.5; align-items:flex-start; }
+  .ck { color:var(--cold); flex-shrink:0; }
+  .plan-btn { display:block; text-align:center; padding:14px 24px; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; transition:all 0.2s; border-radius:2px; }
+  .btn-col { background:transparent; border:1px solid rgba(237,232,223,0.2); color:var(--white); }
+  .btn-col:hover { border-color:var(--white); }
+  .btn-fem { background:var(--ember); color:var(--white); box-shadow:0 0 32px rgba(240,74,14,0.3); }
+  .btn-fem:hover { background:var(--ember-hot); box-shadow:0 0 50px rgba(240,74,14,0.35); }
+
+  /* CONSULT STRIP */
+  .consult-strip { border-top:1px solid var(--border); padding-top:48px; display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap; }
+  .lbl { font-size:11px; font-weight:600; letter-spacing:0.32em; text-transform:uppercase; color:var(--ember); margin-bottom:8px; }
+  .consult-strip-sub { font-size:14px; color:var(--muted); font-weight:300; line-height:1.6; max-width:320px; margin-top:8px; }
+  .consult-pills { display:flex; gap:12px; flex-wrap:wrap; }
+  .consult-pill { display:flex; align-items:center; gap:16px; padding:20px 28px; background:var(--gray-mid); border:1px solid var(--border); text-decoration:none; transition:border-color .2s, background .2s; }
+  .consult-pill:hover { border-color:var(--ember); background:var(--gray-up); }
+  .consult-pill-mins { font-family:'Bebas Neue',sans-serif; font-size:40px; line-height:1; letter-spacing:0.02em; color:var(--ember); }
+  .consult-pill-info { display:flex; flex-direction:column; gap:2px; }
+  .consult-pill-name { font-size:13px; font-weight:600; color:var(--white); }
+  .consult-pill-price { font-size:12px; color:var(--muted); font-weight:300; }
+
+  /* FOOTER */
+  footer { background:#040404; padding:36px 64px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); flex-wrap:wrap; gap:12px; margin-top:auto; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; letter-spacing:0.06em; }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--ember); }
+
+  /* TABLET */
+  @media (max-width:1024px) {
+    main { padding:64px 40px 100px; }
+    .plans { grid-template-columns:1fr; max-width:480px; }
+  }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    main { padding:48px 20px 80px; }
+    .billing-bar { flex-direction:column; align-items:flex-start; }
+    .billing-toggle { width:100%; }
+    .billing-toggle button { flex:1; padding:10px 8px; font-size:11px; }
+    .plan { padding:32px 24px; }
+    .plan-price { font-size:56px; }
+    .consult-strip { flex-direction:column; align-items:flex-start; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FLINT<span class="sp">.</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+
+<main>
+
+  <div class="page-header">
+    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">1-on-1 Coaching</div></div>
+    <h1 class="page-title">CHOOSE<br>YOUR<br>LEVEL.</h1>
+    <p class="page-desc">Fully custom coaching built around your schedule, your goals, and your actual life. Three levels. No fluff. Real results.</p>
+  </div>
+
+  <div class="billing-bar">
+    <div class="billing-note">Multi-month plans billed upfront &middot; save up to 15%</div>
+    <div class="billing-toggle">
+      <button class="active" onclick="setBilling('monthly',this)">Monthly</button>
+      <button onclick="setBilling('3mo',this)">3 Mo <span class="badge">5% OFF</span></button>
+      <button onclick="setBilling('6mo',this)">6 Mo <span class="badge">10% OFF</span></button>
+      <button onclick="setBilling('12mo',this)">12 Mo <span class="badge">15% OFF</span></button>
+    </div>
+  </div>
+
+  <div class="plans">
+
+    <div class="plan">
+      <div class="plan-level">Level I</div>
+      <div class="plan-name">Spark</div>
+      <div class="plan-tagline">Strike the steel.</div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="249">249</span></div>
+      <div class="plan-period">per month</div>
+      <div class="plan-savings" id="sv1"></div>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><span class="ck">✓</span> Custom workout plan built around your schedule &amp; goals</li>
+        <li><span class="ck">✓</span> Monthly 1:1 check-in call with your coach</li>
+        <li><span class="ck">✓</span> Nutrition guidance &amp; foundational eating strategy</li>
+        <li><span class="ck">✓</span> Ongoing plan adjustments as you progress</li>
+      </ul>
+      <a href="plan-checkout.html?plan=1" class="plan-btn btn-col">Get Started</a>
+    </div>
+
+    <div class="plan featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-level">Level II</div>
+      <div class="plan-name">Ember</div>
+      <div class="plan-tagline">Fan the flame.</div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="349">349</span></div>
+      <div class="plan-period">per month</div>
+      <div class="plan-savings" id="sv2"></div>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><span class="ck">✓</span> Everything in Level I</li>
+        <li><span class="ck">✓</span> Bi-weekly check-in calls (2x / month)</li>
+        <li><span class="ck">✓</span> Enhanced nutrition strategy &amp; meal timing</li>
+        <li><span class="ck">✓</span> Program rebuilt every 4–6 weeks</li>
+        <li><span class="ck">✓</span> Email support between sessions</li>
+      </ul>
+      <a href="plan-checkout.html?plan=2" class="plan-btn btn-fem">Get Started</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-level">Level III</div>
+      <div class="plan-name">Flame</div>
+      <div class="plan-tagline">Become the fire.</div>
+      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="449">449</span></div>
+      <div class="plan-period">per month</div>
+      <div class="plan-savings" id="sv3"></div>
+      <div class="plan-div"></div>
+      <ul class="plan-features">
+        <li><span class="ck">✓</span> Everything in Level II</li>
+        <li><span class="ck">✓</span> Weekly 1:1 check-in calls</li>
+        <li><span class="ck">✓</span> Fully custom meal plan</li>
+        <li><span class="ck">✓</span> Unlimited messaging with your coach</li>
+        <li><span class="ck">✓</span> Priority scheduling for all consults</li>
+        <li><span class="ck">✓</span> 24–48hr response guarantee</li>
+      </ul>
+      <a href="plan-checkout.html?plan=3" class="plan-btn btn-col">Get Started</a>
+    </div>
+
+  </div>
+
+  <div class="consult-strip">
+    <div>
+      <div class="lbl">Not sure which level?</div>
+      <p class="consult-strip-sub">Book a private call. One conversation is enough to find the right path forward.</p>
+    </div>
+    <div class="consult-pills">
+      <a href="book-consult.html?session=30" class="consult-pill">
+        <div class="consult-pill-mins">30<span style="font-size:18px;color:var(--muted)">min</span></div>
+        <div class="consult-pill-info">
+          <div class="consult-pill-name">Discovery Call</div>
+          <div class="consult-pill-price">$75 / session</div>
+        </div>
+      </a>
+      <a href="book-consult.html?session=60" class="consult-pill">
+        <div class="consult-pill-mins">60<span style="font-size:18px;color:var(--muted)">min</span></div>
+        <div class="consult-pill-info">
+          <div class="consult-pill-name">Deep Dive</div>
+          <div class="consult-pill-price">$135 / session</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <a href="privacy-policy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  const discounts = { monthly: 0, '3mo': 0.05, '6mo': 0.10, '12mo': 0.15 };
+  const moCount   = { monthly: 1, '3mo': 3, '6mo': 6, '12mo': 12 };
+  let currentCycle = 'monthly';
+
+  function setBilling(cycle, btn) {
+    currentCycle = cycle;
+    document.querySelectorAll('.billing-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePrices();
+  }
+
+  function updatePrices() {
+    const disc = discounts[currentCycle];
+    const mo   = moCount[currentCycle];
+    document.querySelectorAll('.pv').forEach(el => {
+      el.textContent = Math.round(parseInt(el.dataset.base) * (1 - disc));
+    });
+    document.querySelectorAll('.plan-period').forEach(el => {
+      el.textContent = currentCycle === 'monthly' ? 'per month' : 'per month (avg)';
+    });
+    [['sv1',249],['sv2',349],['sv3',449]].forEach(([id, base]) => {
+      const el = document.getElementById(id);
+      if (disc > 0) {
+        const total = Math.round(base * mo * (1 - disc));
+        const saved = Math.round(base * mo * disc);
+        el.textContent = `$${total} billed upfront · save $${saved}`;
+      } else {
+        el.textContent = '';
+      }
+    });
+  }
+</script>
+</body>
+</html>

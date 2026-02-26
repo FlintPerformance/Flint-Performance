@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12-Week Ignition Challenge — Flint Performance</title>
+<meta name="description" content="The Flint 12-Week Ignition. A structured starting point for busy professionals ready to stop guessing and start building. Custom plan, nutrition guidance, and check-in calls every 4 weeks.">
+<meta name="keywords" content="12 week fitness challenge, ignition program, online fitness program, custom workout plan, nutrition guidance, Flint Performance">
+<meta property="og:title" content="12-Week Ignition — Flint Performance">
+<meta property="og:description" content="Not ready for full 1:1 coaching? The Ignition gives you a custom 12-week plan, nutrition guidance, and 3 check-in calls. $349 flat. Limited spots.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flintperformance.com/challenge.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="12-Week Ignition — Flint Performance">
+<meta name="twitter:description" content="A structured 12-week program built around your schedule. Custom plan, nutrition guidance, 3 check-in calls. Limited enrollment.">
+<link rel="canonical" href="https://flintperformance.com/challenge.html">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--white); }
+  .nav-cta { background:var(--ember) !important; color:var(--white) !important; padding:10px 22px; border-radius:2px; font-weight:600 !important; }
+  .nav-cta:hover { background:var(--ember-hot) !important; }
+  .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+  .hamburger span { width:22px; height:1.5px; background:var(--white); display:block; transition:all 0.25s; }
+  .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+  .hamburger.open span:nth-child(2) { opacity:0; }
+  .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+  .mobile-menu { display:none; position:fixed; inset:0; z-index:199; background:rgba(6,6,6,0.98); backdrop-filter:blur(20px); flex-direction:column; align-items:center; justify-content:center; gap:32px; }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,10vw,56px); letter-spacing:0.06em; color:var(--white); text-decoration:none; transition:color 0.2s; }
+  .mobile-menu a:hover { color:var(--ember); }
+  .mobile-menu .m-cta { color:var(--ember); }
+
+  /* LAYOUT */
+  main { flex:1; }
+
+  /* PAGE HEADER */
+  .page-header { padding:80px 64px 72px; border-bottom:1px solid var(--border); }
+  .eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .ey-line { width:36px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,8vw,96px); letter-spacing:0.02em; line-height:0.9; margin-bottom:20px; }
+  .page-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; max-width:560px; }
+
+  /* SCARCITY BAR */
+  .scarcity { background:rgba(240,74,14,0.08); border-bottom:1px solid rgba(240,74,14,0.2); padding:14px 64px; display:flex; align-items:center; gap:12px; }
+  .scarcity-dot { width:7px; height:7px; border-radius:50%; background:var(--ember); flex-shrink:0; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+  .scarcity-text { font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember); }
+
+  /* CONTENT SECTION */
+  .content-sec { padding:80px 64px 120px; }
+  .challenge-grid { display:grid; grid-template-columns:1fr 380px; gap:64px; align-items:start; }
+
+  /* FEATURES */
+  .lbl { font-size:11px; font-weight:600; letter-spacing:0.32em; text-transform:uppercase; color:var(--ember); margin-bottom:8px; }
+  .sec-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,5vw,72px); letter-spacing:0.02em; line-height:0.92; margin-bottom:20px; }
+  .sec-sub { font-size:15px; font-weight:300; color:var(--muted); line-height:1.8; max-width:520px; margin-bottom:40px; }
+
+  .feat-list { list-style:none; display:flex; flex-direction:column; gap:20px; margin-bottom:48px; }
+  .feat-list li { display:flex; gap:16px; align-items:flex-start; }
+  .feat-icon { width:28px; height:28px; background:rgba(240,74,14,0.12); border:1px solid rgba(240,74,14,0.25); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .feat-icon-text { font-size:13px; color:var(--ember); }
+  .feat-text { font-size:14px; font-weight:300; color:var(--white); line-height:1.65; }
+  .feat-text strong { font-weight:600; color:var(--white); }
+
+  /* WHAT TO EXPECT */
+  .expect-strip { background:var(--gray); border:1px solid var(--border); padding:40px; margin-top:0; }
+  .expect-title { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:0.06em; margin-bottom:24px; }
+  .expect-steps { display:flex; flex-direction:column; gap:0; }
+  .expect-step { display:flex; gap:24px; align-items:flex-start; padding:20px 0; border-bottom:1px solid var(--border); }
+  .expect-step:last-child { border-bottom:none; padding-bottom:0; }
+  .step-num { font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--ember); line-height:1; flex-shrink:0; width:36px; }
+  .step-content { flex:1; }
+  .step-title { font-size:13px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px; }
+  .step-desc { font-size:13px; font-weight:300; color:var(--muted); line-height:1.6; }
+
+  /* SPOT CARD */
+  .spot-card { background:var(--gray-mid); border:1px solid rgba(240,74,14,0.3); padding:44px 36px; position:sticky; top:100px; }
+  .spot-card::before { content:''; position:absolute; top:-80px; right:-80px; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle, rgba(240,74,14,0.1), transparent 70%); pointer-events:none; }
+  .spot-card { position:sticky; top:100px; overflow:hidden; }
+  .spot-num { font-family:'Bebas Neue',sans-serif; font-size:72px; line-height:1; color:var(--ember); letter-spacing:0.02em; }
+  .spot-lbl { font-size:11px; font-weight:600; letter-spacing:0.24em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; }
+  .spot-div { height:1px; background:var(--border); margin-bottom:24px; }
+  .spot-weeks { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:0.04em; line-height:1; }
+  .spot-weeks-lbl { font-size:12px; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; margin-top:4px; margin-bottom:24px; }
+  .spot-price { font-family:'Bebas Neue',sans-serif; font-size:64px; line-height:1; letter-spacing:0.02em; }
+  .spot-price .dl { font-size:24px; color:var(--ember); vertical-align:top; margin-top:12px; display:inline-block; }
+  .spot-price-lbl { font-size:12px; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; margin-top:4px; margin-bottom:20px; }
+  .spot-note { font-size:13px; font-weight:300; color:var(--muted); line-height:1.7; margin-bottom:28px; padding-top:20px; border-top:1px solid var(--border); }
+  .btn-challenge { display:block; text-align:center; background:var(--ember); color:var(--white); padding:16px 24px; font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background 0.2s; box-shadow:0 0 32px rgba(240,74,14,0.3); }
+  .btn-challenge:hover { background:var(--ember-hot); box-shadow:0 0 50px rgba(240,74,14,0.4); }
+
+  /* COMPARE STRIP */
+  .compare-strip { padding:0 64px 80px; }
+  .compare-title { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:0.04em; margin-bottom:32px; color:var(--muted); }
+  .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .compare-col { background:var(--gray-mid); border:1px solid var(--border); padding:36px; }
+  .compare-col.active { border-color:rgba(240,74,14,0.4); background:rgba(240,74,14,0.04); }
+  .compare-label { font-size:10px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--ember); margin-bottom:6px; }
+  .compare-name { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:0.04em; margin-bottom:16px; }
+  .compare-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .compare-list li { font-size:13px; font-weight:300; color:var(--muted); line-height:1.5; padding-left:16px; position:relative; }
+  .compare-list li::before { content:'—'; position:absolute; left:0; color:var(--border); }
+  .compare-list li.yes { color:var(--white); }
+  .compare-list li.yes::before { content:'✓'; color:var(--cold); }
+  .compare-cta { margin-top:24px; }
+  .btn-ghost-sm { display:inline-block; border:1px solid rgba(237,232,223,0.2); color:var(--muted); padding:10px 20px; font-size:11px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:all 0.2s; }
+  .btn-ghost-sm:hover { border-color:var(--white); color:var(--white); }
+  .btn-ember-sm { display:inline-block; background:var(--ember); color:var(--white); padding:10px 20px; font-size:11px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background 0.2s; }
+  .btn-ember-sm:hover { background:var(--ember-hot); }
+
+  /* FOOTER */
+  footer { border-top:1px solid var(--border); padding:32px 64px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; letter-spacing:0.06em; color:var(--white); }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--white); }
+
+  /* LARGE DESKTOP */
+  @media (min-width:1280px) {
+    nav { padding:20px 80px; }
+    .page-header { padding:80px 80px 72px; }
+    .scarcity { padding:14px 80px; }
+    .content-sec { padding:80px 80px 120px; }
+    .compare-strip { padding:0 80px 80px; }
+    footer { padding:32px 80px; }
+  }
+
+  /* TABLET */
+  @media (max-width:1024px) {
+    nav { padding:18px 40px; }
+    .page-header { padding:60px 40px 56px; }
+    .scarcity { padding:14px 40px; }
+    .content-sec { padding:64px 40px 80px; }
+    .challenge-grid { grid-template-columns:1fr; gap:48px; }
+    .spot-card { position:static; }
+    .compare-strip { padding:0 40px 64px; }
+    footer { padding:28px 40px; }
+  }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    .nav-links { display:none; }
+    .hamburger { display:flex; }
+    .page-header { padding:48px 20px 40px; }
+    .scarcity { padding:12px 20px; }
+    .content-sec { padding:48px 20px 64px; }
+    .compare-strip { padding:0 20px 48px; }
+    .compare-grid { grid-template-columns:1fr; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+  }
+
+  /* SMALL PHONE */
+  @media (max-width:390px) {
+    .page-title { font-size:52px; }
+    .sec-title { font-size:36px; }
+    .spot-num { font-size:56px; }
+    .spot-price { font-size:52px; }
+  }
+
+  /* ACCESSIBILITY */
+  .skip-link { position:absolute; top:-200px; left:16px; z-index:9999; background:var(--ember); color:var(--white); padding:12px 20px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+  .skip-link:focus { top:16px; }
+  :focus-visible { outline:2px solid var(--ember); outline-offset:3px; border-radius:2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav aria-label="Main navigation">
+  <a href="index.html" class="nav-logo" aria-label="Flint Performance — home">FLINT<span class="sp">.</span></a>
+  <ul class="nav-links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="coaching.html">Coaching</a></li>
+    <li><a href="challenge.html" class="active">Challenge</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="results.html">Results</a></li>
+    <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="coaching.html" onclick="closeMenu()">Coaching</a>
+  <a href="challenge.html" onclick="closeMenu()">Challenge</a>
+  <a href="shop.html" onclick="closeMenu()">Shop</a>
+  <a href="results.html" onclick="closeMenu()">Results</a>
+  <a href="apply.html" class="m-cta" onclick="closeMenu()">Apply Now</a>
+</div>
+
+<main id="main-content">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Limited Enrollment</div></div>
+    <h1 class="page-title">THE 12-WEEK<br><span style="color:var(--ember);">IGNITION.</span></h1>
+    <p class="page-desc">A structured starting point for driven professionals who aren't ready for full 1:1 coaching — but are done guessing. Your plan. Your pace. Real results.</p>
+  </div>
+
+  <!-- SCARCITY BAR -->
+  <div class="scarcity" aria-live="polite">
+    <div class="scarcity-dot"></div>
+    <span class="scarcity-text">Limited to 15 spots per round — enrollment closes when spots fill</span>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <section class="content-sec">
+    <div class="challenge-grid">
+
+      <!-- LEFT: FEATURES -->
+      <div>
+        <div class="lbl">What's Included</div>
+        <h2 class="sec-title">EVERYTHING YOU NEED<br>TO START RIGHT.</h2>
+        <p class="sec-sub">The Ignition is built around one idea: a program you'll actually follow because it fits your real life — your schedule, your equipment, your goals.</p>
+
+        <ul class="feat-list">
+          <li>
+            <div class="feat-icon"><span class="feat-icon-text">✓</span></div>
+            <div class="feat-text"><strong>Custom 12-week workout plan</strong> built around your schedule, goals, and available equipment — home gym, commercial gym, or hotel room.</div>
+          </li>
+          <li>
+            <div class="feat-icon"><span class="feat-icon-text">✓</span></div>
+            <div class="feat-text"><strong>Nutrition and food guidance</strong> tailored to your specific targets. Not a generic calorie number — actual direction you can execute.</div>
+          </li>
+          <li>
+            <div class="feat-icon"><span class="feat-icon-text">✓</span></div>
+            <div class="feat-text"><strong>3 check-in calls (one every 4 weeks)</strong> to review progress, adjust direction, and make sure you're pointed the right way.</div>
+          </li>
+          <li>
+            <div class="feat-icon"><span class="feat-icon-text">✓</span></div>
+            <div class="feat-text"><strong>Detailed coaching notes after every check-in</strong> so you always know exactly what to focus on in the next phase.</div>
+          </li>
+          <li>
+            <div class="feat-icon"><span class="feat-icon-text">✓</span></div>
+            <div class="feat-text"><strong>Clear structure from day one.</strong> No guesswork, no wasted sessions. You know what to do, when to do it, and why.</div>
+          </li>
+        </ul>
+
+        <!-- WHAT TO EXPECT -->
+        <div class="expect-strip">
+          <div class="expect-title">HOW IT WORKS</div>
+          <div class="expect-steps">
+            <div class="expect-step">
+              <div class="step-num">01</div>
+              <div class="step-content">
+                <div class="step-title">Enroll & Complete Your Intake</div>
+                <div class="step-desc">Claim your spot and fill out the intake form covering your goals, schedule, training history, and equipment access.</div>
+              </div>
+            </div>
+            <div class="expect-step">
+              <div class="step-num">02</div>
+              <div class="step-content">
+                <div class="step-title">Receive Your Custom Plan</div>
+                <div class="step-desc">Within a few days, Curt builds your 12-week plan and sends it over with a full explanation of the structure and intent.</div>
+              </div>
+            </div>
+            <div class="expect-step">
+              <div class="step-num">03</div>
+              <div class="step-content">
+                <div class="step-title">Execute & Check In Every 4 Weeks</div>
+                <div class="step-desc">You follow the plan. Every 4 weeks you meet with Curt to review progress, address blockers, and calibrate for the next phase.</div>
+              </div>
+            </div>
+            <div class="expect-step">
+              <div class="step-num">04</div>
+              <div class="step-content">
+                <div class="step-title">Finish Stronger Than You Started</div>
+                <div class="step-desc">12 weeks of real structure. No wasted time. A clear record of what works for your body — and a path forward if you want to continue.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: SPOT CARD -->
+      <div class="spot-card">
+        <div class="spot-num">15</div>
+        <div class="spot-lbl">Spots Remaining This Round</div>
+        <div class="spot-div"></div>
+        <div class="spot-weeks">12 Weeks.</div>
+        <div class="spot-weeks-lbl">Your plan. Your pace.</div>
+        <div class="spot-price"><span class="dl">$</span>349</div>
+        <div class="spot-price-lbl">Flat program fee — no monthly billing</div>
+        <p class="spot-note">A structured starting point for those who aren't ready for full 1:1 coaching — but are ready to stop guessing and start building.</p>
+        <a href="ignition-checkout.html" class="btn-challenge">Claim Your Spot &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMPARE SECTION -->
+  <section class="compare-strip">
+    <div class="compare-title">NOT SURE WHICH IS RIGHT FOR YOU?</div>
+    <div class="compare-grid">
+      <div class="compare-col active">
+        <div class="compare-label">This Program</div>
+        <div class="compare-name">IGNITION</div>
+        <ul class="compare-list">
+          <li class="yes">Custom 12-week workout plan</li>
+          <li class="yes">Nutrition & food guidance</li>
+          <li class="yes">Check-in call every 4 weeks (3 total)</li>
+          <li class="yes">Coaching notes after each check-in</li>
+          <li>Unlimited messaging</li>
+          <li>Ongoing plan adjustments</li>
+          <li>Monthly recurring support</li>
+        </ul>
+        <div class="compare-cta">
+          <a href="ignition-checkout.html" class="btn-ember-sm">Get Started — $349</a>
+        </div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-label">Full Coaching</div>
+        <div class="compare-name">1:1 COACHING</div>
+        <ul class="compare-list">
+          <li class="yes">Custom ongoing training program</li>
+          <li class="yes">Full nutrition planning & meal guidance</li>
+          <li class="yes">Regular check-in calls (weekly or bi-weekly)</li>
+          <li class="yes">Coaching notes & detailed feedback</li>
+          <li class="yes">Unlimited messaging with your coach</li>
+          <li class="yes">Ongoing plan adjustments as life changes</li>
+          <li class="yes">Monthly recurring support</li>
+        </ul>
+        <div class="compare-cta">
+          <a href="coaching.html" class="btn-ghost-sm">View Coaching Plans</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>&copy; 2026 Flint Performance. All rights reserved.</p>
+  <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+  // Hamburger nav
+  const hb = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  if (hb && menu) {
+    hb.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      hb.classList.toggle('open', isOpen);
+      hb.setAttribute('aria-expanded', String(isOpen));
+      menu.setAttribute('aria-hidden', String(!isOpen));
+      hb.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+  }
+  function closeMenu() {
+    if (menu) { menu.classList.remove('open'); }
+    if (hb) { hb.classList.remove('open'); hb.setAttribute('aria-expanded','false'); hb.setAttribute('aria-label','Open navigation menu'); }
+    document.body.style.overflow = '';
+  }
+</script>
+</body>
+</html>

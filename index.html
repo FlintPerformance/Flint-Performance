@@ -286,42 +286,6 @@
   .coach-photo-name { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:0.06em; margin-bottom:3px; }
   .coach-photo-title { font-size:11px; color:var(--muted); letter-spacing:0.18em; text-transform:uppercase; }
   .coach-bio-p { font-size:15px; font-weight:300; color:var(--muted); line-height:1.8; margin-top:20px; }
-  .coach-creds {
-    display:flex; align-items:stretch; flex-wrap:wrap; row-gap:20px;
-    margin-top:40px; padding-top:32px; border-top:1px solid var(--border);
-  }
-  .cred { display:flex; flex-direction:column; gap:5px; }
-  .cred-val {
-    font-family:'Bebas Neue',sans-serif; font-size:40px; line-height:1;
-    letter-spacing:0.03em; color:var(--ember);
-    text-shadow:0 0 30px rgba(240,74,14,0.3);
-  }
-  .cred-lbl { font-size:10px; color:var(--muted); letter-spacing:0.2em; text-transform:uppercase; }
-  .cred-div { width:1px; background:var(--border); flex-shrink:0; margin:0 28px; }
-
-  /* ─── TESTIMONIALS ───────────────────────────── */
-  .results { background:var(--gray); }
-  .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:56px; }
-  .testi {
-    background:var(--gray-mid); padding:40px 36px;
-    border-left:2px solid transparent;
-    transition:border-color 0.2s, background 0.2s;
-    display:flex; flex-direction:column;
-  }
-  .testi:hover { border-color:var(--ember); background:var(--gray-up); }
-  .testi-open {
-    font-family:'Bebas Neue',sans-serif; font-size:72px; line-height:0.7;
-    color:rgba(240,74,14,0.2); display:block; margin-bottom:20px; user-select:none;
-  }
-  .testi-quote { font-size:15px; font-weight:300; color:#ccc; line-height:1.85; flex:1; margin-bottom:28px; }
-  .testi-rule { height:1px; background:var(--border); margin-bottom:20px; }
-  .testi-name { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:0.06em; margin-bottom:3px; }
-  .testi-role { font-size:11px; color:var(--muted); letter-spacing:0.14em; text-transform:uppercase; }
-  .testi-outcome {
-    display:inline-block; margin-top:14px;
-    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--cold); border:1px solid rgba(184,204,218,0.2); padding:5px 10px; border-radius:2px;
-  }
 
   /* ─── CHALLENGE ─────────────────────────────── */
   .challenge { background:var(--gray); border-top:2px solid var(--ember); }
@@ -561,7 +525,6 @@
     .about { grid-template-columns:1fr; gap:48px; }
     .coach-sec { grid-template-columns:1fr; gap:48px; }
     .challenge-inner { grid-template-columns:1fr; }
-    .testi-grid { grid-template-columns:1fr; max-width:560px; margin:56px auto 0; }
     .plans { grid-template-columns:1fr; max-width:480px; margin:0 auto; }
     .lm-inner { grid-template-columns:1fr; gap:48px; }
     footer { padding:32px 40px; }
@@ -602,14 +565,6 @@
     .challenge-inner { margin-top:36px; gap:36px; }
     .spot-num { font-size:72px; }
     .coach-photo { aspect-ratio:4/3; }
-    .cred-val { font-size:32px; }
-    .cred-div { margin:0 20px; }
-
-    /* Results */
-    .results { padding:64px 20px; }
-    .testi-grid { grid-template-columns:1fr; margin-top:40px; }
-    .testi { padding:32px 24px; }
-    .testi-quote { font-size:14px; }
 
     /* Pricing */
     .pricing-top { flex-direction:column; align-items:flex-start; gap:20px; }
@@ -688,7 +643,9 @@
   <ul class="nav-links" role="list">
     <li><a href="#about">About</a></li>
     <li><a href="coaching.html">Coaching</a></li>
+    <li><a href="challenge.html">Challenge</a></li>
     <li><a href="shop.html">Shop</a></li>
+    <li><a href="results.html">Results</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
   </ul>
@@ -701,7 +658,9 @@
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="coaching.html" onclick="closeMenu()">Coaching</a>
+  <a href="challenge.html" onclick="closeMenu()">Challenge</a>
   <a href="shop.html" onclick="closeMenu()">Shop</a>
+  <a href="results.html" onclick="closeMenu()">Results</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
   <a href="apply.html" class="m-cta">Apply Now</a>
 </div>
@@ -756,31 +715,15 @@
          <img src="coach.jpg" alt="[Name]" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;">
     -->
     <div class="coach-photo-plate">
-      <div class="coach-photo-name">Coach Name</div>
+      <div class="coach-photo-name">Curt Done</div>
       <div class="coach-photo-title">Head Coach &middot; Flint Performance</div>
     </div>
   </div>
   <div>
     <div class="lbl">Your Coach</div>
     <h2 class="sec-title">THE COACH<br>BEHIND<br>FLINT.</h2>
-    <p class="sec-sub">[Name] has spent [X] years coaching executives, founders, and operators through the exact conditions that break most programs — brutal schedules, constant travel, and zero tolerance for wasted time.</p>
+    <p class="sec-sub">Curt Done has spent 3 years coaching executives, founders, and operators through the exact conditions that break most programs — brutal schedules, constant travel, and zero tolerance for wasted time.</p>
     <p class="coach-bio-p">The philosophy behind Flint is built on one principle: a program that doesn't fit your life doesn't work. Every client gets a system designed around their actual schedule, their real constraints, and the standard they hold themselves to.</p>
-    <div class="coach-creds">
-      <div class="cred">
-        <div class="cred-val">8+</div>
-        <div class="cred-lbl">Years Coaching</div>
-      </div>
-      <div class="cred-div"></div>
-      <div class="cred">
-        <div class="cred-val">200+</div>
-        <div class="cred-lbl">Clients Trained</div>
-      </div>
-      <div class="cred-div"></div>
-      <div class="cred">
-        <div class="cred-val">NASM</div>
-        <div class="cred-lbl">Certified</div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -912,39 +855,6 @@
   </div>
 </section>
 
-<!-- RESULTS -->
-<section class="results" id="results">
-  <div class="lbl">Client Results</div>
-  <h2 class="sec-title">BUILT IN<br>THE REAL<br>WORLD.</h2>
-  <p class="sec-sub">Busy schedules. High standards. Real results — from clients who were exactly where you are now.</p>
-  <div class="testi-grid">
-    <!-- Replace with real client testimonials before launch -->
-    <div class="testi">
-      <span class="testi-open">&ldquo;</span>
-      <p class="testi-quote">I've tried every app, every program. The difference with Flint is that the plan actually changes when my week does. It doesn't fall apart the moment I get on a plane.</p>
-      <div class="testi-rule"></div>
-      <div class="testi-name">M. R.</div>
-      <div class="testi-role">VP of Sales &middot; SaaS</div>
-      <span class="testi-outcome">&#8722;22 lbs &middot; 14 weeks</span>
-    </div>
-    <div class="testi">
-      <span class="testi-open">&ldquo;</span>
-      <p class="testi-quote">Three hours a week — that's genuinely all I had. The program was built around that and I'm in the best shape I've been in since my twenties.</p>
-      <div class="testi-rule"></div>
-      <div class="testi-name">J. T.</div>
-      <div class="testi-role">Founder &amp; CEO</div>
-      <span class="testi-outcome">First consistent year of training</span>
-    </div>
-    <div class="testi">
-      <span class="testi-open">&ldquo;</span>
-      <p class="testi-quote">Didn't think online coaching was real. Changed my mind fast. The check-ins kept me on track every time work got brutal — which was often.</p>
-      <div class="testi-rule"></div>
-      <div class="testi-name">D. K.</div>
-      <div class="testi-role">Director of Operations</div>
-      <span class="testi-outcome">+18 lbs muscle &middot; 6 months</span>
-    </div>
-  </div>
-</section>
 
 <!-- FAQ -->
 <section class="faq" id="faq">

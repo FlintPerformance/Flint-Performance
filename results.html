@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Results — Flint Performance</title>
+<meta name="description" content="Real results from Flint Performance clients. Busy professionals who showed up, followed the plan, and built something real. Hear what they have to say.">
+<meta name="keywords" content="Flint Performance results, client testimonials, fitness transformation, online coaching results, busy professional fitness">
+<meta property="og:title" content="Client Results — Flint Performance">
+<meta property="og:description" content="Real results from real clients. Busy schedules. High standards. Proof that a plan built around your life actually works.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flintperformance.com/results.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Client Results — Flint Performance">
+<meta name="twitter:description" content="Real results from real clients. Busy schedules. High standards. Proof that a plan built around your life actually works.">
+<link rel="canonical" href="https://flintperformance.com/results.html">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:     #060606;
+    --white:     #ede8df;
+    --ember:     #f04a0e;
+    --ember-hot: #ff6122;
+    --ember-dim: #b83a0b;
+    --cold:      #b8ccda;
+    --gray:      #0e0e0e;
+    --gray-mid:  #161616;
+    --gray-up:   #222222;
+    --muted:     #848484;
+    --border:    rgba(237,232,223,0.06);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:20px 64px; background:rgba(6,6,6,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px; letter-spacing:0.06em; color:var(--white); text-decoration:none; }
+  .nav-logo .sp { color:var(--ember); }
+  .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--white); }
+  .nav-cta { background:var(--ember) !important; color:var(--white) !important; padding:10px 22px; border-radius:2px; font-weight:600 !important; }
+  .nav-cta:hover { background:var(--ember-hot) !important; }
+  .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+  .hamburger span { width:22px; height:1.5px; background:var(--white); display:block; transition:all 0.25s; }
+  .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+  .hamburger.open span:nth-child(2) { opacity:0; }
+  .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+  .mobile-menu { display:none; position:fixed; inset:0; z-index:199; background:rgba(6,6,6,0.98); backdrop-filter:blur(20px); flex-direction:column; align-items:center; justify-content:center; gap:32px; }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,10vw,56px); letter-spacing:0.06em; color:var(--white); text-decoration:none; transition:color 0.2s; }
+  .mobile-menu a:hover { color:var(--ember); }
+  .mobile-menu .m-cta { color:var(--ember); }
+
+  /* LAYOUT */
+  main { flex:1; }
+
+  /* PAGE HEADER */
+  .page-header { padding:80px 64px 72px; border-bottom:1px solid var(--border); }
+  .eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .ey-line { width:36px; height:1px; background:var(--ember); flex-shrink:0; }
+  .ey-text { font-size:11px; font-weight:600; letter-spacing:0.38em; text-transform:uppercase; color:var(--ember); }
+  .page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,8vw,96px); letter-spacing:0.02em; line-height:0.9; margin-bottom:20px; }
+  .page-desc { font-size:15px; font-weight:300; color:var(--muted); line-height:1.75; max-width:560px; }
+
+  /* TESTIMONIALS SECTION */
+  .testi-sec { padding:80px 64px 120px; }
+  .lbl { font-size:11px; font-weight:600; letter-spacing:0.32em; text-transform:uppercase; color:var(--ember); margin-bottom:8px; }
+  .sec-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,5vw,72px); letter-spacing:0.02em; line-height:0.92; margin-bottom:20px; }
+  .sec-sub { font-size:15px; font-weight:300; color:var(--muted); line-height:1.8; max-width:560px; margin-bottom:56px; }
+
+  /* TESTIMONIAL GRID */
+  .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:80px; }
+  .testi { background:var(--gray-mid); border:1px solid var(--border); padding:40px 36px; position:relative; display:flex; flex-direction:column; }
+  .testi-open { font-family:'Bebas Neue',sans-serif; font-size:56px; color:var(--ember); line-height:0.8; display:block; margin-bottom:20px; opacity:0.6; }
+  .testi-quote { font-size:15px; font-weight:300; color:var(--white); line-height:1.75; flex:1; margin-bottom:24px; }
+  .testi-rule { height:1px; background:var(--border); margin-bottom:20px; }
+  .testi-name { font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:3px; }
+  .testi-role { font-size:12px; color:var(--muted); margin-bottom:12px; }
+  .testi-outcome { display:inline-block; background:rgba(184,204,218,0.08); border:1px solid rgba(184,204,218,0.2); color:var(--cold); font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; }
+
+  /* STATS ROW */
+  .stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:80px; }
+  .stat-block { background:var(--gray); border:1px solid var(--border); padding:40px 36px; }
+  .stat-val { font-family:'Bebas Neue',sans-serif; font-size:64px; line-height:1; letter-spacing:0.02em; margin-bottom:6px; }
+  .stat-val span { color:var(--ember); }
+  .stat-lbl { font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); }
+
+  /* CTA STRIP */
+  .cta-strip { background:var(--gray); border:1px solid var(--border); padding:64px; display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; }
+  .cta-strip-text .lbl { margin-bottom:10px; }
+  .cta-strip-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(32px,4vw,52px); letter-spacing:0.02em; line-height:0.92; margin-bottom:12px; }
+  .cta-strip-sub { font-size:14px; font-weight:300; color:var(--muted); line-height:1.7; max-width:400px; }
+  .cta-strip-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .btn-ember { display:inline-block; background:var(--ember); color:var(--white); padding:16px 32px; font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background 0.2s; box-shadow:0 0 32px rgba(240,74,14,0.3); white-space:nowrap; }
+  .btn-ember:hover { background:var(--ember-hot); box-shadow:0 0 50px rgba(240,74,14,0.4); }
+  .btn-ghost { display:inline-block; border:1px solid rgba(237,232,223,0.2); color:var(--white); padding:16px 32px; font-size:12px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:all 0.2s; white-space:nowrap; }
+  .btn-ghost:hover { border-color:var(--white); }
+
+  /* FOOTER */
+  footer { border-top:1px solid var(--border); padding:32px 64px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; }
+  .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:24px; letter-spacing:0.06em; color:var(--white); }
+  .footer-logo .sp { color:var(--ember); }
+  footer p { font-size:12px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.2s; }
+  footer a:hover { color:var(--white); }
+
+  /* LARGE DESKTOP */
+  @media (min-width:1280px) {
+    nav { padding:20px 80px; }
+    .page-header { padding:80px 80px 72px; }
+    .testi-sec { padding:80px 80px 120px; }
+    .cta-strip { padding:64px 80px; }
+    footer { padding:32px 80px; }
+  }
+
+  /* TABLET */
+  @media (max-width:1024px) {
+    nav { padding:18px 40px; }
+    .page-header { padding:60px 40px 56px; }
+    .testi-sec { padding:64px 40px 80px; }
+    .testi-grid { grid-template-columns:1fr 1fr; }
+    .stats-row { grid-template-columns:repeat(3,1fr); }
+    .cta-strip { padding:48px 40px; }
+    footer { padding:28px 40px; }
+  }
+
+  /* MOBILE */
+  @media (max-width:768px) {
+    nav { padding:16px 20px; }
+    .nav-links { display:none; }
+    .hamburger { display:flex; }
+    .page-header { padding:48px 20px 40px; }
+    .testi-sec { padding:48px 20px 64px; }
+    .testi-grid { grid-template-columns:1fr; }
+    .stats-row { grid-template-columns:1fr; }
+    .cta-strip { padding:40px 20px; flex-direction:column; align-items:flex-start; }
+    footer { padding:28px 20px; flex-direction:column; text-align:center; gap:10px; }
+  }
+
+  /* SMALL PHONE */
+  @media (max-width:390px) {
+    .page-title { font-size:52px; }
+    .sec-title { font-size:36px; }
+    .stat-val { font-size:52px; }
+  }
+
+  /* ACCESSIBILITY */
+  .skip-link { position:absolute; top:-200px; left:16px; z-index:9999; background:var(--ember); color:var(--white); padding:12px 20px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+  .skip-link:focus { top:16px; }
+  :focus-visible { outline:2px solid var(--ember); outline-offset:3px; border-radius:2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav aria-label="Main navigation">
+  <a href="index.html" class="nav-logo" aria-label="Flint Performance — home">FLINT<span class="sp">.</span></a>
+  <ul class="nav-links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="coaching.html">Coaching</a></li>
+    <li><a href="challenge.html">Challenge</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="results.html" class="active">Results</a></li>
+    <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="coaching.html" onclick="closeMenu()">Coaching</a>
+  <a href="challenge.html" onclick="closeMenu()">Challenge</a>
+  <a href="shop.html" onclick="closeMenu()">Shop</a>
+  <a href="results.html" onclick="closeMenu()">Results</a>
+  <a href="apply.html" class="m-cta" onclick="closeMenu()">Apply Now</a>
+</div>
+
+<main id="main-content">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Client Results</div></div>
+    <h1 class="page-title">BUILT IN<br>THE REAL<br><span style="color:var(--ember);">WORLD.</span></h1>
+    <p class="page-desc">Busy schedules. High standards. Real results — from clients who were exactly where you are now. No perfect conditions. Just the plan and the work.</p>
+  </div>
+
+  <!-- TESTIMONIALS SECTION -->
+  <section class="testi-sec">
+
+    <!-- STATS ROW -->
+    <div class="stats-row" aria-label="Coaching statistics">
+      <div class="stat-block">
+        <div class="stat-val"><span>3</span>+</div>
+        <div class="stat-lbl">Years Coaching</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-val">200<span>+</span></div>
+        <div class="stat-lbl">Clients Trained</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-val">NASM</div>
+        <div class="stat-lbl">Certified Coach</div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div class="lbl">What Clients Say</div>
+    <h2 class="sec-title">REAL PEOPLE.<br>REAL SCHEDULES.<br>REAL RESULTS.</h2>
+    <p class="sec-sub">These aren't highlight reels. These are people with demanding jobs, travel schedules, and real lives — who showed up anyway.</p>
+
+    <div class="testi-grid" role="list">
+      <!-- Replace with real client testimonials before launch -->
+      <div class="testi" role="listitem">
+        <span class="testi-open">&ldquo;</span>
+        <p class="testi-quote">I've tried every app, every program. The difference with Flint is that the plan actually changes when my week does. It doesn't fall apart the moment I get on a plane.</p>
+        <div class="testi-rule"></div>
+        <div class="testi-name">M. R.</div>
+        <div class="testi-role">VP of Sales &middot; SaaS</div>
+        <span class="testi-outcome">&#8722;22 lbs &middot; 14 weeks</span>
+      </div>
+      <div class="testi" role="listitem">
+        <span class="testi-open">&ldquo;</span>
+        <p class="testi-quote">Three hours a week — that's genuinely all I had. The program was built around that and I'm in the best shape I've been in since my twenties.</p>
+        <div class="testi-rule"></div>
+        <div class="testi-name">J. T.</div>
+        <div class="testi-role">Founder &amp; CEO</div>
+        <span class="testi-outcome">First consistent year of training</span>
+      </div>
+      <div class="testi" role="listitem">
+        <span class="testi-open">&ldquo;</span>
+        <p class="testi-quote">Didn't think online coaching was real. Changed my mind fast. The check-ins kept me on track every time work got brutal — which was often.</p>
+        <div class="testi-rule"></div>
+        <div class="testi-name">D. K.</div>
+        <div class="testi-role">Director of Operations</div>
+        <span class="testi-outcome">+18 lbs muscle &middot; 6 months</span>
+      </div>
+      <div class="testi" role="listitem">
+        <span class="testi-open">&ldquo;</span>
+        <p class="testi-quote">I've worked with trainers in-person for years and never stuck with it for more than a few months. Something about having the plan in writing and knowing there's a check-in coming keeps me moving.</p>
+        <div class="testi-rule"></div>
+        <div class="testi-name">A. M.</div>
+        <div class="testi-role">Partner &middot; Law Firm</div>
+        <span class="testi-outcome">8 months consistent — still going</span>
+      </div>
+      <div class="testi" role="listitem">
+        <span class="testi-open">&ldquo;</span>
+        <p class="testi-quote">My schedule is unpredictable at best. I told Curt that upfront and the program actually reflects it — not some ideal version of my week that never happens.</p>
+        <div class="testi-rule"></div>
+        <div class="testi-name">R. S.</div>
+        <div class="testi-role">Surgeon &middot; General Surgery</div>
+        <span class="testi-outcome">&#8722;16 lbs &middot; 10 weeks</span>
+      </div>
+      <div class="testi" role="listitem">
+        <span class="testi-open">&ldquo;</span>
+        <p class="testi-quote">I was skeptical about online coaching but the intake process alone told me this was different. Curt actually read what I sent him and built something around it.</p>
+        <div class="testi-rule"></div>
+        <div class="testi-name">T. B.</div>
+        <div class="testi-role">Executive Director &middot; Non-Profit</div>
+        <span class="testi-outcome">+12 lbs muscle &middot; 5 months</span>
+      </div>
+    </div>
+
+    <!-- CTA STRIP -->
+    <div class="cta-strip">
+      <div class="cta-strip-text">
+        <div class="lbl">Ready to Start</div>
+        <div class="cta-strip-title">YOUR RESULT<br>STARTS HERE.</div>
+        <p class="cta-strip-sub">Apply for 1:1 coaching or claim a spot in the 12-Week Ignition. Both are built around your real schedule — not an idealized version of it.</p>
+      </div>
+      <div class="cta-strip-btns">
+        <a href="apply.html" class="btn-ember">Apply for Coaching</a>
+        <a href="challenge.html" class="btn-ghost">View the Ignition</a>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-logo">FLINT<span class="sp">.</span></div>
+  <p>&copy; 2026 Flint Performance. All rights reserved.</p>
+  <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+  // Hamburger nav
+  const hb = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  if (hb && menu) {
+    hb.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      hb.classList.toggle('open', isOpen);
+      hb.setAttribute('aria-expanded', String(isOpen));
+      menu.setAttribute('aria-hidden', String(!isOpen));
+      hb.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+  }
+  function closeMenu() {
+    if (menu) { menu.classList.remove('open'); }
+    if (hb) { hb.classList.remove('open'); hb.setAttribute('aria-expanded','false'); hb.setAttribute('aria-label','Open navigation menu'); }
+    document.body.style.overflow = '';
+  }
+</script>
+</body>
+</html>

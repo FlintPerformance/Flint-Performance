@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" width="640" height="160">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;family=DM+Sans:wght@400&amp;display=swap');
+    </style>
+    <filter id="dot-glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Transparent background — for placing over dark surfaces -->
+
+  <!-- FLINT wordmark -->
+  <text
+    x="0" y="112"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="100px"
+    letter-spacing="6"
+    fill="#ede8df">FLINT</text>
+
+  <!-- Period in ember -->
+  <text
+    x="484" y="112"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="100px"
+    fill="#f04a0e"
+    filter="url(#dot-glow)">.</text>
+</svg>

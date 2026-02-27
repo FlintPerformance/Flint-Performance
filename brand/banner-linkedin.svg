@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 396" width="1584" height="396">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;family=DM+Sans:wght@300;600&amp;display=swap');
+    </style>
+    <radialGradient id="emberAtmo" cx="70%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="rgba(240,74,14,0.22)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </radialGradient>
+    <filter id="dotGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="sparkLine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(240,74,14,0)"/>
+      <stop offset="40%" stop-color="rgba(240,74,14,0.25)"/>
+      <stop offset="60%" stop-color="rgba(240,74,14,0.25)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </linearGradient>
+    <linearGradient id="coldLine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(184,204,218,0)"/>
+      <stop offset="45%" stop-color="rgba(184,204,218,0.12)"/>
+      <stop offset="55%" stop-color="rgba(184,204,218,0.12)"/>
+      <stop offset="100%" stop-color="rgba(184,204,218,0)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect width="1584" height="396" fill="#060606"/>
+  <rect width="1584" height="396" fill="url(#emberAtmo)"/>
+
+  <!-- Ghost FLINT texture (right side) -->
+  <text
+    x="640" y="410"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="430px"
+    letter-spacing="-6"
+    fill="none"
+    stroke="rgba(240,74,14,0.05)"
+    stroke-width="1.5"
+    pointer-events="none"
+    aria-hidden="true">FLINT</text>
+
+  <!-- Vertical spark lines -->
+  <rect x="990" y="0" width="1" height="396" fill="url(#sparkLine)"/>
+  <rect x="1220" y="0" width="1" height="396" fill="url(#coldLine)"/>
+
+  <!-- NOTE: LinkedIn covers the left 56px on desktop with profile photo.
+       Important content kept in 64px–900px horizontal safe zone -->
+
+  <!-- Eyebrow -->
+  <line x1="72" y1="96" x2="116" y2="96" stroke="#f04a0e" stroke-width="1.5"/>
+  <text
+    x="128" y="101"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="600"
+    font-size="10px"
+    letter-spacing="5"
+    fill="#f04a0e">FLINT PERFORMANCE</text>
+
+  <!-- FLINT. wordmark -->
+  <text
+    x="68" y="276"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="214px"
+    letter-spacing="5"
+    fill="#ede8df">FLINT</text>
+
+  <!-- Ember period -->
+  <text
+    x="660" y="276"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="214px"
+    fill="#f04a0e"
+    filter="url(#dotGlow)">.</text>
+
+  <!-- Tagline -->
+  <text
+    x="72" y="320"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="300"
+    font-size="14px"
+    letter-spacing="3"
+    fill="#848484">THE SPARK THAT STARTS THE FIRE</text>
+
+  <!-- Rule + website -->
+  <line x1="72" y1="352" x2="420" y2="352" stroke="rgba(240,74,14,0.2)" stroke-width="1"/>
+  <text
+    x="72" y="376"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="400"
+    font-size="12px"
+    letter-spacing="2"
+    fill="#484848">flintperformance.com</text>
+
+  <!-- Right side: tagline block (visible on wide displays) -->
+  <text
+    x="1340" y="200"
+    text-anchor="middle"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="300"
+    font-size="13px"
+    letter-spacing="2"
+    fill="rgba(132,132,132,0.6)">1:1 ONLINE COACHING</text>
+  <text
+    x="1340" y="226"
+    text-anchor="middle"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="300"
+    font-size="13px"
+    letter-spacing="2"
+    fill="rgba(132,132,132,0.6)">FOR BUSY PROFESSIONALS</text>
+</svg>

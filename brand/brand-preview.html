@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flint Performance — Brand Assets</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:  #060606;
+    --white:  #ede8df;
+    --ember:  #f04a0e;
+    --gray:   #0e0e0e;
+    --mid:    #161616;
+    --muted:  #848484;
+    --border: rgba(237,232,223,0.06);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; }
+
+  header { padding:48px 64px 40px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+  .h-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:28px; letter-spacing:0.06em; }
+  .h-logo span { color:var(--ember); }
+  .h-sub { font-size:11px; font-weight:600; letter-spacing:0.32em; text-transform:uppercase; color:var(--muted); }
+
+  main { padding:64px 64px 120px; max-width:1400px; margin:0 auto; }
+
+  .section { margin-bottom:80px; }
+  .section-label {
+    font-size:10px; font-weight:600; letter-spacing:0.36em; text-transform:uppercase;
+    color:var(--ember); margin-bottom:8px; display:flex; align-items:center; gap:12px;
+  }
+  .section-label::before { content:''; display:block; width:32px; height:1px; background:var(--ember); }
+  .section-title { font-family:'Bebas Neue',sans-serif; font-size:36px; letter-spacing:0.04em; margin-bottom:6px; }
+  .section-note { font-size:13px; font-weight:300; color:var(--muted); margin-bottom:28px; line-height:1.6; }
+
+  /* Asset grid */
+  .asset-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .asset-grid.wide { grid-template-columns:1fr; }
+  .asset-card { background:var(--mid); border:1px solid var(--border); overflow:hidden; }
+  .asset-card.on-white { background:#f5f5f5; }
+  .asset-preview { width:100%; display:block; }
+  .asset-info { padding:16px 20px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+  .asset-name { font-size:12px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; }
+  .asset-dim { font-size:11px; color:var(--muted); }
+  .asset-dl { font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ember); text-decoration:none; padding:6px 14px; border:1px solid rgba(240,74,14,0.3); transition:all 0.2s; }
+  .asset-dl:hover { background:var(--ember); color:var(--white); border-color:var(--ember); }
+
+  /* Profile preview (with circle crop) */
+  .profile-wrap { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .profile-card { background:var(--mid); border:1px solid var(--border); padding:32px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .profile-card h4 { font-size:11px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); }
+  .profile-img-square { width:200px; height:200px; border:1px solid var(--border); }
+  .profile-img-circle { width:200px; height:200px; border-radius:50%; overflow:hidden; }
+  .profile-img-circle img, .profile-img-square img { width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* Color swatches */
+  .swatches { display:flex; gap:2px; flex-wrap:wrap; margin-bottom:28px; }
+  .swatch { width:120px; }
+  .swatch-color { height:80px; border-radius:2px; }
+  .swatch-name { font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-top:8px; }
+  .swatch-hex { font-size:11px; color:var(--muted); font-family:monospace; }
+
+  /* Type samples */
+  .type-samples { display:flex; flex-direction:column; gap:2px; }
+  .type-row { background:var(--mid); border:1px solid var(--border); padding:24px 28px; display:flex; align-items:baseline; justify-content:space-between; gap:20px; }
+  .type-sample { flex:1; }
+  .type-meta { font-size:11px; color:var(--muted); white-space:nowrap; }
+
+  /* Checklist */
+  .checklist { background:var(--gray); border:1px solid var(--border); padding:32px; margin-top:40px; }
+  .checklist h4 { font-size:12px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:16px; color:var(--muted); }
+  .checklist ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .checklist li { font-size:13px; font-weight:300; color:var(--white); line-height:1.5; padding-left:20px; position:relative; }
+  .checklist li::before { content:'—'; position:absolute; left:0; color:var(--ember); }
+  .checklist li code { font-family:monospace; font-size:12px; color:var(--muted); }
+
+  @media (max-width:900px) {
+    header { padding:32px 24px; }
+    main { padding:40px 24px 80px; }
+    .asset-grid { grid-template-columns:1fr; }
+    .profile-wrap { grid-template-columns:1fr; }
+    .swatches .swatch { width:100px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="h-logo">FLINT<span>.</span></div>
+    <div class="h-sub" style="margin-top:4px;">Brand Asset Library</div>
+  </div>
+  <div style="font-size:12px;color:var(--muted);line-height:1.7;text-align:right;">
+    All assets are SVG vector files.<br>
+    Open in Figma, Illustrator, or Inkscape to edit.<br>
+    Convert text to outlines before production export.
+  </div>
+</header>
+
+<main>
+
+  <!-- LOGO SECTION -->
+  <div class="section">
+    <div class="section-label">01</div>
+    <div class="section-title">LOGO — WORDMARK</div>
+    <p class="section-note">The primary logo. Use on dark backgrounds. The period is always ember orange — never remove it, never recolor it. Minimum clear space: equal to the height of one "F" on all sides.</p>
+
+    <div class="asset-grid wide">
+
+      <div class="asset-card">
+        <img src="logo-wordmark.svg" class="asset-preview" alt="Flint Performance wordmark" style="padding:40px 60px; background:#060606;">
+        <div class="asset-info">
+          <div>
+            <div class="asset-name">Logo Wordmark (on black)</div>
+            <div class="asset-dim">640 × 160 — SVG vector</div>
+          </div>
+          <a href="logo-wordmark.svg" download="flint-logo-wordmark.svg" class="asset-dl">Download SVG</a>
+        </div>
+      </div>
+
+      <div class="asset-card on-white">
+        <img src="logo-wordmark.svg" class="asset-preview" alt="Flint Performance wordmark" style="padding:40px 60px; background:#f5f5f5; filter:invert(1) hue-rotate(180deg);">
+        <div class="asset-info" style="background:var(--mid);">
+          <div>
+            <div class="asset-name">Logo Wordmark (on white)</div>
+            <div class="asset-dim">640 × 160 — CSS invert for quick preview</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROFILE PICTURE -->
+  <div class="section">
+    <div class="section-label">02</div>
+    <div class="section-title">PROFILE PICTURE</div>
+    <p class="section-note">Designed for 1:1 social profiles. Key content sits within the central 80% — safe for circle cropping on all platforms. Upload at 1000×1000 or larger for best quality.</p>
+
+    <div class="profile-wrap">
+      <div class="profile-card">
+        <h4>Square (full)</h4>
+        <div class="profile-img-square">
+          <img src="profile-pic.svg" alt="Flint Performance profile picture square">
+        </div>
+      </div>
+      <div class="profile-card">
+        <h4>Circle crop (platform preview)</h4>
+        <div class="profile-img-circle">
+          <img src="profile-pic.svg" alt="Flint Performance profile picture circle">
+        </div>
+      </div>
+    </div>
+    <div class="asset-card" style="margin-top:2px;">
+      <div class="asset-info">
+        <div>
+          <div class="asset-name">Profile Picture</div>
+          <div class="asset-dim">1000 × 1000 — SVG vector (circle-safe)</div>
+        </div>
+        <a href="profile-pic.svg" download="flint-profile-pic.svg" class="asset-dl">Download SVG</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANNERS -->
+  <div class="section">
+    <div class="section-label">03</div>
+    <div class="section-title">SOCIAL BANNERS</div>
+    <p class="section-note">Platform-specific banners at correct spec dimensions. Download SVG, convert text to outlines, then export as PNG for upload. LinkedIn: note the left ~200px may be covered by profile photo on desktop.</p>
+
+    <div style="display:flex;flex-direction:column;gap:2px;">
+
+      <!-- X/Twitter -->
+      <div class="asset-card">
+        <img src="banner-x-twitter.svg" class="asset-preview" alt="Flint X/Twitter banner" style="width:100%;display:block;">
+        <div class="asset-info">
+          <div>
+            <div class="asset-name">X / Twitter Banner</div>
+            <div class="asset-dim">1500 × 500 — SVG vector</div>
+          </div>
+          <a href="banner-x-twitter.svg" download="flint-banner-x-twitter.svg" class="asset-dl">Download SVG</a>
+        </div>
+      </div>
+
+      <!-- LinkedIn -->
+      <div class="asset-card">
+        <img src="banner-linkedin.svg" class="asset-preview" alt="Flint LinkedIn banner" style="width:100%;display:block;">
+        <div class="asset-info">
+          <div>
+            <div class="asset-name">LinkedIn Banner</div>
+            <div class="asset-dim">1584 × 396 — SVG vector</div>
+          </div>
+          <a href="banner-linkedin.svg" download="flint-banner-linkedin.svg" class="asset-dl">Download SVG</a>
+        </div>
+      </div>
+
+      <!-- Facebook -->
+      <div class="asset-card">
+        <img src="banner-facebook.svg" class="asset-preview" alt="Flint Facebook banner" style="width:100%;display:block;">
+        <div class="asset-info">
+          <div>
+            <div class="asset-name">Facebook Cover</div>
+            <div class="asset-dim">820 × 312 — SVG vector</div>
+          </div>
+          <a href="banner-facebook.svg" download="flint-banner-facebook.svg" class="asset-dl">Download SVG</a>
+        </div>
+      </div>
+
+      <!-- YouTube -->
+      <div class="asset-card">
+        <img src="banner-youtube.svg" class="asset-preview" alt="Flint YouTube channel art" style="width:100%;display:block;">
+        <div class="asset-info">
+          <div>
+            <div class="asset-name">YouTube Channel Art</div>
+            <div class="asset-dim">2560 × 1440 — SVG vector (TV safe zone: full canvas)</div>
+          </div>
+          <a href="banner-youtube.svg" download="flint-banner-youtube.svg" class="asset-dl">Download SVG</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <div class="section">
+    <div class="section-label">04</div>
+    <div class="section-title">BRAND COLORS</div>
+    <p class="section-note">Do not approximate these values. These exact hex codes are used across the entire site and all brand assets.</p>
+
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#060606;border:1px solid rgba(237,232,223,0.1);"></div>
+        <div class="swatch-name">Black</div>
+        <div class="swatch-hex">#060606</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#ede8df;"></div>
+        <div class="swatch-name">White</div>
+        <div class="swatch-hex">#ede8df</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#f04a0e;"></div>
+        <div class="swatch-name">Ember</div>
+        <div class="swatch-hex">#f04a0e</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#ff6122;"></div>
+        <div class="swatch-name">Ember Hot</div>
+        <div class="swatch-hex">#ff6122</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#b83a0b;"></div>
+        <div class="swatch-name">Ember Dim</div>
+        <div class="swatch-hex">#b83a0b</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#b8ccda;"></div>
+        <div class="swatch-name">Cold</div>
+        <div class="swatch-hex">#b8ccda</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#848484;"></div>
+        <div class="swatch-name">Muted</div>
+        <div class="swatch-hex">#848484</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-label">05</div>
+    <div class="section-title">TYPOGRAPHY</div>
+    <p class="section-note">Three typefaces, three distinct roles. Never swap them.</p>
+
+    <div class="type-samples">
+      <div class="type-row">
+        <div class="type-sample">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;letter-spacing:0.06em;">FLINT.</span>
+        </div>
+        <div class="type-meta">Barlow Condensed 900 — Logo / Wordmark only</div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:0.04em;">THE SPARK THAT STARTS THE FIRE</span>
+        </div>
+        <div class="type-meta">Bebas Neue — Headings, display text, section titles</div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample">
+          <span style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:16px;color:var(--muted);">Body copy, navigation, form fields, captions, UI elements. Weight 300–600.</span>
+        </div>
+        <div class="type-meta">DM Sans 300/400/500/600 — Body / UI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USAGE NOTES -->
+  <div class="section">
+    <div class="section-label">06</div>
+    <div class="section-title">PRODUCTION NOTES</div>
+
+    <div class="checklist">
+      <h4>Before exporting to PNG/JPEG for upload:</h4>
+      <ul>
+        <li>Open SVG in Figma (File → Import) or Adobe Illustrator (File → Open)</li>
+        <li>Ensure Google Fonts are loaded: <code>Barlow Condensed 900</code> and <code>DM Sans</code></li>
+        <li>Select all text layers → Type → Create Outlines (Illustrator) or Flatten (Figma) before final export</li>
+        <li>Export at 2× minimum for retina screens — or use SVG directly where supported</li>
+        <li>PNG is required for LinkedIn, Facebook, X profile pictures and covers (they don't accept SVG)</li>
+        <li>YouTube channel art: export as PNG, max file size 6MB per YouTube spec</li>
+        <li>The period <code>.</code> is always <code>#f04a0e</code> — never change this</li>
+        <li>Minimum logo width: 120px in any application</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<footer style="border-top:1px solid var(--border);padding:28px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+  <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:0.06em;">FLINT<span style="color:var(--ember);">.</span></div>
+  <p style="font-size:12px;color:var(--muted);">Internal brand document — Flint Performance &copy; 2026</p>
+  <a href="../index.html" style="font-size:12px;color:var(--muted);text-decoration:none;">← Back to site</a>
+</footer>
+
+</body>
+</html>

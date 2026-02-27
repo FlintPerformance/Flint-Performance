@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;display=swap');
+    </style>
+    <!-- Ember radial glow -->
+    <radialGradient id="emberGlow" cx="62%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="rgba(240,74,14,0.22)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </radialGradient>
+    <!-- Outer edge vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="rgba(6,6,6,0)"/>
+      <stop offset="100%" stop-color="rgba(6,6,6,0.6)"/>
+    </radialGradient>
+    <filter id="dotGlow">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- Clip to circle for circle-crop preview -->
+    <clipPath id="circleClip">
+      <circle cx="500" cy="500" r="500"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="1000" fill="#060606"/>
+
+  <!-- Ember atmosphere -->
+  <rect width="1000" height="1000" fill="url(#emberGlow)"/>
+
+  <!-- Ghost FLINT lettermark — massive background texture -->
+  <text
+    x="-60" y="780"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="680px"
+    letter-spacing="-10"
+    fill="none"
+    stroke="rgba(240,74,14,0.055)"
+    stroke-width="1.5"
+    pointer-events="none"
+    aria-hidden="true">FLINT</text>
+
+  <!-- Horizontal rule accent — top -->
+  <line x1="80" y1="310" x2="920" y2="310" stroke="rgba(240,74,14,0.18)" stroke-width="1"/>
+
+  <!-- FLINT. wordmark — centered -->
+  <text
+    x="500" y="570"
+    text-anchor="middle"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="280px"
+    letter-spacing="8"
+    fill="#ede8df">FLINT</text>
+
+  <!-- Ember period — precise placement -->
+  <text
+    x="765" y="570"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="280px"
+    fill="#f04a0e"
+    filter="url(#dotGlow)">.</text>
+
+  <!-- Horizontal rule accent — bottom -->
+  <line x1="80" y1="630" x2="920" y2="630" stroke="rgba(240,74,14,0.18)" stroke-width="1"/>
+
+  <!-- PERFORMANCE label -->
+  <text
+    x="500" y="680"
+    text-anchor="middle"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="400"
+    font-size="28px"
+    letter-spacing="12"
+    fill="#848484">PERFORMANCE</text>
+
+  <!-- Edge vignette for depth -->
+  <rect width="1000" height="1000" fill="url(#vignette)"/>
+</svg>

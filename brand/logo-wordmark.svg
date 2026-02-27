@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" width="640" height="160">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;family=DM+Sans:wght@400&amp;display=swap');
+    </style>
+    <filter id="dot-glow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Black background (delete rect for transparent version) -->
+  <rect width="640" height="160" fill="#060606"/>
+
+  <!-- Ember rule line -->
+  <line x1="32" y1="128" x2="622" y2="128" stroke="rgba(240,74,14,0.15)" stroke-width="1"/>
+
+  <!-- FLINT wordmark -->
+  <text
+    x="32" y="112"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="100px"
+    letter-spacing="6"
+    fill="#ede8df">FLINT</text>
+
+  <!-- Period in ember -->
+  <text
+    x="516" y="112"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="100px"
+    fill="#f04a0e"
+    filter="url(#dot-glow)">.</text>
+
+  <!-- PERFORMANCE subtitle -->
+  <text
+    x="34" y="148"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="400"
+    font-size="11px"
+    letter-spacing="6"
+    fill="#848484">PERFORMANCE</text>
+</svg>

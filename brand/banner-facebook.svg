@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 312" width="820" height="312">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;family=DM+Sans:wght@300;600&amp;display=swap');
+    </style>
+    <radialGradient id="emberAtmo" cx="68%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="rgba(240,74,14,0.20)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </radialGradient>
+    <filter id="dotGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="sparkLine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(240,74,14,0)"/>
+      <stop offset="40%" stop-color="rgba(240,74,14,0.22)"/>
+      <stop offset="60%" stop-color="rgba(240,74,14,0.22)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect width="820" height="312" fill="#060606"/>
+  <rect width="820" height="312" fill="url(#emberAtmo)"/>
+
+  <!-- Ghost FLINT texture -->
+  <text
+    x="290" y="318"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="330px"
+    fill="none"
+    stroke="rgba(240,74,14,0.055)"
+    stroke-width="1.5"
+    pointer-events="none"
+    aria-hidden="true">FLINT</text>
+
+  <!-- Vertical spark line -->
+  <rect x="520" y="0" width="1" height="312" fill="url(#sparkLine)"/>
+
+  <!-- Eyebrow -->
+  <line x1="40" y1="72" x2="80" y2="72" stroke="#f04a0e" stroke-width="1.5"/>
+  <text
+    x="92" y="77"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="600"
+    font-size="9px"
+    letter-spacing="5"
+    fill="#f04a0e">FLINT PERFORMANCE</text>
+
+  <!-- FLINT. wordmark -->
+  <text
+    x="36" y="200"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="160px"
+    letter-spacing="4"
+    fill="#ede8df">FLINT</text>
+
+  <!-- Ember period -->
+  <text
+    x="488" y="200"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="160px"
+    fill="#f04a0e"
+    filter="url(#dotGlow)">.</text>
+
+  <!-- Tagline -->
+  <text
+    x="40" y="238"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="300"
+    font-size="12px"
+    letter-spacing="3"
+    fill="#848484">THE SPARK THAT STARTS THE FIRE</text>
+
+  <!-- Rule -->
+  <line x1="40" y1="266" x2="310" y2="266" stroke="rgba(240,74,14,0.2)" stroke-width="1"/>
+
+  <!-- Website -->
+  <text
+    x="40" y="288"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="400"
+    font-size="11px"
+    letter-spacing="2"
+    fill="#484848">flintperformance.com</text>
+</svg>

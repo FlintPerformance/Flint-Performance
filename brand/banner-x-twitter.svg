@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 500" width="1500" height="500">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;family=DM+Sans:wght@300;600&amp;display=swap');
+    </style>
+    <radialGradient id="emberAtmo" cx="72%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="rgba(240,74,14,0.20)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </radialGradient>
+    <radialGradient id="coldAtmo" cx="15%" cy="75%" r="40%">
+      <stop offset="0%" stop-color="rgba(184,204,218,0.06)"/>
+      <stop offset="100%" stop-color="rgba(184,204,218,0)"/>
+    </radialGradient>
+    <filter id="dotGlowSm">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="emberBlur">
+      <feGaussianBlur stdDeviation="60" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- Vertical spark line -->
+    <linearGradient id="sparkV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(240,74,14,0)"/>
+      <stop offset="40%" stop-color="rgba(240,74,14,0.3)"/>
+      <stop offset="60%" stop-color="rgba(240,74,14,0.3)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </linearGradient>
+    <linearGradient id="sparkV2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(184,204,218,0)"/>
+      <stop offset="45%" stop-color="rgba(184,204,218,0.14)"/>
+      <stop offset="55%" stop-color="rgba(184,204,218,0.14)"/>
+      <stop offset="100%" stop-color="rgba(184,204,218,0)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect width="1500" height="500" fill="#060606"/>
+
+  <!-- Atmosphere layers -->
+  <rect width="1500" height="500" fill="url(#emberAtmo)"/>
+  <rect width="1500" height="500" fill="url(#coldAtmo)"/>
+
+  <!-- Ghost FLINT lettermark — massive right-side texture -->
+  <text
+    x="620" y="510"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="520px"
+    letter-spacing="-8"
+    fill="none"
+    stroke="rgba(240,74,14,0.055)"
+    stroke-width="1.5"
+    pointer-events="none"
+    aria-hidden="true">FLINT</text>
+
+  <!-- Vertical spark lines -->
+  <rect x="950" y="0" width="1" height="500" fill="url(#sparkV)"/>
+  <rect x="1180" y="0" width="1" height="500" fill="url(#sparkV2)"/>
+
+  <!-- Left content area -->
+  <!-- Eyebrow line + label -->
+  <line x1="64" y1="136" x2="112" y2="136" stroke="#f04a0e" stroke-width="1.5"/>
+  <text
+    x="124" y="141"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="600"
+    font-size="11px"
+    letter-spacing="5"
+    fill="#f04a0e">FLINT PERFORMANCE</text>
+
+  <!-- Main FLINT. wordmark -->
+  <text
+    x="60" y="330"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="260px"
+    letter-spacing="6"
+    fill="#ede8df">FLINT</text>
+
+  <!-- Ember period -->
+  <text
+    x="798" y="330"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="260px"
+    fill="#f04a0e"
+    filter="url(#dotGlowSm)">.</text>
+
+  <!-- Bottom tagline -->
+  <text
+    x="64" y="400"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="300"
+    font-size="16px"
+    letter-spacing="3"
+    fill="#848484">THE SPARK THAT STARTS THE FIRE</text>
+
+  <!-- Bottom rule -->
+  <line x1="64" y1="440" x2="500" y2="440" stroke="rgba(240,74,14,0.2)" stroke-width="1"/>
+
+  <!-- Website -->
+  <text
+    x="64" y="468"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="400"
+    font-size="13px"
+    letter-spacing="2"
+    fill="#484848">flintperformance.com</text>
+</svg>

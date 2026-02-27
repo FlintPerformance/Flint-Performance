@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 1440" width="2560" height="1440">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;family=DM+Sans:wght@300;600&amp;display=swap');
+    </style>
+    <radialGradient id="emberAtmo" cx="65%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="rgba(240,74,14,0.20)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </radialGradient>
+    <radialGradient id="coldAtmo" cx="20%" cy="70%" r="45%">
+      <stop offset="0%" stop-color="rgba(184,204,218,0.07)"/>
+      <stop offset="100%" stop-color="rgba(184,204,218,0)"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="50%" stop-color="rgba(6,6,6,0)"/>
+      <stop offset="100%" stop-color="rgba(6,6,6,0.55)"/>
+    </radialGradient>
+    <filter id="dotGlow">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="sparkV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(240,74,14,0)"/>
+      <stop offset="35%" stop-color="rgba(240,74,14,0.28)"/>
+      <stop offset="65%" stop-color="rgba(240,74,14,0.28)"/>
+      <stop offset="100%" stop-color="rgba(240,74,14,0)"/>
+    </linearGradient>
+    <linearGradient id="coldV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(184,204,218,0)"/>
+      <stop offset="40%" stop-color="rgba(184,204,218,0.13)"/>
+      <stop offset="60%" stop-color="rgba(184,204,218,0.13)"/>
+      <stop offset="100%" stop-color="rgba(184,204,218,0)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect width="2560" height="1440" fill="#060606"/>
+  <rect width="2560" height="1440" fill="url(#emberAtmo)"/>
+  <rect width="2560" height="1440" fill="url(#coldAtmo)"/>
+
+  <!-- Ghost FLINT lettermark — enormous background texture -->
+  <text
+    x="-80" y="1400"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="1380px"
+    letter-spacing="-15"
+    fill="none"
+    stroke="rgba(240,74,14,0.045)"
+    stroke-width="2"
+    pointer-events="none"
+    aria-hidden="true">FLINT</text>
+
+  <!-- Vertical spark lines -->
+  <rect x="1640" y="0" width="1" height="1440" fill="url(#sparkV)"/>
+  <rect x="2080" y="0" width="1" height="1440" fill="url(#coldV)"/>
+
+  <!--
+    YOUTUBE SAFE ZONES:
+    — TV: Full 2560x1440
+    — Desktop: center 1546x423 (approx, top/bottom 508px cropped)
+    — Tablet: center 1855x423
+    — Mobile: center 1546x423 (profile + subscribe covers left 854px)
+    Safe zone for all text: horizontal center (507px–2053px), vertical center (508px–932px)
+  -->
+
+  <!-- Eyebrow label — centered in safe zone -->
+  <line x1="1080" y1="560" x2="1148" y2="560" stroke="#f04a0e" stroke-width="2"/>
+  <text
+    x="1164" y="567"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="600"
+    font-size="18px"
+    letter-spacing="8"
+    fill="#f04a0e">FLINT PERFORMANCE</text>
+
+  <!-- Main FLINT. wordmark — centered -->
+  <text
+    x="1280" y="850"
+    text-anchor="middle"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="500px"
+    letter-spacing="12"
+    fill="#ede8df">FLINT</text>
+
+  <!-- Ember period — offset right of center -->
+  <text
+    x="1790" y="850"
+    font-family="'Barlow Condensed', 'Arial Narrow', Arial, sans-serif"
+    font-weight="900"
+    font-size="500px"
+    fill="#f04a0e"
+    filter="url(#dotGlow)">.</text>
+
+  <!-- Horizontal rule accent -->
+  <line x1="640" y1="930" x2="1920" y2="930" stroke="rgba(240,74,14,0.18)" stroke-width="1.5"/>
+
+  <!-- Tagline below rule -->
+  <text
+    x="1280" y="990"
+    text-anchor="middle"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="300"
+    font-size="24px"
+    letter-spacing="7"
+    fill="#848484">THE SPARK THAT STARTS THE FIRE</text>
+
+  <!-- Website -->
+  <text
+    x="1280" y="1048"
+    text-anchor="middle"
+    font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="400"
+    font-size="18px"
+    letter-spacing="4"
+    fill="#3a3a3a">flintperformance.com</text>
+
+  <!-- Vignette -->
+  <rect width="2560" height="1440" fill="url(#vignette)"/>
+</svg>

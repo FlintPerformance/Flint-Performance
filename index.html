@@ -57,7 +57,7 @@
   }
   .nav-links a:hover { color:var(--white); }
   .nav-cta {
-    background:var(--ember) !important; color:var(--white) !important;
+    background:var(--ember) !important; color:var(--black) !important;
     padding:10px 24px; border-radius:2px; font-weight:600 !important;
     letter-spacing:0.1em !important; transition:background 0.2s !important;
   }
@@ -90,7 +90,7 @@
   }
   .mobile-menu a:hover { color:var(--ember); }
   .mobile-menu .m-cta {
-    background:var(--ember); color:var(--white) !important;
+    background:var(--ember); color:var(--black) !important;
     padding:16px 48px; border-radius:2px; font-size:36px !important;
     margin-top:16px;
   }
@@ -188,7 +188,7 @@
 
   /* ─── BUTTONS ────────────────────────────────── */
   .btn-ember {
-    display:inline-block; background:var(--ember); color:var(--white);
+    display:inline-block; background:var(--ember); color:var(--black);
     padding:16px 40px; border-radius:2px; font-size:13px; font-weight:600;
     letter-spacing:0.16em; text-transform:uppercase; text-decoration:none;
     transition:background 0.2s, transform 0.15s;
@@ -311,7 +311,7 @@
   .spot-price-lbl { font-size:11px; color:var(--muted); letter-spacing:0.18em; text-transform:uppercase; margin-top:4px; margin-bottom:20px; }
   .spot-note { font-size:13px; font-weight:300; color:var(--muted); line-height:1.7; margin-bottom:28px; }
   .btn-challenge {
-    display:block; text-align:center; background:var(--ember); color:var(--white);
+    display:block; text-align:center; background:var(--ember); color:var(--black);
     padding:14px; border-radius:2px; font-family:'DM Sans',sans-serif;
     font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
     text-decoration:none; transition:background 0.2s;
@@ -339,7 +339,7 @@
     border-radius:1px; cursor:pointer; transition:all 0.2s;
     position:relative; white-space:nowrap;
   }
-  .billing-toggle button.active { background:var(--ember); color:var(--white); }
+  .billing-toggle button.active { background:var(--ember); color:var(--black); }
   .billing-toggle button .badge {
     position:absolute; top:-8px; right:-4px;
     background:var(--cold); color:var(--black);
@@ -368,7 +368,7 @@
   }
   .plan-badge {
     position:absolute; top:0; right:0;
-    background:var(--ember); color:var(--white);
+    background:var(--ember); color:var(--black);
     font-size:10px; font-weight:700; letter-spacing:0.2em;
     text-transform:uppercase; padding:6px 16px;
   }
@@ -401,7 +401,7 @@
   }
   .btn-col { background:transparent; border:1px solid rgba(184,204,218,0.15); color:var(--cold); }
   .btn-col:hover { border-color:var(--cold); color:var(--white); }
-  .btn-fem { background:var(--ember); color:var(--white); box-shadow:0 0 30px rgba(240,74,14,0.25); }
+  .btn-fem { background:var(--ember); color:var(--black); box-shadow:0 0 30px rgba(240,74,14,0.25); }
   .btn-fem:hover { background:var(--ember-hot); box-shadow:0 0 50px rgba(240,74,14,0.35); }
 
   /* ─── CONSULT STRIP ──────────────────────────── */
@@ -606,7 +606,7 @@
   }
 
   /* ─── ACCESSIBILITY ──────────────────────────── */
-  .skip-link { position:absolute; top:-200px; left:16px; z-index:9999; background:var(--ember); color:var(--white); padding:12px 20px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+  .skip-link { position:absolute; top:-200px; left:16px; z-index:9999; background:var(--ember); color:var(--black); padding:12px 20px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
   .skip-link:focus { top:16px; }
   :focus-visible { outline:2px solid var(--ember); outline-offset:3px; border-radius:2px; }
   @media (prefers-reduced-motion: reduce) {
@@ -665,8 +665,10 @@
   <a href="apply.html" class="m-cta">Apply Now</a>
 </div>
 
+<main id="main-content">
+
 <!-- HERO -->
-<section class="hero" id="main-content">
+<section class="hero">
   <div class="hero-atmo"></div>
   <div class="spark-lines"></div>
   <div class="hero-bg-word">FLINT</div>
@@ -911,6 +913,8 @@
   <div class="cta-tagline">Spots are limited. Applications reviewed within 24 hours.</div>
   <a href="apply.html" class="btn-white">Apply for Coaching</a>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>

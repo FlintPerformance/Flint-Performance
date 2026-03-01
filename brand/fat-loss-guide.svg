@@ -1,0 +1,865 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 7800" width="1080" height="7800">
+  <defs>
+    <!-- Ember glow filter -->
+    <filter id="ember-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="ember-glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="40" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="dot-glow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5"/>
+    </filter>
+    <filter id="text-glow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 0.3 0 0 0  0 0 0.05 0 0  0 0 0 0.4 0" result="colored"/>
+      <feMerge>
+        <feMergeNode in="colored"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Background atmosphere gradients -->
+    <radialGradient id="hero-ember" cx="75%" cy="30%" rx="50%" ry="50%">
+      <stop offset="0%" stop-color="#f04a0e" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#f04a0e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="hero-cold" cx="10%" cy="80%" rx="30%" ry="40%">
+      <stop offset="0%" stop-color="#b8ccda" stop-opacity="0.06"/>
+      <stop offset="50%" stop-color="#b8ccda" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="section-glow-r" cx="95%" cy="20%" rx="40%" ry="50%">
+      <stop offset="0%" stop-color="#f04a0e" stop-opacity="0.08"/>
+      <stop offset="70%" stop-color="#f04a0e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="section-glow-l" cx="5%" cy="50%" rx="35%" ry="50%">
+      <stop offset="0%" stop-color="#b8ccda" stop-opacity="0.04"/>
+      <stop offset="70%" stop-color="#b8ccda" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="card-ember-glow" cx="80%" cy="80%" rx="60%" ry="60%">
+      <stop offset="0%" stop-color="#f04a0e" stop-opacity="0.12"/>
+      <stop offset="70%" stop-color="#f04a0e" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Spark line gradient -->
+    <linearGradient id="spark-line" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f04a0e" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#f04a0e" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#ff6122" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#f04a0e" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#f04a0e" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="cold-line" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8ccda" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#b8ccda" stop-opacity="0.12"/>
+      <stop offset="60%" stop-color="#b8ccda" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#b8ccda" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="divider-fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f04a0e" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#f04a0e" stop-opacity="0.4"/>
+      <stop offset="80%" stop-color="#f04a0e" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#f04a0e" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Clip path for rounded cards -->
+    <clipPath id="card-clip">
+      <rect rx="2" ry="2" width="100%" height="100%"/>
+    </clipPath>
+
+    <!-- Google Fonts embedded -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- ==================== BACKGROUND ==================== -->
+  <rect width="1080" height="7800" fill="#060606"/>
+
+  <!-- Atmospheric spark lines running full height -->
+  <rect x="670" y="0" width="1" height="7800" fill="url(#spark-line)" opacity="0.15"/>
+  <rect x="840" y="200" width="1" height="7400" fill="url(#cold-line)" opacity="0.08"/>
+  <rect x="240" y="400" width="1" height="7200" fill="url(#spark-line)" opacity="0.06"/>
+
+  <!-- ==================== COVER / HERO SECTION (0-900) ==================== -->
+  <rect x="0" y="0" width="1080" height="920" fill="url(#hero-ember)"/>
+  <rect x="0" y="0" width="1080" height="920" fill="url(#hero-cold)"/>
+
+  <!-- Ghost FLINT background text -->
+  <text x="820" y="680" font-family="'Bebas Neue', sans-serif" font-size="480"
+        fill="none" stroke="rgba(240,74,14,0.05)" stroke-width="1.5"
+        text-anchor="end" letter-spacing="0.04em">FLINT</text>
+
+  <!-- Top bar -->
+  <rect x="80" y="60" width="920" height="1" fill="rgba(237,232,223,0.06)"/>
+
+  <!-- Logo -->
+  <text x="80" y="100" font-family="'Barlow Condensed', sans-serif" font-weight="900"
+        font-size="28" fill="#ede8df" letter-spacing="0.06em">FLINT<tspan fill="#f04a0e">.</tspan></text>
+  <text x="80" y="118" font-family="'DM Sans', sans-serif" font-weight="400"
+        font-size="9" fill="#848484" letter-spacing="0.35em" text-transform="uppercase">PERFORMANCE</text>
+
+  <!-- Eyebrow label -->
+  <line x1="80" y1="240" x2="136" y2="240" stroke="#f04a0e" stroke-width="1"/>
+  <text x="148" y="243" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em">THE COMPLETE GUIDE</text>
+
+  <!-- Main title -->
+  <text x="80" y="350" font-family="'Bebas Neue', sans-serif" font-size="140"
+        fill="#ede8df" letter-spacing="0.02em" filter="url(#text-glow)">FAT LOSS</text>
+  <text x="80" y="480" font-family="'Bebas Neue', sans-serif" font-size="140"
+        fill="none" stroke="rgba(237,232,223,0.15)" stroke-width="1.5"
+        letter-spacing="0.02em">EXPLAINED</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="540" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="20" fill="#848484" letter-spacing="0.02em">The science. The strategy. The execution.</text>
+
+  <!-- Description -->
+  <text x="80" y="600" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="15" fill="rgba(237,232,223,0.6)" letter-spacing="0.01em" line-height="1.8">
+    <tspan x="80" dy="0">Everything you need to know about sustainable fat loss —</tspan>
+    <tspan x="80" dy="26">without the bro-science. Calorie targets, deficit mechanics,</tspan>
+    <tspan x="80" dy="26">protein strategy, body recomposition, and the exact framework</tspan>
+    <tspan x="80" dy="26">Flint uses with every client.</tspan>
+  </text>
+
+  <!-- Horizontal ember rule -->
+  <rect x="80" y="720" width="200" height="2" fill="#f04a0e" opacity="0.6"/>
+
+  <!-- Byline -->
+  <text x="80" y="760" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#ede8df" letter-spacing="0.3em">FLINT PERFORMANCE</text>
+  <text x="80" y="780" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="12" fill="#848484" letter-spacing="0.02em">flintperformance.com</text>
+
+  <!-- Cover bottom badge -->
+  <rect x="80" y="830" width="180" height="40" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.2)" stroke-width="1"/>
+  <text x="170" y="855" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="10" fill="#f04a0e" letter-spacing="0.3em" text-anchor="middle">FREE GUIDE</text>
+
+  <!-- Section divider -->
+  <rect x="0" y="910" width="1080" height="1" fill="url(#divider-fade)"/>
+
+
+  <!-- ==================== TABLE OF CONTENTS (920-1320) ==================== -->
+  <rect x="0" y="920" width="1080" height="400" fill="#0e0e0e"/>
+  <rect x="0" y="920" width="1080" height="400" fill="url(#section-glow-r)"/>
+
+  <!-- Section label -->
+  <line x1="80" y1="990" x2="120" y2="990" stroke="#f04a0e" stroke-width="1"/>
+  <text x="132" y="993" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em">INSIDE THIS GUIDE</text>
+
+  <!-- TOC items -->
+  <text x="80" y="1050" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">
+    <tspan fill="#f04a0e" font-size="20">01</tspan>
+    <tspan dx="16">HOW TO CALCULATE YOUR CALORIE TARGET</tspan>
+  </text>
+  <text x="80" y="1090" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">
+    <tspan fill="#f04a0e" font-size="20">02</tspan>
+    <tspan dx="16">PROTEIN STRATEGY FOR MUSCLE PRESERVATION</tspan>
+  </text>
+  <text x="80" y="1130" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">
+    <tspan fill="#f04a0e" font-size="20">03</tspan>
+    <tspan dx="16">DEFICIT SIZING: HOW AGGRESSIVE IS TOO AGGRESSIVE</tspan>
+  </text>
+  <text x="80" y="1170" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">
+    <tspan fill="#f04a0e" font-size="20">04</tspan>
+    <tspan dx="16">RECOMPOSITION PROTOCOL</tspan>
+  </text>
+  <text x="80" y="1210" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">
+    <tspan fill="#f04a0e" font-size="20">05</tspan>
+    <tspan dx="16">TROUBLESHOOTING: WHEN FAT LOSS STALLS</tspan>
+  </text>
+  <text x="80" y="1250" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">
+    <tspan fill="#f04a0e" font-size="20">06</tspan>
+    <tspan dx="16">TRACKING METHODS THAT ACTUALLY WORK</tspan>
+  </text>
+
+  <!-- Divider -->
+  <rect x="0" y="1315" width="1080" height="1" fill="url(#divider-fade)"/>
+
+
+  <!-- ==================== SECTION 01: CALORIE TARGET (1320-2520) ==================== -->
+  <rect x="0" y="1320" width="1080" height="1200" fill="#060606"/>
+  <rect x="0" y="1320" width="1080" height="1200" fill="url(#section-glow-l)"/>
+
+  <!-- Section number -->
+  <text x="80" y="1420" font-family="'Bebas Neue', sans-serif" font-size="120"
+        fill="none" stroke="rgba(240,74,14,0.1)" stroke-width="1.5">01</text>
+
+  <!-- Section label -->
+  <line x1="80" y1="1440" x2="120" y2="1440" stroke="#f04a0e" stroke-width="1"/>
+  <text x="132" y="1443" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em">CALORIE FUNDAMENTALS</text>
+
+  <!-- Section title -->
+  <text x="80" y="1510" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">HOW TO CALCULATE</text>
+  <text x="80" y="1580" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">YOUR CALORIE TARGET</text>
+
+  <!-- Intro paragraph -->
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="15"
+        fill="rgba(237,232,223,0.7)" letter-spacing="0.01em">
+    <tspan x="80" y="1630">Every fat loss plan starts here. Not with a meal plan. Not with a food list.</tspan>
+    <tspan x="80" dy="26">With a number — your Total Daily Energy Expenditure (TDEE).</tspan>
+  </text>
+
+  <!-- TDEE Formula Card -->
+  <rect x="80" y="1690" width="920" height="180" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.15)" stroke-width="1"/>
+  <rect x="80" y="1690" width="920" height="180" rx="2" ry="2" fill="url(#card-ember-glow)"/>
+
+  <text x="120" y="1730" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.3em">THE MIFFLIN-ST JEOR EQUATION</text>
+
+  <text x="120" y="1775" font-family="'Bebas Neue', sans-serif" font-size="32"
+        fill="#ede8df" letter-spacing="0.04em">
+    <tspan fill="#b8ccda">MEN:</tspan> 10 × WEIGHT(KG) + 6.25 × HEIGHT(CM) - 5 × AGE - 161 + 5
+  </text>
+  <text x="120" y="1815" font-family="'Bebas Neue', sans-serif" font-size="32"
+        fill="#ede8df" letter-spacing="0.04em">
+    <tspan fill="#b8ccda">WOMEN:</tspan> 10 × WEIGHT(KG) + 6.25 × HEIGHT(CM) - 5 × AGE - 161
+  </text>
+  <text x="120" y="1850" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="12" fill="#848484">This gives you your Basal Metabolic Rate (BMR). Multiply by activity factor for TDEE.</text>
+
+  <!-- Activity multipliers -->
+  <text x="80" y="1920" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">ACTIVITY MULTIPLIERS</text>
+
+  <!-- Multiplier cards row -->
+  <!-- Sedentary -->
+  <rect x="80" y="1950" width="175" height="100" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+  <text x="168" y="1990" font-family="'Bebas Neue', sans-serif" font-size="36"
+        fill="#f04a0e" text-anchor="middle">1.2</text>
+  <text x="168" y="2015" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="10" fill="#848484" text-anchor="middle" letter-spacing="0.15em">SEDENTARY</text>
+  <text x="168" y="2035" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="9" fill="rgba(237,232,223,0.4)" text-anchor="middle">Desk job, no exercise</text>
+
+  <!-- Light -->
+  <rect x="265" y="1950" width="175" height="100" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+  <text x="353" y="1990" font-family="'Bebas Neue', sans-serif" font-size="36"
+        fill="#f04a0e" text-anchor="middle">1.375</text>
+  <text x="353" y="2015" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="10" fill="#848484" text-anchor="middle" letter-spacing="0.15em">LIGHT ACTIVE</text>
+  <text x="353" y="2035" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="9" fill="rgba(237,232,223,0.4)" text-anchor="middle">1-3 days/week</text>
+
+  <!-- Moderate -->
+  <rect x="450" y="1950" width="175" height="100" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.2)" stroke-width="1"/>
+  <text x="538" y="1990" font-family="'Bebas Neue', sans-serif" font-size="36"
+        fill="#f04a0e" text-anchor="middle">1.55</text>
+  <text x="538" y="2015" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="10" fill="#ede8df" text-anchor="middle" letter-spacing="0.15em">MODERATE</text>
+  <text x="538" y="2035" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="9" fill="rgba(237,232,223,0.4)" text-anchor="middle">3-5 days/week</text>
+
+  <!-- Very Active -->
+  <rect x="635" y="1950" width="175" height="100" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+  <text x="723" y="1990" font-family="'Bebas Neue', sans-serif" font-size="36"
+        fill="#f04a0e" text-anchor="middle">1.725</text>
+  <text x="723" y="2015" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="10" fill="#848484" text-anchor="middle" letter-spacing="0.15em">VERY ACTIVE</text>
+  <text x="723" y="2035" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="9" fill="rgba(237,232,223,0.4)" text-anchor="middle">6-7 days/week</text>
+
+  <!-- Extra Active -->
+  <rect x="820" y="1950" width="180" height="100" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+  <text x="910" y="1990" font-family="'Bebas Neue', sans-serif" font-size="36"
+        fill="#f04a0e" text-anchor="middle">1.9</text>
+  <text x="910" y="2015" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="10" fill="#848484" text-anchor="middle" letter-spacing="0.15em">EXTRA ACTIVE</text>
+  <text x="910" y="2035" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="9" fill="rgba(237,232,223,0.4)" text-anchor="middle">Athlete / physical job</text>
+
+  <!-- Example calculation -->
+  <text x="80" y="2110" font-family="'Bebas Neue', sans-serif" font-size="24"
+        fill="#b8ccda" letter-spacing="0.08em">EXAMPLE CALCULATION</text>
+
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="14"
+        fill="rgba(237,232,223,0.65)">
+    <tspan x="80" y="2145">Male, 85kg, 180cm, 32 years old, trains 4× per week</tspan>
+    <tspan x="80" dy="28" font-weight="500" fill="#ede8df">BMR = (10 × 85) + (6.25 × 180) - (5 × 32) + 5 = <tspan fill="#f04a0e">1,820 cal</tspan></tspan>
+    <tspan x="80" dy="28" font-weight="500" fill="#ede8df">TDEE = 1,820 × 1.55 = <tspan fill="#f04a0e">2,821 cal/day</tspan></tspan>
+    <tspan x="80" dy="28">This is maintenance. To lose fat, we subtract from here.</tspan>
+  </text>
+
+  <!-- Pro tip card -->
+  <rect x="80" y="2260" width="920" height="80" rx="2" ry="2" fill="#161616" stroke="rgba(184,204,218,0.1)" stroke-width="1"/>
+  <text x="120" y="2290" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#b8ccda" letter-spacing="0.3em">FLINT PROTOCOL</text>
+  <text x="120" y="2318" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="14" fill="rgba(237,232,223,0.6)">We don't trust calculators alone. Start with TDEE estimate, track intake for 2 weeks, then adjust based on real data.</text>
+
+  <!-- Warning note -->
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="13"
+        fill="#848484">
+    <tspan x="80" y="2390">Most people overestimate activity level and undercount calories by 20-40%.</tspan>
+    <tspan x="80" dy="22">Start conservative. Adjust based on results — not feelings.</tspan>
+  </text>
+
+  <!-- Divider -->
+  <rect x="80" y="2470" width="920" height="1" fill="rgba(237,232,223,0.06)"/>
+
+
+  <!-- ==================== SECTION 02: PROTEIN STRATEGY (2520-3620) ==================== -->
+  <rect x="0" y="2520" width="1080" height="1100" fill="#0e0e0e"/>
+  <rect x="0" y="2520" width="1080" height="1100" fill="url(#section-glow-r)"/>
+
+  <!-- Section number -->
+  <text x="900" y="2630" font-family="'Bebas Neue', sans-serif" font-size="120"
+        fill="none" stroke="rgba(240,74,14,0.1)" stroke-width="1.5" text-anchor="end">02</text>
+
+  <!-- Section label -->
+  <line x1="80" y1="2600" x2="120" y2="2600" stroke="#f04a0e" stroke-width="1"/>
+  <text x="132" y="2603" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em">MUSCLE PRESERVATION</text>
+
+  <!-- Section title -->
+  <text x="80" y="2680" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">PROTEIN STRATEGY</text>
+
+  <!-- Intro -->
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="15"
+        fill="rgba(237,232,223,0.7)">
+    <tspan x="80" y="2730">In a deficit, protein is the difference between losing fat and losing muscle.</tspan>
+    <tspan x="80" dy="26">Get this wrong and you'll shrink instead of sharpen.</tspan>
+  </text>
+
+  <!-- Key number highlight -->
+  <rect x="80" y="2790" width="440" height="160" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.2)" stroke-width="1"/>
+  <rect x="80" y="2790" width="440" height="160" rx="2" ry="2" fill="url(#card-ember-glow)"/>
+  <text x="300" y="2870" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#f04a0e" text-anchor="middle" filter="url(#ember-glow)">0.8-1.2g</text>
+  <text x="300" y="2910" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="14" fill="#ede8df" text-anchor="middle" letter-spacing="0.15em">PER POUND OF BODYWEIGHT</text>
+  <text x="300" y="2935" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="12" fill="#848484" text-anchor="middle">The research-backed target range for a deficit</text>
+
+  <!-- Protein tier cards -->
+  <rect x="540" y="2790" width="460" height="160" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+  <text x="570" y="2825" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#b8ccda" letter-spacing="0.25em">PROTEIN TIERS BY GOAL</text>
+
+  <text x="570" y="2862" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="13" fill="#ede8df">
+    <tspan fill="#f04a0e">●</tspan> Fat loss + muscle preservation
+  </text>
+  <text x="840" y="2862" font-family="'Bebas Neue', sans-serif" font-size="20" fill="#f04a0e">1.0-1.2G/LB</text>
+
+  <text x="570" y="2892" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="13" fill="#ede8df">
+    <tspan fill="#b8ccda">●</tspan> General fat loss
+  </text>
+  <text x="840" y="2892" font-family="'Bebas Neue', sans-serif" font-size="20" fill="#b8ccda">0.8-1.0G/LB</text>
+
+  <text x="570" y="2922" font-family="'DM Sans', sans-serif" font-weight="500"
+        font-size="13" fill="#ede8df">
+    <tspan fill="#848484">●</tspan> Obese / very high BF%
+  </text>
+  <text x="840" y="2922" font-family="'Bebas Neue', sans-serif" font-size="20" fill="#848484">0.6-0.8G/LB</text>
+
+  <!-- Timing & Distribution -->
+  <text x="80" y="3010" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">TIMING &amp; DISTRIBUTION</text>
+
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="14"
+        fill="rgba(237,232,223,0.65)">
+    <tspan x="80" y="3050">Distribute protein across 3-5 meals. Aim for <tspan font-weight="500" fill="#ede8df">25-50g per meal</tspan> to maximize</tspan>
+    <tspan x="80" dy="24">muscle protein synthesis (MPS). The anabolic window is real — it's just</tspan>
+    <tspan x="80" dy="24">wider than bros think. <tspan font-weight="500" fill="#ede8df">Hit your daily total, and hit it consistently.</tspan></tspan>
+  </text>
+
+  <!-- Protein distribution visual -->
+  <rect x="80" y="3130" width="920" height="80" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+
+  <!-- Distribution bars -->
+  <text x="140" y="3157" font-family="'DM Sans', sans-serif" font-weight="600" font-size="10" fill="#848484" letter-spacing="0.2em" text-anchor="middle">MEAL 1</text>
+  <rect x="110" y="3168" width="60" height="6" rx="1" ry="1" fill="#f04a0e" opacity="0.9"/>
+  <text x="140" y="3192" font-family="'Bebas Neue', sans-serif" font-size="16" fill="#ede8df" text-anchor="middle">40g</text>
+
+  <text x="300" y="3157" font-family="'DM Sans', sans-serif" font-weight="600" font-size="10" fill="#848484" letter-spacing="0.2em" text-anchor="middle">MEAL 2</text>
+  <rect x="270" y="3168" width="60" height="6" rx="1" ry="1" fill="#f04a0e" opacity="0.7"/>
+  <text x="300" y="3192" font-family="'Bebas Neue', sans-serif" font-size="16" fill="#ede8df" text-anchor="middle">35g</text>
+
+  <text x="460" y="3157" font-family="'DM Sans', sans-serif" font-weight="600" font-size="10" fill="#848484" letter-spacing="0.2em" text-anchor="middle">MEAL 3</text>
+  <rect x="430" y="3168" width="60" height="6" rx="1" ry="1" fill="#f04a0e" opacity="0.9"/>
+  <text x="460" y="3192" font-family="'Bebas Neue', sans-serif" font-size="16" fill="#ede8df" text-anchor="middle">40g</text>
+
+  <text x="620" y="3157" font-family="'DM Sans', sans-serif" font-weight="600" font-size="10" fill="#848484" letter-spacing="0.2em" text-anchor="middle">MEAL 4</text>
+  <rect x="590" y="3168" width="60" height="6" rx="1" ry="1" fill="#f04a0e" opacity="0.7"/>
+  <text x="620" y="3192" font-family="'Bebas Neue', sans-serif" font-size="16" fill="#ede8df" text-anchor="middle">35g</text>
+
+  <text x="780" y="3157" font-family="'DM Sans', sans-serif" font-weight="600" font-size="10" fill="#848484" letter-spacing="0.2em" text-anchor="middle">PRE-BED</text>
+  <rect x="750" y="3168" width="60" height="6" rx="1" ry="1" fill="#b8ccda" opacity="0.5"/>
+  <text x="780" y="3192" font-family="'Bebas Neue', sans-serif" font-size="16" fill="#b8ccda" text-anchor="middle">30g</text>
+
+  <text x="930" y="3170" font-family="'Bebas Neue', sans-serif" font-size="28" fill="#f04a0e" text-anchor="middle">180g</text>
+  <text x="930" y="3192" font-family="'DM Sans', sans-serif" font-weight="600" font-size="9" fill="#848484" text-anchor="middle" letter-spacing="0.2em">TOTAL</text>
+
+  <!-- Best sources -->
+  <text x="80" y="3270" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">TOP PROTEIN SOURCES FOR BUSY PROFESSIONALS</text>
+
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="14" fill="rgba(237,232,223,0.6)">
+    <tspan x="80" y="3310"><tspan fill="#f04a0e" font-weight="500">Chicken breast</tspan> — 31g per 100g  |  <tspan fill="#f04a0e" font-weight="500">Greek yogurt</tspan> — 10g per 100g  |  <tspan fill="#f04a0e" font-weight="500">Eggs</tspan> — 6g each</tspan>
+    <tspan x="80" dy="26"><tspan fill="#f04a0e" font-weight="500">Whey protein</tspan> — 25g per scoop  |  <tspan fill="#f04a0e" font-weight="500">Lean beef</tspan> — 26g per 100g  |  <tspan fill="#f04a0e" font-weight="500">Cottage cheese</tspan> — 11g per 100g</tspan>
+    <tspan x="80" dy="26"><tspan fill="#f04a0e" font-weight="500">Tuna</tspan> — 30g per can  |  <tspan fill="#f04a0e" font-weight="500">Turkey</tspan> — 29g per 100g  |  <tspan fill="#f04a0e" font-weight="500">Tofu</tspan> — 8g per 100g</tspan>
+  </text>
+
+  <!-- Flint protocol note -->
+  <rect x="80" y="3410" width="920" height="80" rx="2" ry="2" fill="#161616" stroke="rgba(184,204,218,0.1)" stroke-width="1"/>
+  <text x="120" y="3440" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#b8ccda" letter-spacing="0.3em">FLINT PROTOCOL</text>
+  <text x="120" y="3468" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="14" fill="rgba(237,232,223,0.6)">Protein is the one macro we never cut. Fats and carbs flex around it. Protein stays fixed — always.</text>
+
+  <!-- Divider -->
+  <rect x="80" y="3560" width="920" height="1" fill="rgba(237,232,223,0.06)"/>
+
+
+  <!-- ==================== SECTION 03: DEFICIT SIZING (3620-4680) ==================== -->
+  <rect x="0" y="3620" width="1080" height="1060" fill="#060606"/>
+  <rect x="0" y="3620" width="1080" height="1060" fill="url(#section-glow-l)"/>
+
+  <!-- Section number -->
+  <text x="80" y="3730" font-family="'Bebas Neue', sans-serif" font-size="120"
+        fill="none" stroke="rgba(240,74,14,0.1)" stroke-width="1.5">03</text>
+
+  <!-- Section label -->
+  <line x1="80" y1="3740" x2="120" y2="3740" stroke="#f04a0e" stroke-width="1"/>
+  <text x="132" y="3743" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em">DEFICIT MECHANICS</text>
+
+  <!-- Section title -->
+  <text x="80" y="3820" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">HOW AGGRESSIVE IS</text>
+  <text x="80" y="3890" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">TOO AGGRESSIVE<tspan fill="#f04a0e">?</tspan></text>
+
+  <!-- Intro -->
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="15"
+        fill="rgba(237,232,223,0.7)">
+    <tspan x="80" y="3940">The size of your deficit determines rate of loss, muscle risk, and sustainability.</tspan>
+    <tspan x="80" dy="26">Go too hard, and your body fights back. Go too light, and nothing happens.</tspan>
+  </text>
+
+  <!-- Three deficit tier cards -->
+  <!-- Conservative -->
+  <rect x="80" y="4010" width="290" height="240" rx="2" ry="2" fill="#161616" stroke="rgba(184,204,218,0.15)" stroke-width="1"/>
+  <text x="225" y="4055" font-family="'Bebas Neue', sans-serif" font-size="48"
+        fill="#b8ccda" text-anchor="middle">10-15%</text>
+  <text x="225" y="4080" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#b8ccda" letter-spacing="0.2em" text-anchor="middle">CONSERVATIVE</text>
+  <rect x="110" y="4095" width="230" height="1" fill="rgba(184,204,218,0.1)"/>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.5)" text-anchor="middle">
+    <tspan x="225" y="4120">Slow, sustainable loss</tspan>
+    <tspan x="225" dy="20">~0.25-0.5 lb/week</tspan>
+    <tspan x="225" dy="20">Minimal muscle risk</tspan>
+    <tspan x="225" dy="20">Best for lean individuals</tspan>
+    <tspan x="225" dy="20">Easy to sustain long-term</tspan>
+  </text>
+
+  <!-- Moderate (recommended) -->
+  <rect x="390" y="4010" width="290" height="240" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.4)" stroke-width="1"/>
+  <rect x="390" y="4010" width="290" height="240" rx="2" ry="2" fill="url(#card-ember-glow)"/>
+  <text x="535" y="4055" font-family="'Bebas Neue', sans-serif" font-size="48"
+        fill="#f04a0e" text-anchor="middle" filter="url(#ember-glow)">20-25%</text>
+  <text x="535" y="4080" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.2em" text-anchor="middle">MODERATE — RECOMMENDED</text>
+  <rect x="420" y="4095" width="230" height="1" fill="rgba(240,74,14,0.15)"/>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.6)" text-anchor="middle">
+    <tspan x="535" y="4120">Optimal fat loss rate</tspan>
+    <tspan x="535" dy="20">~1-1.5 lb/week</tspan>
+    <tspan x="535" dy="20">Low-moderate muscle risk</tspan>
+    <tspan x="535" dy="20">The Flint sweet spot</tspan>
+    <tspan x="535" dy="20">Sustainable for 8-16 weeks</tspan>
+  </text>
+
+  <!-- Aggressive -->
+  <rect x="700" y="4010" width="300" height="240" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+  <text x="850" y="4055" font-family="'Bebas Neue', sans-serif" font-size="48"
+        fill="#848484" text-anchor="middle">30-40%</text>
+  <text x="850" y="4080" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#848484" letter-spacing="0.2em" text-anchor="middle">AGGRESSIVE</text>
+  <rect x="730" y="4095" width="240" height="1" fill="rgba(237,232,223,0.06)"/>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.4)" text-anchor="middle">
+    <tspan x="850" y="4120">Fast results, high cost</tspan>
+    <tspan x="850" dy="20">~2+ lb/week</tspan>
+    <tspan x="850" dy="20">High muscle loss risk</tspan>
+    <tspan x="850" dy="20">Only for high BF% clients</tspan>
+    <tspan x="850" dy="20">Max 4-6 weeks</tspan>
+  </text>
+
+  <!-- Warning card -->
+  <rect x="80" y="4290" width="920" height="100" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.2)" stroke-width="1"/>
+  <text x="120" y="4325" font-family="'Bebas Neue', sans-serif" font-size="22"
+        fill="#f04a0e" letter-spacing="0.06em">WHY CRASH DIETS FAIL</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="13"
+        fill="rgba(237,232,223,0.6)">
+    <tspan x="120" y="4352">Metabolic adaptation. Muscle loss. Hormonal disruption. Deficits over 40% trigger your body's survival response —</tspan>
+    <tspan x="120" dy="22">cortisol spikes, thyroid downregulation, and increased hunger hormones. You lose weight, but you lose the wrong kind.</tspan>
+  </text>
+
+  <!-- Example math -->
+  <text x="80" y="4450" font-family="'Bebas Neue', sans-serif" font-size="24"
+        fill="#b8ccda" letter-spacing="0.08em">PUTTING IT TOGETHER</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="14"
+        fill="rgba(237,232,223,0.6)">
+    <tspan x="80" y="4485">TDEE of 2,800 cal/day × 25% deficit = <tspan font-weight="500" fill="#f04a0e">700 calorie deficit</tspan></tspan>
+    <tspan x="80" dy="24">Target intake: <tspan font-weight="500" fill="#ede8df">2,100 calories/day</tspan> → Expected loss: ~1.4 lbs/week</tspan>
+  </text>
+
+  <!-- Pro tip -->
+  <rect x="80" y="4530" width="920" height="80" rx="2" ry="2" fill="#161616" stroke="rgba(184,204,218,0.1)" stroke-width="1"/>
+  <text x="120" y="4560" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#b8ccda" letter-spacing="0.3em">FLINT PROTOCOL</text>
+  <text x="120" y="4588" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="14" fill="rgba(237,232,223,0.6)">Start at 20%. Measure for 2-3 weeks. If progress is steady and energy is stable, stay. If not, adjust by 5% in either direction.</text>
+
+  <!-- Divider -->
+  <rect x="0" y="4670" width="1080" height="1" fill="url(#divider-fade)"/>
+
+
+  <!-- ==================== SECTION 04: RECOMPOSITION (4680-5740) ==================== -->
+  <rect x="0" y="4680" width="1080" height="1060" fill="#0e0e0e"/>
+  <rect x="0" y="4680" width="1080" height="1060" fill="url(#section-glow-r)"/>
+
+  <!-- Section number -->
+  <text x="900" y="4790" font-family="'Bebas Neue', sans-serif" font-size="120"
+        fill="none" stroke="rgba(240,74,14,0.1)" stroke-width="1.5" text-anchor="end">04</text>
+
+  <!-- Section label -->
+  <line x1="80" y1="4800" x2="120" y2="4800" stroke="#f04a0e" stroke-width="1"/>
+  <text x="132" y="4803" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em">BODY RECOMPOSITION</text>
+
+  <!-- Section title -->
+  <text x="80" y="4880" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">RECOMPOSITION</text>
+  <text x="80" y="4950" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">PROTOCOL</text>
+
+  <!-- Intro -->
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="15"
+        fill="rgba(237,232,223,0.7)">
+    <tspan x="80" y="5000">Lose fat and build muscle at the same time. It's not a myth — but it requires</tspan>
+    <tspan x="80" dy="26">specific conditions and precise execution.</tspan>
+  </text>
+
+  <!-- Who qualifies card -->
+  <text x="80" y="5080" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">WHO CAN RECOMP EFFECTIVELY</text>
+
+  <!-- Qualifier cards -->
+  <rect x="80" y="5110" width="220" height="110" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.2)" stroke-width="1"/>
+  <text x="190" y="5145" font-family="'Bebas Neue', sans-serif" font-size="20"
+        fill="#f04a0e" text-anchor="middle" letter-spacing="0.06em">BEGINNERS</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.55)" text-anchor="middle">
+    <tspan x="190" y="5170">&lt;1 year of serious training</tspan>
+    <tspan x="190" dy="18">Highest recomp potential</tspan>
+  </text>
+
+  <rect x="310" y="5110" width="220" height="110" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.15)" stroke-width="1"/>
+  <text x="420" y="5145" font-family="'Bebas Neue', sans-serif" font-size="20"
+        fill="#f04a0e" text-anchor="middle" letter-spacing="0.06em">DETRAINED</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.55)" text-anchor="middle">
+    <tspan x="420" y="5170">Returning after 6+ month break</tspan>
+    <tspan x="420" dy="18">Muscle memory advantage</tspan>
+  </text>
+
+  <rect x="540" y="5110" width="220" height="110" rx="2" ry="2" fill="#161616" stroke="rgba(184,204,218,0.15)" stroke-width="1"/>
+  <text x="650" y="5145" font-family="'Bebas Neue', sans-serif" font-size="20"
+        fill="#b8ccda" text-anchor="middle" letter-spacing="0.06em">OVERFAT</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.55)" text-anchor="middle">
+    <tspan x="650" y="5170">Higher body fat percentage</tspan>
+    <tspan x="650" dy="18">More fuel available for muscle</tspan>
+  </text>
+
+  <rect x="770" y="5110" width="230" height="110" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+  <text x="885" y="5145" font-family="'Bebas Neue', sans-serif" font-size="20"
+        fill="#848484" text-anchor="middle" letter-spacing="0.06em">ENHANCED</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.35)" text-anchor="middle">
+    <tspan x="885" y="5170">PED users (not our scope)</tspan>
+    <tspan x="885" dy="18">Different rules entirely</tspan>
+  </text>
+
+  <!-- The Recomp Framework -->
+  <text x="80" y="5290" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="#ede8df" letter-spacing="0.04em">THE FLINT RECOMP FRAMEWORK</text>
+
+  <!-- Framework card -->
+  <rect x="80" y="5320" width="920" height="260" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.15)" stroke-width="1"/>
+  <rect x="80" y="5320" width="920" height="260" rx="2" ry="2" fill="url(#card-ember-glow)"/>
+
+  <!-- 4 pillars -->
+  <text x="190" y="5370" font-family="'Bebas Neue', sans-serif" font-size="40"
+        fill="#f04a0e" text-anchor="middle">01</text>
+  <text x="190" y="5395" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#ede8df" text-anchor="middle" letter-spacing="0.15em">SLIGHT DEFICIT</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.5)" text-anchor="middle">
+    <tspan x="190" y="5420">10-15% below TDEE</tspan>
+    <tspan x="190" dy="18">Small enough to build</tspan>
+    <tspan x="190" dy="18">Large enough to lose</tspan>
+  </text>
+
+  <text x="420" y="5370" font-family="'Bebas Neue', sans-serif" font-size="40"
+        fill="#f04a0e" text-anchor="middle">02</text>
+  <text x="420" y="5395" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#ede8df" text-anchor="middle" letter-spacing="0.15em">HIGH PROTEIN</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.5)" text-anchor="middle">
+    <tspan x="420" y="5420">1.0-1.2g per lb</tspan>
+    <tspan x="420" dy="18">Non-negotiable</tspan>
+    <tspan x="420" dy="18">Drives muscle synthesis</tspan>
+  </text>
+
+  <text x="650" y="5370" font-family="'Bebas Neue', sans-serif" font-size="40"
+        fill="#f04a0e" text-anchor="middle">03</text>
+  <text x="650" y="5395" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#ede8df" text-anchor="middle" letter-spacing="0.15em">PROGRESSIVE OVERLOAD</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.5)" text-anchor="middle">
+    <tspan x="650" y="5420">Train for strength</tspan>
+    <tspan x="650" dy="18">3-5x per week</tspan>
+    <tspan x="650" dy="18">Track every session</tspan>
+  </text>
+
+  <text x="880" y="5370" font-family="'Bebas Neue', sans-serif" font-size="40"
+        fill="#f04a0e" text-anchor="middle">04</text>
+  <text x="880" y="5395" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#ede8df" text-anchor="middle" letter-spacing="0.15em">SLEEP + RECOVERY</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.5)" text-anchor="middle">
+    <tspan x="880" y="5420">7-9 hours minimum</tspan>
+    <tspan x="880" dy="18">This is where growth happens</tspan>
+    <tspan x="880" dy="18">Non-negotiable</tspan>
+  </text>
+
+  <!-- Expectation setting -->
+  <text x="120" y="5510" font-family="'Bebas Neue', sans-serif" font-size="20"
+        fill="#b8ccda" letter-spacing="0.08em">SET REALISTIC EXPECTATIONS</text>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="13"
+        fill="rgba(237,232,223,0.5)">
+    <tspan x="120" y="5540">Recomp is slow. The scale may not change for weeks, even as your body transforms. Trust measurements,</tspan>
+    <tspan x="120" dy="22">progress photos, and strength numbers — not the scale.</tspan>
+  </text>
+
+  <!-- Divider -->
+  <rect x="80" y="5680" width="920" height="1" fill="rgba(237,232,223,0.06)"/>
+
+
+  <!-- ==================== SECTION 05: TROUBLESHOOTING (5740-6620) ==================== -->
+  <rect x="0" y="5740" width="1080" height="880" fill="#060606"/>
+  <rect x="0" y="5740" width="1080" height="880" fill="url(#section-glow-l)"/>
+
+  <!-- Section number -->
+  <text x="80" y="5850" font-family="'Bebas Neue', sans-serif" font-size="120"
+        fill="none" stroke="rgba(240,74,14,0.1)" stroke-width="1.5">05</text>
+
+  <!-- Section label -->
+  <line x1="80" y1="5860" x2="120" y2="5860" stroke="#f04a0e" stroke-width="1"/>
+  <text x="132" y="5863" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em">TROUBLESHOOTING</text>
+
+  <!-- Section title -->
+  <text x="80" y="5940" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">WHEN FAT LOSS</text>
+  <text x="80" y="6010" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">STALLS</text>
+
+  <!-- Intro -->
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="15"
+        fill="rgba(237,232,223,0.7)">
+    <tspan x="80" y="6055">Plateaus are normal. They are not permission to panic-cut calories.</tspan>
+    <tspan x="80" dy="26">Here's the diagnostic framework we use at Flint.</tspan>
+  </text>
+
+  <!-- Stall checklist -->
+  <rect x="80" y="6110" width="450" height="370" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.15)" stroke-width="1"/>
+  <text x="120" y="6150" font-family="'Bebas Neue', sans-serif" font-size="24"
+        fill="#f04a0e" letter-spacing="0.06em">BEFORE YOU CUT CALORIES</text>
+
+  <text font-family="'DM Sans', sans-serif" font-weight="400" font-size="14" fill="rgba(237,232,223,0.7)">
+    <tspan x="120" y="6190"><tspan fill="#f04a0e">01</tspan>  Are you actually tracking accurately?</tspan>
+    <tspan x="140" dy="22" font-weight="300" font-size="12" fill="#848484">Weigh food. Log everything. No "eyeballing."</tspan>
+    <tspan x="120" dy="32"><tspan fill="#f04a0e">02</tspan>  Has it been less than 2 weeks?</tspan>
+    <tspan x="140" dy="22" font-weight="300" font-size="12" fill="#848484">Water fluctuations mask real progress. Wait.</tspan>
+    <tspan x="120" dy="32"><tspan fill="#f04a0e">03</tspan>  Are you sleeping 7+ hours?</tspan>
+    <tspan x="140" dy="22" font-weight="300" font-size="12" fill="#848484">Poor sleep = elevated cortisol = water retention.</tspan>
+    <tspan x="120" dy="32"><tspan fill="#f04a0e">04</tspan>  Is stress abnormally high?</tspan>
+    <tspan x="140" dy="22" font-weight="300" font-size="12" fill="#848484">Cortisol drives water retention and stalls.</tspan>
+    <tspan x="120" dy="32"><tspan fill="#f04a0e">05</tspan>  Are you strength training consistently?</tspan>
+    <tspan x="140" dy="22" font-weight="300" font-size="12" fill="#848484">Training drives the partition of nutrients to muscle.</tspan>
+  </text>
+
+  <!-- Solutions panel -->
+  <rect x="545" y="6110" width="455" height="370" rx="2" ry="2" fill="#161616" stroke="rgba(184,204,218,0.1)" stroke-width="1"/>
+  <text x="585" y="6150" font-family="'Bebas Neue', sans-serif" font-size="24"
+        fill="#b8ccda" letter-spacing="0.06em">IF THE STALL IS REAL</text>
+
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="13"
+        fill="rgba(237,232,223,0.6)">
+    <tspan x="585" y="6190" font-weight="500" fill="#ede8df">Option 1: Reduce calories by 5-10%</tspan>
+    <tspan x="585" dy="22">Only cut from fats or carbs — never protein.</tspan>
+    <tspan x="585" dy="22">Minimum viable change. Reassess in 2 weeks.</tspan>
+
+    <tspan x="585" dy="36" font-weight="500" fill="#ede8df">Option 2: Add 1-2 cardio sessions</tspan>
+    <tspan x="585" dy="22">Low-intensity steady state (LISS). 30-45 min walks.</tspan>
+    <tspan x="585" dy="22">Increase expenditure instead of decreasing intake.</tspan>
+
+    <tspan x="585" dy="36" font-weight="500" fill="#ede8df">Option 3: Take a diet break</tspan>
+    <tspan x="585" dy="22">Eat at maintenance for 1-2 weeks.</tspan>
+    <tspan x="585" dy="22">Resets hormones, reduces adaptation. Then resume.</tspan>
+
+    <tspan x="585" dy="36" font-weight="500" fill="#ede8df">Option 4: Refeed days</tspan>
+    <tspan x="585" dy="22">1-2 higher-carb days per week at maintenance.</tspan>
+    <tspan x="585" dy="22">Leptin boost. Glycogen refill. Mental break.</tspan>
+  </text>
+
+  <!-- Divider -->
+  <rect x="0" y="6610" width="1080" height="1" fill="url(#divider-fade)"/>
+
+
+  <!-- ==================== SECTION 06: TRACKING METHODS (6620-7400) ==================== -->
+  <rect x="0" y="6620" width="1080" height="780" fill="#0e0e0e"/>
+  <rect x="0" y="6620" width="1080" height="780" fill="url(#section-glow-r)"/>
+
+  <!-- Section number -->
+  <text x="900" y="6730" font-family="'Bebas Neue', sans-serif" font-size="120"
+        fill="none" stroke="rgba(240,74,14,0.1)" stroke-width="1.5" text-anchor="end">06</text>
+
+  <!-- Section label -->
+  <line x1="80" y1="6740" x2="120" y2="6740" stroke="#f04a0e" stroke-width="1"/>
+  <text x="132" y="6743" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em">SYSTEMS FOR BUSY PEOPLE</text>
+
+  <!-- Section title -->
+  <text x="80" y="6820" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">TRACKING THAT</text>
+  <text x="80" y="6890" font-family="'Bebas Neue', sans-serif" font-size="72"
+        fill="#ede8df" letter-spacing="0.02em">ACTUALLY WORKS</text>
+
+  <!-- Intro -->
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="15"
+        fill="rgba(237,232,223,0.7)">
+    <tspan x="80" y="6935">You don't need to weigh every gram forever. You need a system that fits your life.</tspan>
+  </text>
+
+  <!-- Three method cards -->
+  <!-- Method 1: Full tracking -->
+  <rect x="80" y="6970" width="290" height="200" rx="2" ry="2" fill="#161616" stroke="rgba(240,74,14,0.25)" stroke-width="1"/>
+  <rect x="80" y="6970" width="290" height="200" rx="2" ry="2" fill="url(#card-ember-glow)"/>
+  <text x="225" y="7010" font-family="'Bebas Neue', sans-serif" font-size="22"
+        fill="#f04a0e" text-anchor="middle" letter-spacing="0.06em">FULL TRACKING</text>
+  <text x="225" y="7032" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="10" fill="#848484" text-anchor="middle" letter-spacing="0.2em">MOST PRECISE</text>
+  <rect x="140" y="7042" width="170" height="1" fill="rgba(240,74,14,0.1)"/>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.55)" text-anchor="middle">
+    <tspan x="225" y="7065">Weigh food + log in app</tspan>
+    <tspan x="225" dy="18">Track calories + protein daily</tspan>
+    <tspan x="225" dy="18">Best for: first 4-8 weeks</tspan>
+    <tspan x="225" dy="18">Apps: MyFitnessPal, MacroFactor</tspan>
+    <tspan x="225" dy="18" fill="#f04a0e" font-weight="500">Time: ~10 min/day</tspan>
+  </text>
+
+  <!-- Method 2: Hand portions -->
+  <rect x="390" y="6970" width="290" height="200" rx="2" ry="2" fill="#161616" stroke="rgba(184,204,218,0.15)" stroke-width="1"/>
+  <text x="535" y="7010" font-family="'Bebas Neue', sans-serif" font-size="22"
+        fill="#b8ccda" text-anchor="middle" letter-spacing="0.06em">HAND PORTIONS</text>
+  <text x="535" y="7032" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="10" fill="#848484" text-anchor="middle" letter-spacing="0.2em">PRACTICAL</text>
+  <rect x="450" y="7042" width="170" height="1" fill="rgba(184,204,218,0.08)"/>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.55)" text-anchor="middle">
+    <tspan x="535" y="7065">Palm = protein serving</tspan>
+    <tspan x="535" dy="18">Fist = carb serving</tspan>
+    <tspan x="535" dy="18">Thumb = fat serving</tspan>
+    <tspan x="535" dy="18">Best for: maintenance phase</tspan>
+    <tspan x="535" dy="18" fill="#b8ccda" font-weight="500">Time: ~0 min/day</tspan>
+  </text>
+
+  <!-- Method 3: Hybrid -->
+  <rect x="700" y="6970" width="300" height="200" rx="2" ry="2" fill="#161616" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+  <text x="850" y="7010" font-family="'Bebas Neue', sans-serif" font-size="22"
+        fill="#ede8df" text-anchor="middle" letter-spacing="0.06em">HYBRID METHOD</text>
+  <text x="850" y="7032" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="10" fill="#848484" text-anchor="middle" letter-spacing="0.2em">RECOMMENDED LONG-TERM</text>
+  <rect x="760" y="7042" width="180" height="1" fill="rgba(237,232,223,0.06)"/>
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="12"
+        fill="rgba(237,232,223,0.55)" text-anchor="middle">
+    <tspan x="850" y="7065">Track protein only</tspan>
+    <tspan x="850" dy="18">Estimate other macros</tspan>
+    <tspan x="850" dy="18">Weekly weigh-ins + photos</tspan>
+    <tspan x="850" dy="18">Best for: long-term adherence</tspan>
+    <tspan x="850" dy="18" fill="#ede8df" font-weight="500">Time: ~3 min/day</tspan>
+  </text>
+
+  <!-- Bottom tip -->
+  <rect x="80" y="7210" width="920" height="80" rx="2" ry="2" fill="#161616" stroke="rgba(184,204,218,0.1)" stroke-width="1"/>
+  <text x="120" y="7240" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#b8ccda" letter-spacing="0.3em">FLINT PROTOCOL</text>
+  <text x="120" y="7268" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="14" fill="rgba(237,232,223,0.6)">Full track for the first phase. Transition to hybrid. The goal is building intuition — not creating a lifelong dependency on an app.</text>
+
+  <!-- Divider -->
+  <rect x="0" y="7390" width="1080" height="1" fill="url(#divider-fade)"/>
+
+
+  <!-- ==================== FOOTER / CTA (7400-7800) ==================== -->
+  <rect x="0" y="7400" width="1080" height="400" fill="#060606"/>
+
+  <!-- Ember atmospheric glow -->
+  <ellipse cx="540" cy="7550" rx="300" ry="150" fill="#f04a0e" opacity="0.06"/>
+
+  <!-- Ghost text -->
+  <text x="540" y="7720" font-family="'Bebas Neue', sans-serif" font-size="280"
+        fill="none" stroke="rgba(240,74,14,0.04)" stroke-width="1.5"
+        text-anchor="middle">FLINT</text>
+
+  <!-- CTA content -->
+  <text x="540" y="7490" font-family="'DM Sans', sans-serif" font-weight="600"
+        font-size="11" fill="#f04a0e" letter-spacing="0.4em" text-anchor="middle">READY TO EXECUTE?</text>
+
+  <text x="540" y="7545" font-family="'Bebas Neue', sans-serif" font-size="56"
+        fill="#ede8df" letter-spacing="0.02em" text-anchor="middle">STOP GUESSING.</text>
+  <text x="540" y="7600" font-family="'Bebas Neue', sans-serif" font-size="56"
+        fill="#ede8df" letter-spacing="0.02em" text-anchor="middle">START BUILDING.</text>
+
+  <text font-family="'DM Sans', sans-serif" font-weight="300" font-size="15"
+        fill="#848484" text-anchor="middle">
+    <tspan x="540" y="7645">This guide gives you the framework. Flint gives you the execution.</tspan>
+    <tspan x="540" dy="26">Custom programming. Precision nutrition. Accountability that works.</tspan>
+  </text>
+
+  <!-- CTA button -->
+  <rect x="410" y="7700" width="260" height="52" rx="2" ry="2" fill="#f04a0e" filter="url(#ember-glow)"/>
+  <text x="540" y="7733" font-family="'DM Sans', sans-serif" font-weight="700"
+        font-size="13" fill="#060606" letter-spacing="0.18em" text-anchor="middle">FLINTPERFORMANCE.COM</text>
+
+  <!-- Footer bottom line -->
+  <rect x="80" y="7770" width="920" height="1" fill="rgba(237,232,223,0.06)"/>
+  <text x="540" y="7790" font-family="'DM Sans', sans-serif" font-weight="300"
+        font-size="10" fill="#848484" letter-spacing="0.1em" text-anchor="middle">© 2026 FLINT PERFORMANCE. ALL RIGHTS RESERVED.</text>
+
+</svg>

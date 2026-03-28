@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flint Performance — Elite Online Fitness Coaching for Busy Professionals</title>
-<meta name="description" content="1-on-1 online fitness coaching for driven professionals. Custom programs built around your real schedule, lifestyle, and goals. Cold mornings. No excuses.">
-<meta name="keywords" content="online fitness coach, personal trainer for busy professionals, 1-on-1 coaching, executive fitness coaching, remote personal trainer, online personal training">
-<meta property="og:title" content="Flint Performance — The Spark That Starts the Fire">
-<meta property="og:description" content="Elite 1-on-1 fitness coaching for driven professionals. Programs built around your schedule, your goals, your real life.">
+<title>Flint Performance — Fitness Apps Built for Discipline</title>
+<meta name="description" content="A family of sharp, focused fitness apps. Cycling. Weight tracking. Lifting. Nutrition. Each one built to do one thing — and do it right.">
+<meta property="og:title" content="Flint Performance — Fitness Apps Built for Discipline">
+<meta property="og:description" content="A family of sharp, focused fitness apps. Cycling. Weight tracking. Lifting. Nutrition. Each one purpose-built.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://flintperformance.com/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Flint Performance — The Spark That Starts the Fire">
-<meta name="twitter:description" content="Elite 1-on-1 fitness coaching for driven professionals. Programs built around your schedule, your goals, your real life.">
+<meta name="twitter:title" content="Flint Performance — Fitness Apps Built for Discipline">
+<meta name="twitter:description" content="A family of sharp, focused fitness apps. Each one purpose-built.">
 <link rel="icon" type="image/png" href="brand/favicon.png">
 <link rel="canonical" href="https://flintperformance.com/">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
@@ -35,7 +34,7 @@
   html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
   body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; overflow-x:hidden; }
 
-  /* ─── HAMBURGER NAV ─────────────────────────── */
+  /* ─── NAV ───────────────────────────────────── */
   nav {
     position:fixed; top:0; left:0; right:0; z-index:200;
     display:flex; justify-content:space-between; align-items:center;
@@ -46,7 +45,7 @@
   .nav-logo {
     font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:30px;
     letter-spacing:0.06em; color:var(--white); text-decoration:none;
-    display:flex; align-items:center; gap:0;
+    display:flex; align-items:center;
   }
   .nav-logo .sp { color:var(--ember); }
 
@@ -57,12 +56,6 @@
     transition:color 0.2s;
   }
   .nav-links a:hover { color:var(--white); }
-  .nav-cta {
-    background:var(--ember) !important; color:var(--black) !important;
-    padding:10px 24px; border-radius:2px; font-weight:600 !important;
-    letter-spacing:0.1em !important; transition:background 0.2s !important;
-  }
-  .nav-cta:hover { background:var(--ember-hot) !important; }
 
   /* Hamburger */
   .hamburger {
@@ -90,29 +83,22 @@
     transition:color 0.2s;
   }
   .mobile-menu a:hover { color:var(--ember); }
-  .mobile-menu .m-cta {
-    background:var(--ember); color:var(--black) !important;
-    padding:16px 48px; border-radius:2px; font-size:36px !important;
-    margin-top:16px;
-  }
 
   /* ─── HERO ───────────────────────────────────── */
   .hero {
     min-height:100vh; position:relative; overflow:hidden;
-    display:flex; flex-direction:column; justify-content:flex-start;
+    display:flex; flex-direction:column; justify-content:center;
     padding:100px 64px 80px;
   }
 
-  /* Background atmosphere */
   .hero-atmo {
     position:absolute; inset:0; pointer-events:none;
     background:
-      radial-gradient(ellipse 60% 70% at 75% 40%, rgba(240,74,14,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 70% at 75% 40%, rgba(240,74,14,0.14) 0%, transparent 60%),
       radial-gradient(ellipse 30% 40% at 10% 80%, rgba(184,204,218,0.06) 0%, transparent 50%),
       linear-gradient(to bottom, rgba(6,6,6,0) 0%, rgba(6,6,6,0.3) 100%);
   }
 
-  /* Spark particle lines */
   .spark-lines {
     position:absolute; inset:0; pointer-events:none; overflow:hidden;
   }
@@ -120,25 +106,17 @@
     content:'';
     position:absolute; top:0; left:62%; width:1px; height:100%;
     background:linear-gradient(to bottom,
-      transparent 0%,
-      rgba(240,74,14,0.0) 20%,
-      rgba(240,74,14,0.25) 45%,
-      rgba(240,74,14,0.25) 55%,
-      rgba(240,74,14,0.0) 80%,
-      transparent 100%);
+      transparent 0%, rgba(240,74,14,0.0) 20%, rgba(240,74,14,0.25) 45%,
+      rgba(240,74,14,0.25) 55%, rgba(240,74,14,0.0) 80%, transparent 100%);
   }
   .spark-lines::after {
     content:'';
     position:absolute; top:0; left:78%; width:1px; height:100%;
     background:linear-gradient(to bottom,
-      transparent 0%,
-      rgba(184,204,218,0.0) 30%,
-      rgba(184,204,218,0.12) 50%,
-      rgba(184,204,218,0.0) 70%,
-      transparent 100%);
+      transparent 0%, rgba(184,204,218,0.0) 30%, rgba(184,204,218,0.12) 50%,
+      rgba(184,204,218,0.0) 70%, transparent 100%);
   }
 
-  /* Big background FLINT text */
   .hero-bg-word {
     position:absolute; bottom:-0.05em; right:-0.05em;
     font-family:'Bebas Neue',sans-serif;
@@ -163,8 +141,8 @@
 
   .hero-title {
     font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(72px,14vw,200px);
-    line-height:0.85; letter-spacing:0.01em;
+    font-size:clamp(64px,12vw,160px);
+    line-height:0.88; letter-spacing:0.01em;
     margin-bottom:32px;
   }
   .hero-title .t-cold {
@@ -180,8 +158,8 @@
 
   .hero-sub {
     font-size:clamp(15px,2vw,18px); font-weight:300;
-    color:var(--cold); max-width:480px; line-height:1.8;
-    margin-bottom:48px; opacity:1;
+    color:var(--cold); max-width:520px; line-height:1.8;
+    margin-bottom:48px;
   }
   .hero-sub strong { color:var(--white); font-weight:500; font-style:italic; }
 
@@ -223,9 +201,100 @@
   }
   .sec-sub { font-size:16px; font-weight:300; color:var(--muted); max-width:520px; line-height:1.8; }
 
-  /* ─── ABOUT ──────────────────────────────────── */
-  .about { background:var(--gray); display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  /* ─── APPS GRID ──────────────────────────────── */
+  .apps { background:var(--gray); }
+  .apps-grid {
+    display:grid; grid-template-columns:repeat(2, 1fr);
+    gap:2px; margin-top:64px;
+  }
 
+  .app-card {
+    background:var(--gray-mid); padding:56px 48px;
+    position:relative; overflow:hidden;
+    text-decoration:none; color:var(--white);
+    transition:background 0.25s;
+    display:flex; flex-direction:column; gap:24px;
+  }
+  a.app-card:hover { background:var(--gray-up); }
+  a.app-card:hover .app-arrow { opacity:1; transform:translate(0,0); }
+  div.app-card { cursor:default; }
+
+  .app-icon {
+    width:80px; height:80px; border-radius:18px;
+    background:var(--black); border:1px solid rgba(237,232,223,0.08);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Barlow Condensed',sans-serif; font-weight:900;
+    font-size:24px; letter-spacing:0.04em;
+    flex-shrink:0;
+  }
+  .app-icon .sp { color:var(--ember); }
+
+  .app-name {
+    font-family:'Bebas Neue',sans-serif; font-size:48px;
+    letter-spacing:0.04em; line-height:1;
+  }
+  .app-desc {
+    font-size:15px; font-weight:300; color:var(--muted);
+    line-height:1.7; max-width:380px;
+  }
+
+  .app-status {
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:11px; font-weight:600; letter-spacing:0.2em;
+    text-transform:uppercase; margin-top:auto; padding-top:8px;
+  }
+  .app-status.live { color:var(--ember); }
+  .app-status.soon { color:var(--cold); }
+  .app-status-dot {
+    width:6px; height:6px; border-radius:50%;
+  }
+  .app-status.live .app-status-dot { background:var(--ember); box-shadow:0 0 12px rgba(240,74,14,0.6); }
+  .app-status.soon .app-status-dot { background:var(--cold); opacity:0.5; }
+
+  .app-arrow {
+    position:absolute; top:48px; right:48px;
+    font-size:24px; color:var(--ember);
+    opacity:0; transform:translate(-8px, 8px);
+    transition:opacity 0.25s, transform 0.25s;
+  }
+
+  .app-card-glow {
+    position:absolute; bottom:-80px; right:-80px;
+    width:240px; height:240px; border-radius:50%;
+    pointer-events:none; opacity:0;
+    transition:opacity 0.3s;
+  }
+  .app-card:hover .app-card-glow { opacity:1; }
+
+  /* ─── ECOSYSTEM ──────────────────────────────── */
+  .ecosystem { background:var(--black); }
+  .eco-grid {
+    display:grid; grid-template-columns:1fr 1fr 1fr;
+    gap:2px; margin-top:64px;
+  }
+  .eco-item {
+    background:var(--gray); padding:48px 40px;
+    transition:background 0.2s;
+  }
+  .eco-item:hover { background:var(--gray-mid); }
+  .eco-num {
+    font-family:'Bebas Neue',sans-serif; font-size:64px;
+    line-height:1; color:var(--ember); margin-bottom:8px;
+    text-shadow:0 0 40px rgba(240,74,14,0.25);
+  }
+  .eco-label {
+    font-size:11px; font-weight:600; letter-spacing:0.3em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:20px;
+  }
+  .eco-text {
+    font-size:14px; font-weight:300; color:#9a9a9a; line-height:1.7;
+  }
+
+  /* ─── PHILOSOPHY ─────────────────────────────── */
+  .philosophy { background:var(--gray); }
+  .phil-inner {
+    display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+  }
   .manifesto {
     background:var(--gray-mid);
     border:1px solid rgba(240,74,14,0.12);
@@ -245,220 +314,11 @@
     margin-bottom:20px; display:flex; align-items:center; gap:10px;
   }
   .manifesto-spark::before { content:''; display:block; width:24px; height:1px; background:var(--ember); }
-  .manifesto-quote {
-    font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,3.5vw,38px);
-    letter-spacing:0.02em; line-height:1.2;
-    margin-bottom:28px; position:relative; z-index:1;
-  }
-  .manifesto-quote em { font-style:normal; color:var(--ember); }
   .manifesto-body {
     font-size:14px; font-weight:300; color:#9a9a9a;
     line-height:1.85; position:relative; z-index:1;
   }
   .manifesto-body strong { color:var(--white); font-weight:500; }
-
-  /* ─── COACH ──────────────────────────────────── */
-  .coach-sec {
-    background:var(--black);
-    display:grid; grid-template-columns:5fr 7fr; gap:80px; align-items:center;
-  }
-  .coach-photo {
-    position:relative; aspect-ratio:3/4; overflow:hidden;
-    background:var(--gray-mid); border:1px solid var(--border);
-    display:flex; align-items:flex-end;
-    /* When you have a real photo, add: background-image:url(coach.jpg); background-size:cover; background-position:center top; */
-  }
-  .coach-photo-bg {
-    position:absolute; inset:0; pointer-events:none;
-    background:radial-gradient(ellipse 70% 55% at 50% 25%, rgba(240,74,14,0.12), transparent 65%);
-  }
-  .coach-photo-word {
-    position:absolute; bottom:-0.06em; left:-0.03em;
-    font-family:'Bebas Neue',sans-serif; font-size:clamp(80px,13vw,160px);
-    letter-spacing:0.02em; line-height:1; color:transparent;
-    -webkit-text-stroke:1px rgba(240,74,14,0.07);
-    pointer-events:none; user-select:none;
-  }
-  .coach-photo-plate {
-    position:relative; z-index:2; width:100%; padding:20px 28px;
-    background:rgba(6,6,6,0.78); backdrop-filter:blur(12px);
-    border-top:1px solid var(--border);
-  }
-  .coach-photo-name { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:0.06em; margin-bottom:3px; }
-  .coach-photo-title { font-size:11px; color:var(--muted); letter-spacing:0.18em; text-transform:uppercase; }
-  .coach-bio-p { font-size:15px; font-weight:300; color:var(--muted); line-height:1.8; margin-top:20px; }
-
-  /* ─── CHALLENGE ─────────────────────────────── */
-  .challenge { background:var(--gray); border-top:2px solid var(--ember); }
-  .challenge-inner { display:grid; grid-template-columns:1fr 360px; gap:64px; align-items:start; margin-top:56px; }
-  .challenge-feats { list-style:none; display:flex; flex-direction:column; gap:12px; margin:28px 0 0; }
-  .challenge-feats li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:#bbb; line-height:1.5; }
-  .challenge-feats li .ck { color:var(--cold); flex-shrink:0; }
-  .spot-card {
-    background:var(--gray-mid); border:1px solid rgba(240,74,14,0.25);
-    border-radius:2px; padding:36px 32px;
-  }
-  .spot-num {
-    font-family:'Bebas Neue',sans-serif; font-size:100px; line-height:1;
-    letter-spacing:0.01em; color:var(--ember);
-    text-shadow:0 0 60px rgba(240,74,14,0.35);
-  }
-  .spot-lbl { font-size:11px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; }
-  .spot-div { height:1px; background:var(--border); margin-bottom:24px; }
-  .spot-weeks { font-family:'Bebas Neue',sans-serif; font-size:44px; letter-spacing:0.03em; margin-bottom:4px; }
-  .spot-weeks-lbl { font-size:11px; color:var(--muted); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:20px; }
-  .spot-price { font-family:'Bebas Neue',sans-serif; font-size:56px; line-height:1; letter-spacing:0.02em; color:var(--white); margin-top:4px; }
-  .spot-price .dl { font-size:24px; vertical-align:top; margin-top:10px; display:inline-block; color:var(--ember); }
-  .spot-price-lbl { font-size:11px; color:var(--muted); letter-spacing:0.18em; text-transform:uppercase; margin-top:4px; margin-bottom:20px; }
-  .spot-note { font-size:13px; font-weight:300; color:var(--muted); line-height:1.7; margin-bottom:28px; }
-  .btn-challenge {
-    display:block; text-align:center; background:var(--ember); color:var(--black);
-    padding:14px; border-radius:2px; font-family:'DM Sans',sans-serif;
-    font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
-    text-decoration:none; transition:background 0.2s;
-    box-shadow:0 0 30px rgba(240,74,14,0.25);
-  }
-  .btn-challenge:hover { background:var(--ember-hot); }
-
-  /* ─── PRICING ────────────────────────────────── */
-  .pricing { background:var(--black); }
-  .pricing-top {
-    display:flex; justify-content:space-between; align-items:flex-end;
-    margin-bottom:56px; flex-wrap:wrap; gap:28px;
-  }
-  .billing-wrap { display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
-  .billing-note { font-size:12px; color:var(--muted); letter-spacing:0.08em; }
-
-  .billing-toggle {
-    display:flex; background:var(--gray-mid); border-radius:2px;
-    padding:3px; gap:2px;
-  }
-  .billing-toggle button {
-    background:transparent; border:none; color:var(--muted);
-    font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600;
-    letter-spacing:0.1em; text-transform:uppercase; padding:9px 16px;
-    border-radius:1px; cursor:pointer; transition:all 0.2s;
-    position:relative; white-space:nowrap;
-  }
-  .billing-toggle button.active { background:var(--ember); color:var(--black); }
-  .billing-toggle button .badge {
-    position:absolute; top:-8px; right:-4px;
-    background:var(--cold); color:var(--black);
-    font-size:8px; font-weight:700; padding:2px 5px;
-    border-radius:2px; letter-spacing:0.04em;
-  }
-
-  .plans { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-  .plan {
-    background:var(--gray); padding:48px 36px;
-    position:relative; overflow:hidden;
-    transition:background 0.2s;
-    display:flex; flex-direction:column;
-  }
-  .plan:hover { background:var(--gray-mid); }
-  .plan.featured {
-    background:var(--gray-mid);
-    outline:1px solid var(--ember); outline-offset:-1px;
-  }
-  .plan.featured::after {
-    content:'';
-    position:absolute; bottom:-60px; right:-60px;
-    width:200px; height:200px; border-radius:50%;
-    background:radial-gradient(circle, rgba(240,74,14,0.12), transparent 70%);
-    pointer-events:none;
-  }
-  .plan-badge {
-    position:absolute; top:0; right:0;
-    background:var(--ember); color:var(--black);
-    font-size:10px; font-weight:700; letter-spacing:0.2em;
-    text-transform:uppercase; padding:6px 16px;
-  }
-  .plan-level {
-    font-size:10px; font-weight:600; letter-spacing:0.3em;
-    text-transform:uppercase; color:var(--ember); margin-bottom:6px;
-  }
-  .plan-name {
-    font-family:'Bebas Neue',sans-serif; font-size:44px;
-    letter-spacing:0.04em; margin-bottom:0;
-  }
-  .plan-tagline { font-size:13px; color:var(--muted); margin-bottom:36px; font-style:italic; }
-  .plan-price {
-    font-family:'Bebas Neue',sans-serif; font-size:80px;
-    line-height:1; letter-spacing:0.01em;
-  }
-  .plan-price .dl { font-size:36px; vertical-align:top; margin-top:14px; display:inline-block; color:var(--ember); }
-  .plan-period { font-size:13px; color:var(--muted); margin-bottom:6px; }
-  .plan-savings { font-size:12px; color:var(--cold); font-weight:500; height:18px; margin-bottom:32px; }
-  .plan-div { height:1px; background:var(--border); margin:0 0 28px; }
-  .plan-features { list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:40px; flex:1; }
-  .plan-features li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:#bbb; line-height:1.5; }
-  .plan-features li .ck { color:var(--cold); flex-shrink:0; margin-top:2px; }
-  .plan-btn {
-    display:block; text-align:center; padding:14px;
-    font-size:12px; font-weight:700; letter-spacing:0.18em;
-    text-transform:uppercase; text-decoration:none; border-radius:2px;
-    transition:all 0.2s; cursor:pointer; border:none; width:100%;
-    margin-top:auto;
-  }
-  .btn-col { background:transparent; border:1px solid rgba(184,204,218,0.15); color:var(--cold); }
-  .btn-col:hover { border-color:var(--cold); color:var(--white); }
-  .btn-fem { background:var(--ember); color:var(--black); box-shadow:0 0 30px rgba(240,74,14,0.25); }
-  .btn-fem:hover { background:var(--ember-hot); box-shadow:0 0 50px rgba(240,74,14,0.35); }
-
-  /* ─── CONSULT STRIP ──────────────────────────── */
-  .consult-strip { border-top:1px solid var(--border); margin-top:56px; padding-top:48px; display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap; }
-  .consult-strip-sub { font-size:14px; color:var(--muted); font-weight:300; line-height:1.6; max-width:320px; margin-top:8px; }
-  .consult-pills { display:flex; gap:12px; flex-wrap:wrap; }
-  .consult-pill { display:flex; align-items:center; gap:16px; padding:20px 28px; background:var(--gray-mid); border:1px solid var(--border); text-decoration:none; transition:border-color .2s, background .2s; }
-  .consult-pill:hover { border-color:var(--ember); background:var(--gray-up); }
-  .consult-pill-mins { font-family:'Bebas Neue',sans-serif; font-size:40px; line-height:1; letter-spacing:0.02em; color:var(--ember); }
-  .consult-pill-info { display:flex; flex-direction:column; gap:2px; }
-  .consult-pill-name { font-size:13px; font-weight:600; color:var(--white); }
-  .consult-pill-price { font-size:12px; color:var(--muted); font-weight:300; }
-
-  /* ─── FAQ ────────────────────────────────────── */
-  .faq { background:var(--black); }
-  .faq-list { margin-top:56px; display:flex; flex-direction:column; gap:2px; }
-  .faq-item {
-    background:var(--gray); padding:32px 40px;
-    border-left:2px solid transparent;
-    transition:border-color 0.2s, background 0.2s; cursor:default;
-  }
-  .faq-item:hover { border-color:var(--ember); background:var(--gray-mid); }
-  .faq-q { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:0.04em; margin-bottom:10px; }
-  .faq-a { font-size:14px; font-weight:300; color:#9a9a9a; line-height:1.8; max-width:700px; }
-
-  /* ─── LEAD MAGNET ────────────────────────────── */
-  .leadmag { background:var(--gray); border-top:2px solid rgba(184,204,218,0.1); }
-  .lm-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
-  .lm-bullets { list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:28px; }
-  .lm-bullets li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:#bbb; line-height:1.5; }
-  .lm-bullets li::before { content:'—'; color:var(--cold); flex-shrink:0; }
-  .lm-card { background:var(--gray-mid); border:1px solid rgba(184,204,218,0.15); border-radius:2px; padding:44px 40px; }
-  .lm-card-label { font-size:10px; font-weight:700; letter-spacing:0.36em; text-transform:uppercase; color:var(--cold); margin-bottom:10px; }
-  .lm-card-title { font-family:'Bebas Neue',sans-serif; font-size:40px; letter-spacing:0.04em; margin-bottom:12px; }
-  .lm-card-sub { font-size:14px; font-weight:300; color:var(--muted); line-height:1.7; margin-bottom:28px; }
-  .lm-field { margin-bottom:12px; }
-  .lm-field input {
-    width:100%; background:rgba(237,232,223,0.04); border:1px solid rgba(237,232,223,0.1);
-    border-radius:2px; color:var(--white); font-family:'DM Sans',sans-serif;
-    font-size:15px; padding:14px 16px; outline:none; transition:border-color 0.2s;
-  }
-  .lm-field input:focus { border-color:var(--cold); }
-  .lm-field input::placeholder { color:#444; }
-  .lm-btn {
-    width:100%; background:var(--cold); color:var(--black); border:none; padding:15px;
-    border-radius:2px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700;
-    letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; transition:opacity 0.2s; margin-bottom:12px;
-  }
-  .lm-btn:hover { opacity:0.88; }
-  .lm-btn:disabled { opacity:0.5; cursor:not-allowed; }
-  .lm-fine { font-size:11px; color:var(--muted); text-align:center; }
-  .lm-success { display:none; text-align:center; padding:20px 0; }
-  .lm-success.active { display:block; }
-  .lm-success-icon { font-size:36px; color:var(--cold); margin-bottom:14px; }
-  .lm-success-title { font-family:'Bebas Neue',sans-serif; font-size:34px; letter-spacing:0.06em; margin-bottom:10px; }
-  .lm-success-sub { font-size:14px; font-weight:300; color:var(--muted); line-height:1.7; }
 
   /* ─── CTA ────────────────────────────────────── */
   .cta-sec {
@@ -467,7 +327,7 @@
     text-align:center;
   }
   .cta-sec::before {
-    content:'IGNITE';
+    content:'FLINT';
     position:absolute; font-family:'Bebas Neue',sans-serif;
     font-size:clamp(120px,22vw,320px); letter-spacing:0.04em;
     color:rgba(0,0,0,0.12); top:50%; left:50%;
@@ -523,87 +383,58 @@
     nav { padding:18px 40px; }
     section { padding:80px 40px; }
     .hero { padding:90px 40px 64px; }
-    .about { grid-template-columns:1fr; gap:48px; }
-    .coach-sec { grid-template-columns:1fr; gap:48px; }
-    .challenge-inner { grid-template-columns:1fr; }
-    .plans { grid-template-columns:1fr; max-width:480px; margin:0 auto; }
-    .lm-inner { grid-template-columns:1fr; gap:48px; }
+    .apps-grid { grid-template-columns:1fr; }
+    .eco-grid { grid-template-columns:1fr; }
+    .phil-inner { grid-template-columns:1fr; gap:48px; }
     footer { padding:32px 40px; }
   }
 
   /* ─── MOBILE ─────────────────────────────────── */
   @media (max-width:768px) {
-    /* Nav */
     nav { padding:16px 20px; }
     .nav-links { display:none; }
     .hamburger { display:flex; }
 
-    /* Hero */
     .hero { padding:80px 20px 56px; min-height:100svh; }
     .hero-bg-word { font-size:clamp(120px,50vw,240px); bottom:0; right:-0.02em; }
     .hero-eyebrow { margin-bottom:20px; }
     .ey-line { width:32px; }
-    .hero-title { font-size:clamp(64px,18vw,120px); margin-bottom:24px; }
+    .hero-title { font-size:clamp(56px,16vw,120px); margin-bottom:24px; }
     .hero-title .t-cold { -webkit-text-stroke:1px rgba(237,232,223,0.18); }
     .hero-sub { font-size:15px; margin-bottom:36px; max-width:100%; }
     .hero-actions { flex-direction:column; gap:10px; }
     .hero-actions a { text-align:center; padding:16px 24px; width:100%; }
 
-    /* Sections */
     section { padding:64px 20px; }
     .sec-title { font-size:clamp(44px,11vw,64px); }
     .sec-sub { font-size:15px; }
 
-    /* About */
-    .about { padding:64px 20px; gap:48px; }
+    .apps-grid { margin-top:40px; }
+    .app-card { padding:36px 24px; gap:20px; }
+    .app-icon { width:64px; height:64px; border-radius:14px; font-size:20px; }
+    .app-name { font-size:36px; }
+    .app-desc { font-size:14px; }
+    .app-arrow { top:32px; right:24px; }
+
+    .eco-grid { margin-top:40px; }
+    .eco-item { padding:36px 24px; }
+    .eco-num { font-size:48px; }
+
+    .philosophy { padding:64px 20px; }
     .manifesto { padding:32px 24px; }
 
-    /* Coach */
-    .coach-sec { padding:64px 20px; gap:40px; }
-
-    /* Challenge */
-    .challenge { padding:64px 20px; }
-    .challenge-inner { margin-top:36px; gap:36px; }
-    .spot-num { font-size:72px; }
-    .coach-photo { aspect-ratio:4/3; }
-
-    /* Pricing */
-    .pricing-top { flex-direction:column; align-items:flex-start; gap:20px; }
-    .billing-wrap { align-items:flex-start; }
-    .billing-toggle { width:100%; justify-content:stretch; }
-    .billing-toggle button { flex:1; padding:10px 8px; font-size:11px; }
-    .plans { max-width:100%; }
-    .plan { padding:36px 24px; }
-    .plan-price { font-size:64px; }
-    .plan-features li { font-size:13px; }
-
-    /* Consult strip */
-    .consult-strip { flex-direction:column; align-items:flex-start; }
-
-    /* FAQ */
-    .faq { padding:64px 20px; }
-    .faq-item { padding:24px 20px; }
-    .faq-q { font-size:20px; }
-    .faq-a { font-size:13px; }
-
-    /* Lead Magnet */
-    .leadmag { padding:64px 20px; }
-    .lm-card { padding:32px 24px; }
-
-    /* CTA */
     .cta-sec { padding:80px 20px; }
     .cta-sec .sec-title { font-size:clamp(56px,14vw,96px); }
     .cta-tagline { font-size:18px; margin-bottom:36px; }
     .btn-white { padding:16px 40px; font-size:12px; }
 
-    /* Footer */
     footer { padding:28px 20px; flex-direction:column; text-align:center; gap:12px; }
   }
 
   /* ─── SMALL MOBILE ───────────────────────────── */
   @media (max-width:390px) {
-    .hero-title { font-size:clamp(56px,16vw,80px); }
-    .plan-price { font-size:56px; }
+    .hero-title { font-size:clamp(48px,14vw,72px); }
+    .app-name { font-size:30px; }
   }
 
   /* ─── ACCESSIBILITY ──────────────────────────── */
@@ -614,26 +445,6 @@
     *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
   }
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Flint Performance",
-  "description": "1-on-1 online fitness coaching for driven professionals. Custom programs built around your real schedule, lifestyle, and goals.",
-  "url": "https://flintperformance.com",
-  "priceRange": "$$$",
-  "serviceArea": { "@type": "Country", "name": "United States" },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "1-on-1 Coaching Plans",
-    "itemListElement": [
-      { "@type": "Offer", "name": "Level I Spark — Online Fitness Coaching", "price": "349", "priceCurrency": "USD" },
-      { "@type": "Offer", "name": "Level II Ember — Online Fitness Coaching", "price": "499", "priceCurrency": "USD" },
-      { "@type": "Offer", "name": "Level III Flame — Online Fitness Coaching", "price": "649", "priceCurrency": "USD" }
-    ]
-  }
-}
-</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -642,13 +453,9 @@
 <nav aria-label="Main navigation">
   <a href="index.html" class="nav-logo" aria-label="Flint Performance — home">FLINT<span class="sp">.</span></a>
   <ul class="nav-links" role="list">
-    <li><a href="#about">About</a></li>
-    <li><a href="coaching.html">Coaching</a></li>
-    <li><a href="challenge.html">Challenge</a></li>
-    <li><a href="shop.html">Shop</a></li>
-    <li><a href="results.html">Results</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
+    <li><a href="#apps">Apps</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#philosophy">About</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
@@ -657,13 +464,9 @@
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
-  <a href="#about" onclick="closeMenu()">About</a>
-  <a href="coaching.html" onclick="closeMenu()">Coaching</a>
-  <a href="challenge.html" onclick="closeMenu()">Challenge</a>
-  <a href="shop.html" onclick="closeMenu()">Shop</a>
-  <a href="results.html" onclick="closeMenu()">Results</a>
-  <a href="#faq" onclick="closeMenu()">FAQ</a>
-  <a href="apply.html" class="m-cta">Apply Now</a>
+  <a href="#apps" onclick="closeMenu()">Apps</a>
+  <a href="#ecosystem" onclick="closeMenu()">Ecosystem</a>
+  <a href="#philosophy" onclick="closeMenu()">About</a>
 </div>
 
 <main id="main-content">
@@ -680,239 +483,125 @@
       <div class="ey-text">Flint Performance</div>
     </div>
     <h1 class="hero-title">
-      <span class="t-white">THE</span>
-      <span class="t-cold">SPARK</span>
-      <span class="t-ember">IGNITES.</span>
+      <span class="t-white">ONE</span>
+      <span class="t-cold">PURPOSE</span>
+      <span class="t-ember">PER APP.</span>
     </h1>
     <p class="hero-sub">
-      Elite fitness coaching for <strong>driven professionals</strong>. Cold mornings. Locked schedules. No excuses. The fire starts here.
+      A family of <strong>sharp, focused fitness apps</strong> — each one built to do one thing and do it right. No bloat. No clutter. Just tools that work.
     </p>
     <div class="hero-actions">
-      <a href="apply.html" class="btn-ember">Apply for Coaching</a>
-      <a href="book-consult.html" class="btn-ghost">Book a Consult</a>
-    </div>
-  </div>
-
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div>
-    <div class="lbl">Why Flint</div>
-    <h2 class="sec-title">DISCIPLINE<br>IS THE<br>SPARK.</h2>
-  </div>
-  <div class="manifesto">
-    <div class="manifesto-spark">Flint Philosophy</div>
-    <div class="manifesto-body">
-      <strong>Flint doesn't wait for perfect conditions. Neither do you.</strong> We build programs around your real life — your schedule, your demands, your goals.<br><br><strong>Most people wait for motivation. Our clients create it.</strong> The gap between where you are and where you want to be doesn't close on its own — it closes when you strike the stone and commit to the fire.
+      <a href="#apps" class="btn-ember">Explore the Apps</a>
     </div>
   </div>
 </section>
 
-<!-- COACH -->
-<section class="coach-sec" id="coach">
-  <div class="coach-photo">
-    <div class="coach-photo-bg"></div>
-    <div class="coach-photo-word">FLINT</div>
-    <!-- To add a real photo, replace the two divs above with:
-         <img src="coach.jpg" alt="[Name]" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;">
-    -->
-    <div class="coach-photo-plate">
-      <div class="coach-photo-name">Curt Done</div>
-      <div class="coach-photo-title">Head Coach &middot; Flint Performance</div>
+<!-- APPS -->
+<section class="apps" id="apps">
+  <div class="lbl">The Apps</div>
+  <h2 class="sec-title">THE FLINT<br>FAMILY.</h2>
+  <p class="sec-sub">Each app is its own tool — purpose-built, distraction-free, and designed to be the best at what it does.</p>
+
+  <div class="apps-grid">
+
+    <!-- CYCLE -->
+    <a href="https://cycle.flintperformance.com" class="app-card">
+      <div class="app-card-glow" style="background:radial-gradient(circle, rgba(240,74,14,0.1), transparent 70%);"></div>
+      <div class="app-arrow">&rarr;</div>
+      <div class="app-icon">CYCLE<span class="sp">.</span></div>
+      <div class="app-name">CYCLE.</div>
+      <div class="app-desc">PED &amp; steroid cycle logger. Track compounds, log blood work, set reminder notifications, and view PK charts for relative compound levels over time.</div>
+      <div class="app-status live"><span class="app-status-dot"></span> Live</div>
+    </a>
+
+    <!-- SCALE -->
+    <div class="app-card">
+      <div class="app-card-glow" style="background:radial-gradient(circle, rgba(184,204,218,0.08), transparent 70%);"></div>
+      <div class="app-icon">SCALE<span class="sp">.</span></div>
+      <div class="app-name">SCALE.</div>
+      <div class="app-desc">Weight logging. Simple daily weigh-ins with trend tracking and rolling averages. See the real picture, not the daily noise.</div>
+      <div class="app-status soon"><span class="app-status-dot"></span> Coming Soon</div>
     </div>
-  </div>
-  <div>
-    <div class="lbl">Your Coach</div>
-    <h2 class="sec-title">THE COACH<br>BEHIND<br>FLINT.</h2>
-    <p class="sec-sub">Curt Done has spent 3 years coaching executives, founders, and operators through the exact conditions that break most programs — brutal schedules, constant travel, and zero tolerance for wasted time.</p>
-    <p class="coach-bio-p">The philosophy behind Flint is built on one principle: a program that doesn't fit your life doesn't work. Every client gets a system designed around their actual schedule, their real constraints, and the standard they hold themselves to.</p>
+
+    <!-- CALC -->
+    <a href="https://calc.flintperformance.com" class="app-card">
+      <div class="app-card-glow" style="background:radial-gradient(circle, rgba(240,74,14,0.1), transparent 70%);"></div>
+      <div class="app-arrow">&rarr;</div>
+      <div class="app-icon">CALC<span class="sp">.</span></div>
+      <div class="app-name">CALC.</div>
+      <div class="app-desc">Fitness calculator. One-rep max, TDEE, macro splits, body fat estimates — every number you need, fast.</div>
+      <div class="app-status live"><span class="app-status-dot"></span> Live</div>
+    </a>
+
+    <!-- LIFT -->
+    <div class="app-card">
+      <div class="app-card-glow" style="background:radial-gradient(circle, rgba(184,204,218,0.08), transparent 70%);"></div>
+      <div class="app-icon">LIFT<span class="sp">.</span></div>
+      <div class="app-name">LIFT.</div>
+      <div class="app-desc">Weight lifting log. Track sets, reps, and progression across every exercise. Built for lifters who take their training seriously.</div>
+      <div class="app-status soon"><span class="app-status-dot"></span> Coming Soon</div>
+    </div>
+
+    <!-- DIET -->
+    <div class="app-card">
+      <div class="app-card-glow" style="background:radial-gradient(circle, rgba(184,204,218,0.08), transparent 70%);"></div>
+      <div class="app-icon">DIET<span class="sp">.</span></div>
+      <div class="app-name">DIET.</div>
+      <div class="app-desc">Food tracking. Log meals, hit your macros, and stay on target — without the bloated food diary experience.</div>
+      <div class="app-status soon"><span class="app-status-dot"></span> Coming Soon</div>
+    </div>
+
   </div>
 </section>
 
-<!-- CHALLENGE -->
-<section class="challenge" id="challenge">
-  <div class="lbl">Limited Enrollment</div>
-  <h2 class="sec-title">THE 12-WEEK<br>IGNITION.</h2>
-  <p class="sec-sub">Not ready for full 1:1 coaching? The Ignition gives you everything you need to get moving — a detailed plan, clear nutrition guidance, and a check-in every four weeks to keep you pointed in the right direction. You execute. We make sure the plan is right.</p>
-  <div class="challenge-inner">
+<!-- ECOSYSTEM -->
+<section class="ecosystem" id="ecosystem">
+  <div class="lbl">Why Flint</div>
+  <h2 class="sec-title">BUILT<br>DIFFERENT.</h2>
+  <p class="sec-sub">Every app in the Flint family follows the same principles. Sharp tools, zero bloat, built for people who actually train.</p>
+
+  <div class="eco-grid">
+    <div class="eco-item">
+      <div class="eco-num">01</div>
+      <div class="eco-label">One Purpose</div>
+      <div class="eco-text">Each app does one thing. No feature creep, no distractions. Open it, use it, close it. That's it.</div>
+    </div>
+    <div class="eco-item">
+      <div class="eco-num">02</div>
+      <div class="eco-label">No Clutter</div>
+      <div class="eco-text">Clean interfaces. Dark by default. No ads, no social feeds, no gamification. Just the tool.</div>
+    </div>
+    <div class="eco-item">
+      <div class="eco-num">03</div>
+      <div class="eco-label">Built to Last</div>
+      <div class="eco-text">Fast, reliable, and always improving. These aren't side projects — they're built to be the best in class.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="phil-inner">
     <div>
-      <ul class="challenge-feats">
-        <li><span class="ck">✓</span> Custom 12-week workout plan built around your schedule, goals, and available equipment</li>
-        <li><span class="ck">✓</span> Nutrition and food guidance tailored to your specific targets</li>
-        <li><span class="ck">✓</span> Check-in call every 4 weeks — 3 total — to review progress and adjust direction</li>
-        <li><span class="ck">✓</span> Detailed coaching notes after each check-in so you always know what to focus on</li>
-        <li><span class="ck">✓</span> Clear structure from day one — no guesswork, no wasted sessions</li>
-      </ul>
+      <div class="lbl">The Brand</div>
+      <h2 class="sec-title">THE FLINT<br>PHILOSOPHY.</h2>
+      <p class="sec-sub">Flint Performance builds tools for people who don't need motivation — they need equipment that keeps up.</p>
     </div>
-    <div class="spot-card">
-      <div class="spot-num">15</div>
-      <div class="spot-lbl">Spots Remaining This Round</div>
-      <div class="spot-div"></div>
-      <div class="spot-weeks">12 Weeks.</div>
-      <div class="spot-weeks-lbl">Your plan. Your pace.</div>
-      <div class="spot-price"><span class="dl">$</span>349</div>
-      <div class="spot-price-lbl">Flat program fee</div>
-      <p class="spot-note">A structured starting point for those who aren't ready for full 1:1 coaching — but are ready to stop guessing.</p>
-      <a href="ignition-checkout.html" class="btn-challenge">Claim Your Spot &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="pricing-top">
-    <div>
-      <div class="lbl">Coaching Programs</div>
-      <h2 class="sec-title">CHOOSE<br>YOUR<br>LEVEL</h2>
-    </div>
-    <div class="billing-wrap">
-      <div class="billing-note">Multi-month plans billed upfront &middot; save up to 15%</div>
-      <div class="billing-toggle">
-        <button class="active" onclick="setBilling('monthly',this)">Monthly</button>
-        <button onclick="setBilling('3mo',this)">3 Mo <span class="badge">5% OFF</span></button>
-        <button onclick="setBilling('6mo',this)">6 Mo <span class="badge">10% OFF</span></button>
-        <button onclick="setBilling('12mo',this)">12 Mo <span class="badge">15% OFF</span></button>
-      </div>
-    </div>
-  </div>
-
-  <div class="plans">
-    <div class="plan">
-      <div class="plan-level">Level I</div>
-      <div class="plan-name">Spark</div>
-      <div class="plan-tagline">Strike the steel.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="349">349</span></div>
-      <div class="plan-period">per month</div>
-      <div class="plan-savings" id="sv1"></div>
-      <div class="plan-div"></div>
-      <ul class="plan-features">
-        <li><span class="ck">✓</span> Custom workout plan built around your schedule & goals</li>
-        <li><span class="ck">✓</span> Monthly 1:1 check-in call with your coach</li>
-        <li><span class="ck">✓</span> Nutrition guidance & foundational eating strategy</li>
-        <li><span class="ck">✓</span> Ongoing plan adjustments as you progress</li>
-      </ul>
-      <a href="apply.html?plan=1" class="plan-btn btn-col">Apply Now</a>
-    </div>
-
-    <div class="plan featured">
-      <div class="plan-badge">Most Popular</div>
-      <div class="plan-level">Level II</div>
-      <div class="plan-name">Ember</div>
-      <div class="plan-tagline">Fan the flame.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="499">499</span></div>
-      <div class="plan-period">per month</div>
-      <div class="plan-savings" id="sv2"></div>
-      <div class="plan-div"></div>
-      <ul class="plan-features">
-        <li><span class="ck">✓</span> Everything in Level I</li>
-        <li><span class="ck">✓</span> Bi-weekly check-in calls (2x / month)</li>
-        <li><span class="ck">✓</span> Enhanced nutrition strategy & meal timing</li>
-        <li><span class="ck">✓</span> Program rebuilt every 4–6 weeks</li>
-        <li><span class="ck">✓</span> Email support between sessions</li>
-      </ul>
-      <a href="apply.html?plan=2" class="plan-btn btn-fem">Apply Now</a>
-    </div>
-
-    <div class="plan">
-      <div class="plan-level">Level III</div>
-      <div class="plan-name">Flame</div>
-      <div class="plan-tagline">Become the fire.</div>
-      <div class="plan-price"><span class="dl">$</span><span class="pv" data-base="649">649</span></div>
-      <div class="plan-period">per month</div>
-      <div class="plan-savings" id="sv3"></div>
-      <div class="plan-div"></div>
-      <ul class="plan-features">
-        <li><span class="ck">✓</span> Everything in Level II</li>
-        <li><span class="ck">✓</span> Weekly 1:1 check-in calls</li>
-        <li><span class="ck">✓</span> Fully custom meal plan</li>
-        <li><span class="ck">✓</span> Unlimited messaging with your coach</li>
-        <li><span class="ck">✓</span> Priority scheduling for all consults</li>
-        <li><span class="ck">✓</span> 24–48hr response guarantee</li>
-      </ul>
-      <a href="apply.html?plan=3" class="plan-btn btn-col">Apply Now</a>
-    </div>
-  </div>
-
-  <div class="consult-strip">
-    <div>
-      <div class="lbl">Not sure which level?</div>
-      <p class="consult-strip-sub">Book a private call. One conversation is enough to find the right path forward.</p>
-    </div>
-    <div class="consult-pills">
-      <a href="book-consult.html?session=30" class="consult-pill">
-        <div class="consult-pill-mins">30<span style="font-size:18px;color:var(--muted)">min</span></div>
-        <div class="consult-pill-info">
-          <div class="consult-pill-name">Discovery Call</div>
-          <div class="consult-pill-price">$99 / session</div>
-        </div>
-      </a>
-      <a href="book-consult.html?session=60" class="consult-pill">
-        <div class="consult-pill-mins">60<span style="font-size:18px;color:var(--muted)">min</span></div>
-        <div class="consult-pill-info">
-          <div class="consult-pill-name">Deep Dive</div>
-          <div class="consult-pill-price">$175 / session</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-
-<!-- FAQ -->
-<section class="faq" id="faq">
-  <div class="lbl">FAQ</div>
-  <h2 class="sec-title">COMMON<br>QUESTIONS</h2>
-  <div class="faq-list">
-    <div class="faq-item"><div class="faq-q">How does the coaching work?</div><div class="faq-a">After signing up you complete an onboarding intake form covering your goals, schedule, training history, and lifestyle. Your coach builds your custom plan and you're rolling within a few days.</div></div>
-    <div class="faq-item"><div class="faq-q">How much time do I need per week?</div><div class="faq-a">As little as 3 hours a week can produce serious results. Programs are built around your availability — not the other way around.</div></div>
-    <div class="faq-item"><div class="faq-q">What if I travel a lot for work?</div><div class="faq-a">We plan for it. Your program includes travel-friendly alternatives so you never fall off — hotel gym, airport layover, or nothing but a hallway.</div></div>
-    <div class="faq-item"><div class="faq-q">What equipment do I need?</div><div class="faq-a">Whatever you have access to. Full gym, home setup, or minimal equipment — your plan is built around your actual situation, not an idealized one.</div></div>
-  </div>
-</section>
-
-<!-- LEAD MAGNET -->
-<section class="leadmag" id="free-reset">
-  <div class="lm-inner">
-    <div>
-      <div class="lbl">Free Download</div>
-      <h2 class="sec-title">THE FLINT<br>5-DAY<br>RESET.</h2>
-      <p class="sec-sub">A 5-day training protocol built for time-starved professionals. No gym required. 30–45 minutes a day. Built around what you actually have — not what's ideal.</p>
-      <ul class="lm-bullets">
-        <li>Full training guide for each of the 5 days</li>
-        <li>Daily nutrition targets &amp; timing guidance</li>
-        <li>Progress &amp; habit tracking sheet</li>
-        <li>The cold discipline framework — the mental reset that starts everything</li>
-      </ul>
-    </div>
-    <div>
-      <div class="lm-card">
-        <div class="lm-card-label">Free Download</div>
-        <div class="lm-card-title">THE 5-DAY RESET</div>
-        <p class="lm-card-sub">Enter your email and we'll send it straight to you. No spam — just the guide.</p>
-        <form id="leadForm" action="https://formspree.io/f/mnjbgvpy" method="POST">
-          <input type="hidden" name="form_type" value="lead_magnet_5day_reset">
-          <div class="lm-field">
-            <input type="email" name="email" id="lm-email" placeholder="your@email.com" required autocomplete="email" inputmode="email">
-          </div>
-          <button type="submit" class="lm-btn" id="lm-submit-btn">Send Me the Reset &rarr;</button>
-          <p class="lm-fine">No spam. One email with your guide. That's it.</p>
-        </form>
-        <div class="lm-success" id="lmSuccess">
-          <div class="lm-success-icon">✓</div>
-          <div class="lm-success-title">CHECK YOUR INBOX.</div>
-          <p class="lm-success-sub">The 5-Day Reset is on its way. Now go strike the stone.</p>
-        </div>
+    <div class="manifesto">
+      <div class="manifesto-spark">Why We Build</div>
+      <div class="manifesto-body">
+        <strong>Most fitness apps try to do everything. We don't.</strong> Every Flint app is a single tool sharpened to a point. We believe the best software disappears — you open it, get what you need, and move on.<br><br>
+        <strong>No accounts you don't need. No features you won't use.</strong> The Flint family is built for people who train with intention — who want their tools to be as focused as they are.
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-sec" id="start">
-  <h2 class="sec-title">APPLY.<br>GET BUILT.</h2>
-  <div class="cta-tagline">Spots are limited. Applications reviewed within 24 hours.</div>
-  <a href="apply.html" class="btn-white">Apply for Coaching</a>
+<section class="cta-sec">
+  <h2 class="sec-title">SHARP<br>TOOLS.</h2>
+  <div class="cta-tagline">The Flint family is growing. More apps, same philosophy.</div>
+  <a href="#apps" class="btn-white">Explore the Apps</a>
 </section>
 
 </main>
@@ -920,7 +609,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">FLINT<span class="sp">.</span></div>
-  <p>© 2026 Flint Performance. All rights reserved.</p>
+  <p>&copy; 2026 Flint Performance. All rights reserved.</p>
   <a href="privacy-policy.html">Privacy Policy</a>
 </footer>
 
@@ -943,60 +632,6 @@
     hb.setAttribute('aria-label', 'Open navigation menu');
     mm.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-  }
-
-  // Lead magnet form
-  document.getElementById('leadForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('lm-submit-btn');
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-    try {
-      const resp = await fetch(this.action, {
-        method: 'POST', body: new FormData(this),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (resp.ok) {
-        this.style.display = 'none';
-        document.getElementById('lmSuccess').classList.add('active');
-      } else {
-        btn.textContent = 'Send Me the Reset →';
-        btn.disabled = false;
-      }
-    } catch(err) {
-      btn.textContent = 'Send Me the Reset →';
-      btn.disabled = false;
-    }
-  });
-
-  // Pricing toggle
-  const bases = {1:349, 2:499, 3:649};
-  const discs = {monthly:0, '3mo':0.05, '6mo':0.10, '12mo':0.15};
-  const moCount = {monthly:1, '3mo':3, '6mo':6, '12mo':12};
-  function setBilling(p, btn) {
-    document.querySelectorAll('.billing-toggle button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const d = discs[p];
-    const m = moCount[p];
-    // Show effective monthly rate
-    document.querySelectorAll('.pv').forEach((el, i) => {
-      el.textContent = Math.round(bases[i+1] * (1-d));
-    });
-    // Update period label
-    document.querySelectorAll('.plan-period').forEach(el => {
-      el.textContent = p === 'monthly' ? 'per month' : 'per month (avg)';
-    });
-    // Show total billed upfront + total savings
-    for (let i=1; i<=3; i++) {
-      const el = document.getElementById('sv'+i);
-      if (d > 0) {
-        const upfront = Math.round(bases[i] * m * (1-d));
-        const saved   = Math.round(bases[i] * m * d);
-        el.textContent = `$${upfront} billed upfront \u00b7 save $${saved} total`;
-      } else {
-        el.textContent = '';
-      }
-    }
   }
 </script>
 </body>

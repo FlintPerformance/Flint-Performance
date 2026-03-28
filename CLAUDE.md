@@ -6,9 +6,23 @@ This file gives Claude context about the Flint Performance project so it can ass
 
 ## Project Overview
 
-**Flint Performance** is a static 5-page website for a 1-on-1 online fitness coaching business targeting busy professionals. The brand identity is built around the concept of *the spark that starts the fire* — cold, disciplined, purposeful.
+**Flint Performance** is the homepage and brand hub for a family of fitness-themed web apps. Each app lives on its own subdomain under `flintperformance.com`. The brand identity is built around the concept of *the spark that starts the fire* — cold, disciplined, purposeful.
 
 **Site is deployed on Netlify. Domain registered via Porkbun.**
+
+---
+
+## The App Family
+
+| App | Subdomain | Description | Status |
+|-----|-----------|-------------|--------|
+| CYCLE. | cycle.flintperformance.com | PED/steroid cycle logger — compounds, blood work, reminders, PK charts | Live |
+| CALC. | calc.flintperformance.com | Fitness calculator — 1RM, TDEE, macros, body fat | Live |
+| SCALE. | scale.flintperformance.com | Weight logging — daily weigh-ins, trend tracking | Coming Soon |
+| LIFT. | lift.flintperformance.com | Weight lifting log — sets, reps, progression | Coming Soon |
+| DIET. | diet.flintperformance.com | Food tracking — meals, macros, daily targets | Coming Soon |
+
+Each app uses the Barlow Condensed 900 wordmark style (e.g. `CYCLE.` with the ember-colored dot) on a black background for its icon, matching the `FLINT.` brand identity.
 
 ---
 
@@ -16,10 +30,7 @@ This file gives Claude context about the Flint Performance project so it can ass
 
 ```
 /
-├── index.html              # Landing page (homepage)
-├── plan-checkout.html      # Coaching plan payment page (Stripe)
-├── book-consult.html       # Phone consult booking + payment (Stripe)
-├── flint-intake-form.html  # New client intake form (Formspree)
+├── index.html              # Homepage — app family showcase
 ├── privacy-policy.html     # Privacy policy
 └── CLAUDE.md               # This file
 ```
@@ -29,7 +40,7 @@ This file gives Claude context about the Flint Performance project so it can ass
 ## Design System
 
 ### Fonts
-- **Logo / Wordmark:** Barlow Condensed 900 — used only for `FLINT.` in nav and footer
+- **Logo / Wordmark / App Icons:** Barlow Condensed 900 — used for `FLINT.`, `CYCLE.`, `SCALE.`, `CALC.`, `LIFT.`, `DIET.` branding
 - **Headings / Display:** Bebas Neue — all section titles, hero text, large labels
 - **Body / UI:** DM Sans 300/400/500/600 — all body copy, buttons, form fields, navigation links
 
@@ -54,62 +65,16 @@ This file gives Claude context about the Flint Performance project so it can ass
 - Heavy display typography contrasted with lightweight body copy (300 weight)
 - Section padding: `120px 64px` desktop, `64px 20px` mobile
 - No drop shadows except on ember CTAs (glow effect, not box shadow)
+- App icon style: Barlow Condensed 900 text over black background, rounded corners (18px), ember dot
 
 ---
 
 ## Brand Voice
 
 - **Tone:** Direct, disciplined, no fluff. Confident without being arrogant.
-- **Target audience:** High-performing professionals — busy schedules, high standards, results-oriented
-- **Key phrases / concepts:** "Built in the cold", "the spark that starts the fire", "discipline doesn't wait"
-- **Avoid:** Motivational clichés, excessive exclamation marks, generic fitness language
-
-### Flint Philosophy (manifesto copy — do not rewrite without instruction)
-> *Cold. Hard. Unigniteable — until it's not.*
-> Most people wait for motivation. Our clients create it. The gap between where you are and where you want to be doesn't close on its own — it closes when you strike the stone and commit to the fire.
-
----
-
-## Pricing Structure
-
-| Plan | Name | Price/mo | Key Features |
-|------|------|----------|--------------|
-| Level I | Foundation | $249 | Custom plan, monthly check-in, nutrition guidance |
-| Level II | Momentum | $329 | Bi-weekly check-ins, enhanced nutrition, email support |
-| Level III | Peak | $399 | Weekly check-ins, custom meal plan, unlimited messaging |
-
-**Multi-month discounts:** 3mo = 5% off, 6mo = 10% off, 12mo = 15% off
-
-**Phone consults:** 30-min Discovery Call ($75), 60-min Deep Dive ($135)
-
----
-
-## Integrations
-
-### Stripe
-- **Mode:** Currently test mode. Switch to live key before launch.
-- **Key location:** Hardcoded in `plan-checkout.html` and `book-consult.html`
-- **Test publishable key:** `pk_test_51RlkLuG7...` (stored in both payment files)
-- **⚠️ Important:** Payment collection is frontend-only (creates payment method). A backend endpoint is needed to create and confirm PaymentIntents server-side before going live. Netlify Functions recommended.
-- **Stripe docs:** https://stripe.com/docs/payments/accept-a-payment
-
-### Formspree
-- **Used for:** Intake form submission
-- **Endpoint:** `https://formspree.io/f/mnjbgvpy`
-- **Location:** `flint-intake-form.html`
-
----
-
-## Page Flow
-
-```
-Homepage (index.html)
-├── Plan "Get Started" → plan-checkout.html?plan=1|2|3
-│     └── After payment → Confirmation screen → flint-intake-form.html
-├── "Book Now" (30min) → book-consult.html?session=30
-├── "Book Now" (60min) → book-consult.html?session=60
-└── Nav "Get Started" → plan-checkout.html
-```
+- **Target audience:** People who train with intention — focused, results-oriented, no tolerance for bloat
+- **Key phrases / concepts:** "One purpose per app", "sharp tools", "built to do one thing and do it right"
+- **Avoid:** Motivational clichés, excessive exclamation marks, generic fitness language, feature bloat
 
 ---
 
@@ -133,23 +98,12 @@ Homepage (index.html)
 
 ---
 
-## Known TODOs Before Launch
-
-- [ ] Replace Stripe test key with live key (`pk_live_...`)
-- [ ] Build backend endpoint (Netlify Function) to handle PaymentIntent creation server-side
-- [ ] Update privacy policy contact email from `privacy@flintperformance.com` placeholder to real address
-- [ ] Have attorney review privacy policy
-- [ ] Test all Formspree submissions end-to-end
-- [ ] Verify DNS propagation after Porkbun → Netlify nameserver update
-- [ ] Set up SSL certificate on Netlify (auto-provisioned, just needs domain connected)
-
----
-
 ## Deployment
 
 - **Host:** Netlify (drag and drop zip file)
 - **Domain registrar:** Porkbun
-- **Domain:** flintperformance.com (check availability)
+- **Domain:** flintperformance.com
+- **Subdomains:** Each app is a separate Netlify site pointed to its subdomain
 - **DNS:** Point Porkbun nameservers to Netlify-provided nameservers
 - **SSL:** Auto-provisioned by Netlify once domain is connected
 

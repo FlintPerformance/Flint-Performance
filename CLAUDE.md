@@ -21,6 +21,7 @@ This file gives Claude context about the Flint Performance project so it can ass
 | SCALE. | scale.flintperformance.com | Weight logging — daily weigh-ins, trend tracking | Coming Soon |
 | LIFT. | lift.flintperformance.com | Weight lifting log — sets, reps, progression | Coming Soon |
 | DIET. | diet.flintperformance.com | Food tracking — meals, macros, daily targets | Coming Soon |
+| PEPS. | peps.flintperformance.com | Peptides — library, guides, reconstitution calculators, instructions | Coming Soon |
 
 Each app uses the Barlow Condensed 900 wordmark style (e.g. `CYCLE.` with the ember-colored dot) on a black background for its icon, matching the `FLINT.` brand identity.
 

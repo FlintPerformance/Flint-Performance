@@ -215,8 +215,9 @@
     transition:background 0.25s;
     display:flex; flex-direction:column; gap:24px;
   }
-  .app-card:hover { background:var(--gray-up); }
-  .app-card:hover .app-arrow { opacity:1; transform:translate(0,0); }
+  a.app-card:hover { background:var(--gray-up); }
+  a.app-card:hover .app-arrow { opacity:1; transform:translate(0,0); }
+  div.app-card { cursor:default; }
 
   .app-icon {
     width:80px; height:80px; border-radius:18px;
@@ -509,19 +510,18 @@
       <div class="app-arrow">&rarr;</div>
       <div class="app-icon">CYCLE<span class="sp">.</span></div>
       <div class="app-name">CYCLE.</div>
-      <div class="app-desc">Cycling tracker. Log rides, track distance, monitor performance over time. Built for cyclists who want data without noise.</div>
+      <div class="app-desc">PED &amp; steroid cycle logger. Track compounds, log blood work, set reminder notifications, and view PK charts for relative compound levels over time.</div>
       <div class="app-status live"><span class="app-status-dot"></span> Live</div>
     </a>
 
     <!-- SCALE -->
-    <a href="https://scale.flintperformance.com" class="app-card">
-      <div class="app-card-glow" style="background:radial-gradient(circle, rgba(240,74,14,0.1), transparent 70%);"></div>
-      <div class="app-arrow">&rarr;</div>
+    <div class="app-card">
+      <div class="app-card-glow" style="background:radial-gradient(circle, rgba(184,204,218,0.08), transparent 70%);"></div>
       <div class="app-icon">SCALE<span class="sp">.</span></div>
       <div class="app-name">SCALE.</div>
       <div class="app-desc">Weight logging. Simple daily weigh-ins with trend tracking and rolling averages. See the real picture, not the daily noise.</div>
-      <div class="app-status live"><span class="app-status-dot"></span> Live</div>
-    </a>
+      <div class="app-status soon"><span class="app-status-dot"></span> Coming Soon</div>
+    </div>
 
     <!-- CALC -->
     <a href="https://calc.flintperformance.com" class="app-card">
@@ -534,24 +534,22 @@
     </a>
 
     <!-- LIFT -->
-    <a href="https://lift.flintperformance.com" class="app-card">
+    <div class="app-card">
       <div class="app-card-glow" style="background:radial-gradient(circle, rgba(184,204,218,0.08), transparent 70%);"></div>
-      <div class="app-arrow">&rarr;</div>
       <div class="app-icon">LIFT<span class="sp">.</span></div>
       <div class="app-name">LIFT.</div>
       <div class="app-desc">Weight lifting log. Track sets, reps, and progression across every exercise. Built for lifters who take their training seriously.</div>
       <div class="app-status soon"><span class="app-status-dot"></span> Coming Soon</div>
-    </a>
+    </div>
 
     <!-- DIET -->
-    <a href="https://diet.flintperformance.com" class="app-card">
+    <div class="app-card">
       <div class="app-card-glow" style="background:radial-gradient(circle, rgba(184,204,218,0.08), transparent 70%);"></div>
-      <div class="app-arrow">&rarr;</div>
       <div class="app-icon">DIET<span class="sp">.</span></div>
       <div class="app-name">DIET.</div>
       <div class="app-desc">Food tracking. Log meals, hit your macros, and stay on target — without the bloated food diary experience.</div>
       <div class="app-status soon"><span class="app-status-dot"></span> Coming Soon</div>
-    </a>
+    </div>
 
   </div>
 </section>

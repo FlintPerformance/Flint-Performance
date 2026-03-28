@@ -16,9 +16,9 @@ This file gives Claude context about the Flint Performance project so it can ass
 
 | App | Subdomain | Description | Status |
 |-----|-----------|-------------|--------|
-| CYCLE. | cycle.flintperformance.com | Cycling tracker — rides, distance, performance | Live |
-| SCALE. | scale.flintperformance.com | Weight logging — daily weigh-ins, trend tracking | Live |
+| CYCLE. | cycle.flintperformance.com | PED/steroid cycle logger — compounds, blood work, reminders, PK charts | Live |
 | CALC. | calc.flintperformance.com | Fitness calculator — 1RM, TDEE, macros, body fat | Live |
+| SCALE. | scale.flintperformance.com | Weight logging — daily weigh-ins, trend tracking | Coming Soon |
 | LIFT. | lift.flintperformance.com | Weight lifting log — sets, reps, progression | Coming Soon |
 | DIET. | diet.flintperformance.com | Food tracking — meals, macros, daily targets | Coming Soon |
 
